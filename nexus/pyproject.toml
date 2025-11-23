@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jira-nexus"
+version = "0.1.0"
+description = "Code-mode MCP server for Jira integration"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "fastmcp>=0.1.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mcp_cm*", "tools*", "models*"]
