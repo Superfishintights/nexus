@@ -1,0 +1,122 @@
+"""Core entrypoint for executing model-authored Python snippets."""
+from __future__ import annotations
+
+import builtins
+import contextlib
+import io
+import sys
+import textwrap
+from dataclasses import dataclass
+from typing import Any, Dict, Mapping, Optional
+
+from . import config
+from .tool_registry import ToolInfo, auto_import, iter_tools
+
+sys.path.insert(0, '/home/jaymillington/development/ai')
+import tools  # noqa: F401
+
+auto_import(tools)
+
+
+@dataclass(frozen=True)
+class RunnerResult:
+    """Structured response after executing a code snippet."""
+
+    result: Any
+    logs: str
+    globals: Dict[str, Any]
+
+
+class RunnerExecutionError(RuntimeError):
+    """Raised when user code fails."""
+
+
+SAFE_BUILTINS = {
+    "abs": abs,
+    "all": all,
+    "any": any,
+    "bool": bool,
+    "dict": dict,
+    "enumerate": enumerate,
+    "float": float,
+    "int": int,
+    "len": len,
+    "list": list,
+    "max": max,
+    "min": min,
+    "range": range,
+    "sorted": sorted,
+    "str": str,
+    "sum": sum,
+    "zip": zip,
+    "print": print,
+    "__import__": builtins.__import__,
+}
+
+
+def build_execution_globals(
+    *,
+    additional_globals: Optional[Mapping[str, Any]] = None,
+) -> Dict[str, Any]:
+    """Construct the globals dictionary used for `exec`.
+
+    The resulting namespace exposes:
+    * A curated set of Python builtins.
+    * The `RESULT` placeholder which user code must assign.
+    * Imported tool functions for convenience.
+    * Read-only configuration (e.g., Jira settings).
+    """
+
+    ns: Dict[str, Any] = {
+        "__builtins__": SAFE_BUILTINS,
+        "RESULT": None,
+        "RUNNER_SETTINGS": config.RunnerSettings.from_env(),
+        "TOOLS": {tool.name: tool for tool in iter_tools()},
+    }
+
+    for tool in iter_tools():
+        ns[tool.name] = tool.function
+
+    if additional_globals:
+        ns.update(additional_globals)
+
+    return ns
+
+
+def run_user_code(
+    code: str,
+    *,
+    globals_override: Optional[Mapping[str, Any]] = None,
+) -> RunnerResult:
+    """Execute Python *code* and return the structured result.
+
+    Parameters
+    ----------
+    code:
+        The Python source code authored by the model or user.
+    globals_override:
+        Optional mapping merged into the execution globals, useful for testing.
+    """
+
+    prepared_code = textwrap.dedent(code)
+    exec_globals = build_execution_globals(additional_globals=globals_override)
+    stdout_buffer = io.StringIO()
+
+    try:
+        with contextlib.redirect_stdout(stdout_buffer):
+            exec(prepared_code, exec_globals, exec_globals)  # noqa: S102
+    except Exception as exc:
+        raise RunnerExecutionError(str(exc)) from exc
+
+    result_value = exec_globals.get("RESULT")
+    if isinstance(result_value, ToolInfo):
+        result_value = result_value.function
+
+    return RunnerResult(
+        result=result_value,
+        logs=stdout_buffer.getvalue(),
+        globals={k: v for k, v in exec_globals.items() if not k.startswith("__")},
+    )
+
+
+__all__ = ["RunnerResult", "RunnerExecutionError", "run_user_code", "build_execution_globals"]
