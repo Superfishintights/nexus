@@ -1,10 +1,9 @@
 """Get the current status and available transitions for a Jira issue."""
-import sys
-sys.path.insert(0, '/home/jaymillington/development/ai')
 
-from typing import Dict, Any, List
-from tools.jira.client import get_client
+from typing import Any, Dict
+
 from nexus.tool_registry import register_tool
+from tools.client import get_client
 
 
 @register_tool

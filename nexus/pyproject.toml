@@ -21,4 +21,4 @@ test = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["mcp_cm*", "tools*", "models*"]
+include = ["nexus*", "mcp_cm*", "tools*", "models*"]

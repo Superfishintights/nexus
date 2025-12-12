@@ -1,156 +1,50 @@
 # Jira Tools
 
-This package provides a collection of Python functions for interacting with Jira's REST API. Each tool is implemented as a separate module with a single function that can be imported and called directly by model-generated code.
-
-## Overview
-
-The Jira tools package talks to the Jira HTTP API (version 2) and supports the following categories of tasks:
-
-- Reading issue data (details, status, comments, changelogs)
-- Searching issues using JQL (Jira Query Language)
-- Creating and updating issues
-- Managing comments
-- Retrieving project and issue type metadata
-- Querying issue links and relationships
+This repository includes a lightweight Jira REST v2 client (`tools/client.py`) and
+a small example tool (`tools/get_jira_issue_status.py`). At work you can keep
+larger Jira/Sourcegraph/etc toolsets in separate packages and have Nexus discover
+them lazily.
 
 ## Configuration
 
-The tools require two environment variables:
+Jira tools require:
 
-- `JIRA_HOSTNAME`: The Jira instance hostname or URL (e.g., `jira.company.com` or `https://jira.company.com`)
+- `JIRA_HOSTNAME`: Jira hostname or URL (e.g., `jira.company.com`)
 - `JIRA_PAT`: Personal Access Token for authentication
 
-## Tool List
+## Writing Tools
 
-### Read Operations
+Tools are single Python functions decorated with `@register_tool`. They may call
+external services in either read or write mode; Nexus does not restrict network
+access in code execution.
 
-- `get_issue_raw(issue_key: str) -> Dict[str, Any]`
-  - Get complete raw issue data including all fields (standard and custom)
-  - Returns the full JSON response from Jira API
-
-- `get_issue_details(issue_key: str) -> Dict[str, Any]`
-  - Get cleaned issue details with key fields extracted
-  - Returns structured data for summary, status, assignee, reporter, etc.
-
-- `get_issue_comments(issue_key: str) -> Dict[str, Any]`
-  - Get all comments for an issue
-  - Returns list of comments with author, body, timestamps
-
-- `get_issue_status(issue_key: str) -> Dict[str, Any]`
-  - Get current status and available transitions
-  - Returns current status details and list of possible transitions
-
-- `get_projects() -> List[Dict[str, Any]]`
-  - Get all accessible Jira projects
-  - Returns list of projects with key, name, description, lead
-
-### Search Operations
-
-- `search_issues(jql: str, start_at: int = 0, max_results: int = 50, fields: Optional[str] = None) -> Dict[str, Any]`
-  - Search for issues using JQL (Jira Query Language)
-  - Returns paginated search results with issue summaries
-
-### Write Operations
-
-- `create_issue(project_key: str, summary: str, description: str, issue_type: str, **kwargs) -> Dict[str, Any]`
-  - Create a new Jira issue
-  - Returns created issue key and id
-
-- `update_issue(issue_key: str, fields: dict) -> Dict[str, Any]`
-  - Update fields on an existing issue
-  - Returns success status and list of updated fields
-
-- `add_comment(issue_key: str, comment: str, visibility: Optional[dict] = None) -> Dict[str, Any]`
-  - Add a comment to an issue
-  - Returns created comment id and details
-
-## Common Workflows
-
-### Check if an issue exists and get its status
+Example:
 
 ```python
-from tools.jira.get_issue_details import get_issue_details
-from tools.jira.get_issue_status import get_issue_status
+from nexus.tool_registry import register_tool
+from tools.client import get_client
 
-issue = get_issue_details('PROJ-123')
-status = get_issue_status('PROJ-123')
-RESULT = {
-    'exists': issue is not None,
-    'status': status['currentStatus']['name'],
-    'assignee': issue['assignee']['displayName'] if issue.get('assignee') else None,
-}
-```
-
-### Search for open issues and get summaries
-
-```python
-from tools.jira.search_issues import search_issues
-
-results = search_issues('project = PROJ AND status = Open', max_results=10)
-RESULT = [
-    {'key': issue['key'], 'summary': issue['summary']}
-    for issue in results['issues']
-]
-```
-
-### Create an issue and add a comment
-
-```python
-from tools.jira.create_issue import create_issue
-from tools.jira.add_comment import add_comment
-
-new_issue = create_issue(
-    project_key='PROJ',
-    summary='New bug report',
-    description='Description of the bug',
-    issue_type='Bug',
+@register_tool(
+    description="Get current status for a Jira issue",
+    examples=["get_issue_status('PROJ-123')"],
 )
-
-comment = add_comment(
-    issue_key=new_issue['key'],
-    comment='This is a follow-up comment',
-)
-
-RESULT = {
-    'issue_key': new_issue['key'],
-    'comment_id': comment['commentId'],
-}
+def get_issue_status(issue_key: str) -> dict:
+    client = get_client()
+    issue = client._make_request(f"issue/{issue_key}")
+    return {
+        "key": issue_key,
+        "status": issue["fields"]["status"]["name"],
+    }
 ```
 
-## Constraints & Caveats
+## External Tool Packages
 
-- **Authentication**: Requires `JIRA_HOSTNAME` and `JIRA_PAT` environment variables
-- **API Version**: Uses Jira REST API v2
-- **Rate Limits**: Subject to your Jira instance's rate limiting policies
-- **Permissions**: All operations respect the authenticated user's permissions
-- **Side Effects**: Write operations (create_issue, update_issue, add_comment) modify Jira data
+Install any additional tool packages on the machine, then set:
 
-## Example Code Snippet
-
-```python
-from tools.jira.get_issue_details import get_issue_details
-from tools.jira.get_issue_comments import get_issue_comments
-from tools.jira.search_issues import search_issues
-
-# Get details for a specific issue
-issue = get_issue_details('PROJ-123')
-print(f"Issue: {issue['summary']}")
-print(f"Status: {issue['status']['name']}")
-
-# Get all comments
-comments = get_issue_comments('PROJ-123')
-print(f"Total comments: {comments['totalComments']}")
-
-# Search for issues
-results = search_issues('project = PROJ AND assignee = currentUser()', max_results=5)
-print(f"Found {results['total']} issues assigned to me")
-for issue in results['issues']:
-    print(f"  - {issue['key']}: {issue['summary']}")
-
-# Set the final result
-RESULT = {
-    'issue': issue,
-    'comment_count': comments['totalComments'],
-    'my_issues_count': results['total'],
-}
+```bash
+export NEXUS_TOOL_PACKAGES="tools,company_tools,generated_tools"
 ```
+
+Nexus will scan these packages for `@register_tool` functions and expose them
+via `search_tools`/`get_tool` without importing everything up front.
+

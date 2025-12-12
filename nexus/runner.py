@@ -7,15 +7,11 @@ import io
 import sys
 import textwrap
 from dataclasses import dataclass
-from typing import Any, Dict, Mapping, Optional
+from typing import Any, Callable, Dict, Mapping, Optional
 
 from . import config
-from .tool_registry import ToolInfo, auto_import, iter_tools
-
-sys.path.insert(0, '/home/jaymillington/development/ai')
-import tools  # noqa: F401
-
-auto_import(tools)
+from .tool_catalog import get_catalog, spec_to_dict
+from .tool_registry import ToolInfo, ensure_tool_loaded, is_tool_loaded
 
 
 @dataclass(frozen=True)
@@ -63,19 +59,28 @@ def build_execution_globals(
     The resulting namespace exposes:
     * A curated set of Python builtins.
     * The `RESULT` placeholder which user code must assign.
-    * Imported tool functions for convenience.
-    * Read-only configuration (e.g., Jira settings).
+    * The lazy tool catalog via the `TOOLS` global.
+    * `load_tool(name)` helper for lazy imports.
+    * Read-only configuration (e.g., Jira settings), if configured.
     """
+
+    catalog = get_catalog()
+
+    def load_tool(name: str) -> Callable[..., object]:
+        return ensure_tool_loaded(name).function
 
     ns: Dict[str, Any] = {
         "__builtins__": SAFE_BUILTINS,
         "RESULT": None,
         "RUNNER_SETTINGS": config.RunnerSettings.from_env(),
-        "TOOLS": {tool.name: tool for tool in iter_tools()},
+        "TOOLS": {
+            spec.name: spec_to_dict(
+                spec, detail_level="summary", loaded=is_tool_loaded(spec.name)
+            )
+            for spec in catalog.values()
+        },
+        "load_tool": load_tool,
     }
-
-    for tool in iter_tools():
-        ns[tool.name] = tool.function
 
     if additional_globals:
         ns.update(additional_globals)
