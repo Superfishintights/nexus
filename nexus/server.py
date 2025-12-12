@@ -2,9 +2,11 @@
 """
 Nexus MCP Server
 
-A Model Context Protocol server that exposes a single code execution entrypoint.
-The model writes Python code that imports and calls tool functions from any domain.
-Supports: Jira, Confluence, GitLab, Jenkins, Talos, and any other tools in the tools/ directory.
+A Model Context Protocol server that exposes a small, context-efficient surface:
+`run_code`, `search_tools`, and `get_tool`.
+
+The model writes Python code that imports and calls tool functions from any
+configured tool package.
 """
 
 import json
@@ -35,17 +37,10 @@ def run_code(code: str) -> str:
     (a lazy catalog) within the execution environment.
 
     Examples:
-        # Jira
-        from tools.jira.search_issues import search_issues
-        results = search_issues('project = PROJ AND status = Open', max_results=5)
-        RESULT = [r['key'] for r in results['issues']]
-
-        # Multiple domains
-        from tools.jira.get_issue_details import get_issue_details
-        from tools.confluence.search_pages import search_pages
-        issue = get_issue_details('PROJ-123')
-        pages = search_pages(issue['summary'])
-        RESULT = {'issue': issue, 'related_pages': pages}
+        # Discover tools and call one lazily.
+        # (Model would typically call search_tools/get_tool first.)
+        issue_status = load_tool("get_issue_status")
+        RESULT = issue_status("PROJ-123")
 
     Args:
         code: The Python source code to execute

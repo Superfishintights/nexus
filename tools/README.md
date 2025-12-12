@@ -1,7 +1,7 @@
 # Jira Tools
 
-This repository includes a lightweight Jira REST v2 client (`tools/client.py`) and
-a small example tool (`tools/get_jira_issue_status.py`). At work you can keep
+This repository includes a lightweight Jira REST v2 client (`tools/jira/client.py`) and
+a small example tool (`tools/jira/get_issue_status.py`). At work you can keep
 larger Jira/Sourcegraph/etc toolsets in separate packages and have Nexus discover
 them lazily.
 
@@ -22,7 +22,7 @@ Example:
 
 ```python
 from nexus.tool_registry import register_tool
-from tools.client import get_client
+from tools.jira.client import get_client
 
 @register_tool(
     description="Get current status for a Jira issue",
@@ -45,6 +45,6 @@ Install any additional tool packages on the machine, then set:
 export NEXUS_TOOL_PACKAGES="tools,company_tools,generated_tools"
 ```
 
-Nexus will scan these packages for `@register_tool` functions and expose them
+Nexus will scan these packages for `@register_tool` functions (including subpackages)
+and expose them
 via `search_tools`/`get_tool` without importing everything up front.
-

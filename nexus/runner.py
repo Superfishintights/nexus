@@ -4,7 +4,6 @@ from __future__ import annotations
 import builtins
 import contextlib
 import io
-import sys
 import textwrap
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, Mapping, Optional

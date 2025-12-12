@@ -13,16 +13,18 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from nexus.runner import run_user_code, RunnerExecutionError
-from nexus.tool_registry import iter_tools
+from nexus.tool_catalog import get_catalog
 
 def main():
     print("=== Nexus Runner Test ===\n")
 
-    # List available tools
-    print("Available tools:")
-    for tool in iter_tools():
-        print(f"  - {tool.name} ({tool.module})")
-        print(f"    {tool.description[:80]}...")
+    # List available tools from the lazy catalog (no imports).
+    catalog = get_catalog(refresh=True)
+    print("Available tools (catalog):")
+    for spec in list(catalog.values())[:10]:
+        print(f"  - {spec.name} ({spec.module}) {spec.signature}")
+    if len(catalog) > 10:
+        print("  ...")
     print()
 
     # Example 1: List available tools from within executed code
@@ -32,7 +34,7 @@ tools_list = []
 for name, tool_info in TOOLS.items():
     tools_list.append({
         'name': name,
-        'module': tool_info.module,
+        'module': tool_info['module'],
     })
 RESULT = tools_list
 """
@@ -47,16 +49,16 @@ RESULT = tools_list
     print()
 
     # Example 2: Try to use a Jira tool (will fail if JIRA env vars not set)
-    print("Example 2: Get Jira projects (requires JIRA_HOSTNAME and JIRA_PAT)")
+    print("Example 2: Get Jira issue status (requires JIRA_HOSTNAME and JIRA_PAT)")
     code2 = """
-from tools.jira.get_projects import get_projects
+issue_status = load_tool('get_issue_status')
 
 try:
-    projects = get_projects()
+    status = issue_status('PROJ-123')
     RESULT = {
         'success': True,
-        'count': len(projects),
-        'projects': [p['key'] for p in projects[:5]],
+        'status': status.get('currentStatus', {}).get('name'),
+        'transitions': [t['name'] for t in status.get('availableTransitions', [])[:5]],
     }
 except Exception as e:
     RESULT = {
