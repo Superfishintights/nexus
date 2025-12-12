@@ -2,23 +2,26 @@
 from __future__ import annotations
 
 import json
-import os
 import urllib.error
 import urllib.request
 from typing import Any, Dict, Optional
+
+from nexus.config import get_setting
 
 
 class JiraClient:
     """Simple Jira REST API client using only standard library."""
 
     def __init__(self, hostname: Optional[str] = None, pat: Optional[str] = None):
-        self.hostname = hostname or os.getenv("JIRA_HOSTNAME")
-        self.pat = pat or os.getenv("JIRA_PAT")
+        self.hostname = hostname or get_setting("JIRA_HOSTNAME")
+        self.pat = pat or get_setting("JIRA_PAT")
 
         if not self.hostname:
-            raise ValueError("JIRA_HOSTNAME environment variable is required")
+            raise ValueError(
+                "JIRA_HOSTNAME is required (set env var or put it in a `.env` file)."
+            )
         if not self.pat:
-            raise ValueError("JIRA_PAT environment variable is required")
+            raise ValueError("JIRA_PAT is required (set env var or put it in a `.env` file).")
 
         if not self.hostname.startswith(("http://", "https://")):
             self.hostname = f"https://{self.hostname}"
@@ -53,11 +56,21 @@ class JiraClient:
 
 
 _default_client: Optional[JiraClient] = None
+_default_client_key: Optional[tuple[str, str]] = None
 
 
 def get_client() -> JiraClient:
     """Get or create the default Jira client instance."""
-    global _default_client
-    if _default_client is None:
-        _default_client = JiraClient()
+    global _default_client, _default_client_key
+    hostname = get_setting("JIRA_HOSTNAME")
+    pat = get_setting("JIRA_PAT")
+    if not hostname or not pat:
+        _default_client = None
+        _default_client_key = None
+        return JiraClient(hostname=hostname, pat=pat)
+
+    new_key = (hostname, pat)
+    if _default_client is None or _default_client_key != new_key:
+        _default_client = JiraClient(hostname=hostname, pat=pat)
+        _default_client_key = new_key
     return _default_client

@@ -119,7 +119,7 @@ def get_tool(name: str, detail_level: str = "full") -> str:
         JSON string with tool metadata or an error if not found.
     """
 
-    catalog = get_catalog()
+    catalog = get_catalog(refresh=True)
     spec = catalog.get(name)
     if spec is not None:
         response = {

@@ -32,6 +32,7 @@ SAFE_BUILTINS = {
     "any": any,
     "bool": bool,
     "dict": dict,
+    "Exception": Exception,
     "enumerate": enumerate,
     "float": float,
     "int": int,
@@ -63,7 +64,7 @@ def build_execution_globals(
     * Read-only configuration (e.g., Jira settings), if configured.
     """
 
-    catalog = get_catalog()
+    catalog = get_catalog(refresh=True)
 
     def load_tool(name: str) -> Callable[..., object]:
         return ensure_tool_loaded(name).function
