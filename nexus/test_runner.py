@@ -5,9 +5,12 @@ This bypasses the MCP server and directly calls run_user_code.
 """
 
 import sys
-import os
+from pathlib import Path
 
-sys.path.insert(0, '/home/jaymillington/development/ai')
+# Allow running this script from a source checkout without installation.
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from nexus.runner import run_user_code, RunnerExecutionError
 from nexus.tool_registry import iter_tools
