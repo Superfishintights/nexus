@@ -12,10 +12,11 @@ from __future__ import annotations
 
 import ast
 import importlib.util
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+
+from .config import get_setting
 
 
 TOOL_PACKAGES_ENV = "NEXUS_TOOL_PACKAGES"
@@ -42,7 +43,7 @@ def get_tool_package_names() -> Sequence[str]:
     Reads comma-separated names from NEXUS_TOOL_PACKAGES. Defaults to ["tools"].
     """
 
-    raw = os.getenv(TOOL_PACKAGES_ENV, "").strip()
+    raw = (get_setting(TOOL_PACKAGES_ENV) or "").strip()
     if not raw:
         return DEFAULT_TOOL_PACKAGES
     names = [name.strip() for name in raw.split(",") if name.strip()]
@@ -286,7 +287,7 @@ def default_source(node: ast.expr, source: str) -> str:
 def search_catalog(query: str = "", *, limit: int = 20) -> List[ToolSpec]:
     """Search the catalog and return best matches."""
 
-    catalog = get_catalog()
+    catalog = get_catalog(refresh=True)
     if not query:
         return sorted(catalog.values(), key=lambda spec: spec.name)[:limit]
 
@@ -356,4 +357,3 @@ __all__ = [
     "spec_to_dict",
     "TOOL_PACKAGES_ENV",
 ]
-

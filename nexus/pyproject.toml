@@ -7,7 +7,7 @@ name = "jira-nexus"
 version = "0.1.0"
 description = "Code-mode MCP server for Jira integration"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "fastmcp>=0.1.0",
     "pydantic>=2.0.0",

@@ -93,3 +93,9 @@ def test_runner_globals_support_load_tool(dummy_tools: str) -> None:
     alpha_fn = ns["load_tool"]("alpha")
     assert alpha_fn(2, "yo") == "2-yo"
 
+
+def test_builtin_tools_are_discoverable() -> None:
+    catalog = tool_catalog.get_catalog(refresh=True)
+
+    assert "get_issue_status" in catalog
+    assert "tautulli_get_activity" in catalog

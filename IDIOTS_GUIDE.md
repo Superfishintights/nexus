@@ -13,6 +13,33 @@ If you can walk someone through this document, you understand the system.
 
 ---
 
+## Requirements + Setup Notes
+
+- Python `>= 3.10` (see `nexus/pyproject.toml`).
+- Configuration can come from environment variables or a `.env` file.
+- `.env` is the recommended approach for cross-platform use (fish/bash/zsh, PowerShell/cmd, macOS/Linux/Windows).
+
+### `.env` search order
+
+Lowest precedence → highest:
+
+- User config:
+  - Linux: `~/.config/nexus/.env` (or `$XDG_CONFIG_HOME/nexus/.env`)
+  - macOS: `~/Library/Application Support/nexus/.env`
+  - Windows: `%APPDATA%\\nexus\\.env`
+- Project-local: `./.env` (current working directory)
+
+You can force a specific file by setting `NEXUS_ENV_FILE`.
+
+### Live changes (no restart)
+
+- Tool discovery is refreshed on every `search_tools`/`get_tool`/`run_code` call, so adding/removing tool files is immediately reflected.
+- `.env` is re-read automatically when it changes, so adding/updating vars takes effect without restarting Nexus.
+
+### MCP client config (quick example)
+
+Nexus is a stdio server; point your MCP client at `python nexus/server.py` and set `cwd` to the repo root so `./.env` works.
+
 ## 0. The Problem Nexus Solves (High Level)
 
 MCP is great for connecting models to many tools, but it brings two scaling issues:
@@ -169,7 +196,7 @@ The key trick is: **scan tools without importing them**.
 In `nexus/tool_catalog.py`:
 
 - `get_tool_package_names()`
-  - reads `NEXUS_TOOL_PACKAGES` (comma‑separated).
+  - reads `NEXUS_TOOL_PACKAGES` (comma‑separated) from env or `.env`.
   - defaults to `tools`.
 
 - `build_catalog()`
@@ -328,6 +355,12 @@ These examples are gold for interview discussion:
 
 Nexus will scan both packages lazily.
 
+If you prefer `.env` instead of shell exports, add:
+
+```text
+NEXUS_TOOL_PACKAGES=tools,company_tools
+```
+
 ---
 
 ## 9. Safety / Tradeoffs Without Containers
@@ -384,9 +417,8 @@ What it shows:
 
 1. Catalog listing without importing tools.
 2. Tool discovery from inside executed code.
-3. Lazy loading via `load_tool` and a real Jira call (if env vars set).
+3. Lazy loading via `load_tool` and a real Jira call (if configured via env vars or `.env`).
 
 ---
 
 If it works at work tomorrow, you absolutely should pat yourself on the back.
-
