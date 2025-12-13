@@ -91,7 +91,7 @@ This is often called “Code Mode”.
   - Builds a controlled global namespace containing:
     - safe-ish builtins
     - `RESULT` placeholder
-    - `TOOLS` (lazy catalog summaries)
+    - `TOOLS` (catalog summaries)
     - `load_tool(name)` helper
     - optional env config in `RUNNER_SETTINGS`
 
@@ -111,8 +111,9 @@ This is often called “Code Mode”.
   - `ensure_tool_loaded(name)` imports a tool’s module on demand.
 
 - `nexus/config.py`
-  - Optional env‑backed settings for services (Jira, Sourcegraph, etc.).
-  - Exposed inside code execution as `RUNNER_SETTINGS`.
+  - Backwards-compatible re-exports for configuration helpers and settings.
+  - Env + `.env` parsing lives in `nexus/env.py`.
+  - Per-service settings live in `nexus/settings/*` and are exposed as `RUNNER_SETTINGS`.
 
 - `nexus/test_tool_catalog.py`
   - Pytest regression tests proving:
@@ -185,6 +186,16 @@ flowchart LR
 
 This is why context usage is low.
 
+### Why this avoids “tool schema bloat”
+
+Traditional MCP servers often push *every* tool schema into the model context up front.
+Nexus does not:
+
+- The model always sees only **three** MCP tools: `search_tools`, `get_tool`, `run_code`.
+- `search_tools(...)` returns only the top matches (bounded by `limit`, default 20).
+- `get_tool(name)` returns details for one tool at a time.
+- `run_code(...)` returns only `RESULT` (plus stdout logs), not a giant tool list.
+
 ---
 
 ## 4. Tool Discovery: “Progressive Disclosure”
@@ -206,12 +217,31 @@ In `nexus/tool_catalog.py`:
   - finds functions decorated with `@register_tool`.
 
 - For each tool it extracts:
-  - name (`@register_tool(name=...)` or function name)
+  - name (`@register_tool(name=..., namespace=...)` or function name)
   - description (`description=...` or docstring)
   - examples (`examples=[...]` if provided)
   - signature (derived from AST)
 
 No imports happen here, so we avoid loading dependencies or executing module code.
+
+### What “AST scanning” means (plain English)
+
+AST scanning is static analysis: Nexus reads `.py` files as text, parses them into a
+Python syntax tree, and looks for patterns (top-level `def` with `@register_tool`).
+Because it never imports the module during discovery, it won’t:
+
+- execute import-time side effects
+- require optional dependencies just to *discover* tools
+- require env vars just to *list* tools
+
+Important limitations (good to know when authoring tools):
+
+- Only **top-level functions** are discovered (not class methods / nested functions).
+- Files must be **valid Python**. If a tool module has a syntax error, the catalog will
+  skip the file and the tool won’t show up in `search_tools`.
+- Decorator metadata is only captured when it’s **literal**:
+  - `name="..."`, `namespace="..."`, `description="..."`, `examples=[ "...", ... ]`
+  - If you compute these values dynamically, discovery will fall back to the function name/docstring.
 
 ### Why this matters
 
@@ -330,6 +360,26 @@ These examples are gold for interview discussion:
 
 - “schemas define validity, examples teach correctness.”
 
+### Namespacing to avoid collisions
+
+If you expect many services (and lots of overlapping function names like `search`,
+`get`, `list`, `create`), prefer namespaced tool names:
+
+```python
+@register_tool(
+    namespace="jira",
+    description="Get Jira issue status",
+    examples=['load_tool("jira.get_issue_status")("PROJ-123")'],
+)
+def get_issue_status(issue_key: str) -> dict: ...
+```
+
+This registers the tool name as `jira.get_issue_status` while keeping the Python
+function name clean.
+
+Nexus raises an error if two tools try to register the same name (including across
+multiple tool packages), which prevents “mixed up tool” ambiguity at runtime.
+
 ---
 
 ## 8. Adding Tools (First‑party or External)
@@ -337,7 +387,7 @@ These examples are gold for interview discussion:
 ### First‑party (inside this repo)
 
 1. Add a file under a domain package, e.g. `tools/sourcegraph/search.py`.
-2. Decorate a top‑level function with `@register_tool`.
+2. Decorate a top‑level function with `@register_tool` (prefer `namespace=...` for multi-service installs).
 3. That’s it — catalog will find it on next search.
 
 ### External packages (work setup)
@@ -365,7 +415,7 @@ NEXUS_TOOL_PACKAGES=tools,company_tools
 
 ## 9. Safety / Tradeoffs Without Containers
 
-At work you said containers are hard. So:
+In some environments, containers / OS sandboxes are hard to use. So:
 
 - **This is not a security boundary.**
   - `exec` + `__import__` means code can import `os`, touch files, etc.
@@ -374,7 +424,7 @@ At work you said containers are hard. So:
 How to explain in interview:
 
 - “We are optimizing *context efficiency and tool correctness*, not hard security.”
-- “In a strict environment, you’d wrap this in an OS sandbox; at work we rely on trust + environment controls.”
+- “In a strict environment, you’d wrap this in an OS sandbox; otherwise you rely on trust + environment controls.”
 
 Even without containers, two practical guardrails you can mention:
 
@@ -383,7 +433,23 @@ Even without containers, two practical guardrails you can mention:
 
 ---
 
-## 10. Talking Points for Interviews
+## 10. Transports (stdio vs HTTP)
+
+This repo’s `nexus/server.py` runs Nexus as a **stdio** MCP server: the MCP client spawns
+the server process and communicates over stdin/stdout.
+
+If you want an **HTTP/SSE**-style MCP transport, that’s a *transport* change, not a tool
+change. Nexus can support it only if you run it behind a compatible MCP HTTP transport
+(or add a separate server entrypoint that uses one). This repo does not currently ship an
+HTTP transport entrypoint.
+
+Also: Nexus does not “mount” other MCP servers today. Domain integrations are regular
+Python functions; if you want to call a remote MCP server from Nexus you’d implement that
+as a tool that acts as an MCP client/proxy.
+
+---
+
+## 11. Talking Points for Interviews
 
 ### Why Code Mode?
 - Reduces tool definition tokens (progressive disclosure).
@@ -405,7 +471,7 @@ Even without containers, two practical guardrails you can mention:
 
 ---
 
-## 11. Quick Demo Script
+## 12. Quick Demo Script
 
 Run:
 
@@ -421,4 +487,4 @@ What it shows:
 
 ---
 
-If it works at work tomorrow, you absolutely should pat yourself on the back.
+If it works tomorrow, you absolutely should pat yourself on the back.

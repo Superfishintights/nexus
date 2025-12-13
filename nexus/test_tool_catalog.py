@@ -47,6 +47,19 @@ def dummy_tools(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
         encoding="utf-8",
     )
 
+    (package_path / "gamma.py").write_text(
+        textwrap.dedent(
+            """
+            from nexus.tool_registry import register_tool
+
+            @register_tool(namespace="demo", description="Gamma tool")
+            def gamma() -> str:
+                return "ok"
+            """
+        ).lstrip(),
+        encoding="utf-8",
+    )
+
     monkeypatch.syspath_prepend(str(tmp_path))
     monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, "dummy_tools")
 
@@ -65,6 +78,7 @@ def test_catalog_scans_without_import(dummy_tools: str) -> None:
 
     assert "alpha" in catalog
     assert "beta_tool" in catalog
+    assert "demo.gamma" in catalog
     assert not is_tool_loaded("alpha")
     assert catalog["alpha"].module.endswith("dummy_tools.alpha")
     assert catalog["alpha"].description == "Alpha tool"
@@ -82,6 +96,9 @@ def test_ensure_tool_loaded_imports_module(dummy_tools: str) -> None:
     assert info.examples == ["alpha(1)"]
     assert info.function(3) == "3-hi"
 
+    gamma_info = ensure_tool_loaded("demo.gamma")
+    assert gamma_info.function() == "ok"
+
 
 def test_runner_globals_support_load_tool(dummy_tools: str) -> None:
     clear_registry()
@@ -90,6 +107,7 @@ def test_runner_globals_support_load_tool(dummy_tools: str) -> None:
     ns = build_execution_globals()
 
     assert "alpha" in ns["TOOLS"]
+    assert "demo.gamma" in ns["TOOLS"]
     alpha_fn = ns["load_tool"]("alpha")
     assert alpha_fn(2, "yo") == "2-yo"
 
@@ -99,3 +117,4 @@ def test_builtin_tools_are_discoverable() -> None:
 
     assert "get_issue_status" in catalog
     assert "tautulli_get_activity" in catalog
+    assert "n8n.create_workflow" in catalog

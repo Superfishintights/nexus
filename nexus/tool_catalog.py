@@ -121,7 +121,9 @@ def scan_file(package_name: str, package_root: Path, file_path: Path) -> Iterabl
     for node in tree.body:
         if isinstance(node, ast.FunctionDef) and has_register_tool_decorator(node):
             decorator_meta = extract_decorator_metadata(node)
-            tool_name = decorator_meta.name or node.name
+            base_name = decorator_meta.name or node.name
+            namespace = (decorator_meta.namespace or "").strip()
+            tool_name = f"{namespace}.{base_name}" if namespace else base_name
             docstring = decorator_meta.description or (ast.get_docstring(node) or "")
             signature = signature_from_ast(node, source)
             examples = tuple(decorator_meta.examples or ())
@@ -147,6 +149,7 @@ def module_name_for_file(package_name: str, package_root: Path, file_path: Path)
 @dataclass(frozen=True)
 class DecoratorMetadata:
     name: Optional[str] = None
+    namespace: Optional[str] = None
     description: Optional[str] = None
     examples: Optional[List[str]] = None
 
@@ -172,16 +175,24 @@ def extract_decorator_metadata(node: ast.FunctionDef) -> DecoratorMetadata:
     for decorator in node.decorator_list:
         if isinstance(decorator, ast.Call) and is_register_tool_decorator(decorator):
             name = None
+            namespace = None
             description = None
             examples: Optional[List[str]] = None
             for keyword in decorator.keywords:
                 if keyword.arg == "name":
                     name = literal_str(keyword.value)
+                elif keyword.arg == "namespace":
+                    namespace = literal_str(keyword.value)
                 elif keyword.arg == "description":
                     description = literal_str(keyword.value)
                 elif keyword.arg == "examples":
                     examples = literal_str_list(keyword.value)
-            return DecoratorMetadata(name=name, description=description, examples=examples)
+            return DecoratorMetadata(
+                name=name,
+                namespace=namespace,
+                description=description,
+                examples=examples,
+            )
     return DecoratorMetadata()
 
 
