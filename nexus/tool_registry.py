@@ -32,13 +32,24 @@ def register_tool(
     func: Optional[Callable[..., object]] = None,
     *,
     name: Optional[str] = None,
+    namespace: Optional[str] = None,
     description: Optional[str] = None,
     examples: Optional[List[str]] = None,
 ) -> Callable[[Callable[..., object]], Callable[..., object]]:
     """Decorator used by tool modules to register callables."""
 
     def decorator(target: Callable[..., object]) -> Callable[..., object]:
-        tool_name = name or target.__name__
+        if name is not None:
+            base_name = name.strip()
+            if not base_name:
+                raise ValueError("Tool name cannot be empty")
+        else:
+            base_name = target.__name__
+
+        tool_name = base_name
+        normalized_namespace = (namespace or "").strip()
+        if normalized_namespace:
+            tool_name = f"{normalized_namespace}.{tool_name}"
         if tool_name in _REGISTRY:
             raise ValueError(f"A tool named '{tool_name}' has already been registered")
         doc = description if description is not None else (target.__doc__ or "")

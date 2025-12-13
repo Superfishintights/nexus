@@ -1,9 +1,13 @@
-# Jira Tools
+# Tools
 
-This repository includes a lightweight Jira REST v2 client (`tools/jira/client.py`) and
-a small example tool (`tools/jira/get_issue_status.py`). At work you can keep
-larger Jira/Sourcegraph/etc toolsets in separate packages and have Nexus discover
-them lazily.
+This repository includes a lightweight Jira REST v2 client (`tools/jira/client.py`),
+an example Jira tool (`tools/jira/get_issue_status.py`), and a small Tautulli toolset
+(`tools/tautulli/api.py`).
+
+For larger toolsets (dozens/hundreds of tools), keep them in separate packages and have
+Nexus discover them lazily via `NEXUS_TOOL_PACKAGES`.
+
+See `tools/ADDING_TOOLSETS.md` for a copy/paste-friendly template and conventions.
 
 ## Configuration
 
@@ -59,6 +63,48 @@ def get_issue_status(issue_key: str) -> dict:
         "status": issue["fields"]["status"]["name"],
     }
 ```
+
+Notes:
+
+- Prefer `namespace="service"` for large multi-service installs to avoid name collisions
+  (e.g., `jira.get_issue_status`).
+- If you don’t use `namespace=...`, bake the service into the tool name (e.g.,
+  `tautulli_get_activity`) and be consistent.
+- Keep `name=...`, `namespace=...`, `description=...`, and `examples=[...]` as **literal**
+  strings/lists if you want them to be discoverable via AST scanning (without importing).
+- Avoid side effects at import time (no network calls at module import).
+
+### Tool Organization (one file vs many)
+
+Nexus keeps MCP context small via `search_tools`/`get_tool` (filtered results). File
+layout mainly impacts maintainability and runtime behavior:
+
+- Small toolsets (≈1–20 tools, or a few hundred LOC): keep a single `tools/<service>/api.py`.
+- Medium toolsets: split into a handful of modules by resource area (e.g.,
+  `workflows.py`, `executions.py`).
+- Large/generated toolsets: split into subpackages (or ship as separate packages via
+  `NEXUS_TOOL_PACKAGES`).
+
+Trade-offs:
+
+- Fewer files ⇒ faster catalog scan, but `load_tool` imports/registers more at once.
+- More files ⇒ slower scan, but finer-grained lazy imports.
+
+### Tool Discovery Requires Valid Python
+
+Tool discovery uses `ast.parse` and silently skips files with syntax errors. If a tool
+doesn’t show up in `search_tools`, validate that its module is syntactically valid:
+
+```bash
+python -m py_compile tools/<service>/*.py
+```
+
+### Optional: Typed Settings (`RUNNER_SETTINGS`)
+
+Tools typically read env values directly via `nexus.config.get_setting` (as the built-in
+Tautulli/Sonarr clients do). The `nexus/settings/*` modules are an optional convenience
+to expose validated, typed configuration to `run_code` snippets via `RUNNER_SETTINGS`;
+they are not required for tool discovery or tool execution.
 
 ## External Tool Packages
 

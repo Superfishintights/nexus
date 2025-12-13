@@ -55,6 +55,17 @@ Notes:
 Nexus discovers tools by scanning Python packages for functions decorated with
 `@register_tool`. By default it scans the built‑in `tools` package.
 
+For large multi-service installs, prefer `@register_tool(namespace="service")` so tool
+names are unambiguous (e.g., `jira.get_issue_status`).
+
+Notes:
+
+- Discovery is via AST parsing (no imports). Tool modules must be valid Python; files
+  with syntax errors are skipped and their tools won’t be discoverable.
+- Tool file layout does not affect MCP “context bloat” (results are filtered by
+  `search_tools`/`get_tool`), but it does affect scan/import performance. See
+  `tools/ADDING_TOOLSETS.md`.
+
 To add external tool packages, install them on the machine and set:
 
 ```bash
