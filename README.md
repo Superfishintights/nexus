@@ -28,6 +28,14 @@ pip install -e ./nexus
 python nexus/server.py
 ```
 
+## Self-test (stdlib only)
+
+For copy/paste deployments (or when `pytest` is unavailable), run:
+
+```bash
+python nexus/selftest.py
+```
+
 ## Configuration (cross-platform)
 
 Nexus reads settings from:
