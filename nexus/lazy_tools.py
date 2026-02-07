@@ -117,13 +117,16 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
         if limit <= 0:
             return []
 
+        # Keep discovery focused on canonical tool names by default.
+        specs = [spec for spec in self._catalog.values() if spec.alias_of is None]
+
         q = (query or "").strip().lower()
         if not q:
-            specs = sorted(self._catalog.values(), key=lambda spec: spec.name)[:limit]
-            return [self._spec_to_tool_dict(spec, detail_level=detail_level) for spec in specs]
+            top = sorted(specs, key=lambda spec: spec.name)[:limit]
+            return [self._spec_to_tool_dict(spec, detail_level=detail_level) for spec in top]
 
         scored: List[Tuple[int, ToolSpec]] = []
-        for spec in self._catalog.values():
+        for spec in specs:
             score = _score_spec(spec, q)
             if score > 0:
                 scored.append((score, spec))
@@ -148,4 +151,3 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
 
 
 __all__ = ["LazyTools"]
-

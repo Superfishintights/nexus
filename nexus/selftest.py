@@ -78,10 +78,12 @@ def _build_catalog_and_assert_tools() -> None:
     catalog = get_catalog(refresh=True)
 
     expected = {
-        "get_issue_status",  # Jira (unnamespaced legacy)
+        "jira.get_issue_status",
+        "get_issue_status",  # alias
         "sonarr.get_series",
         "n8n.create_workflow",
-        "tautulli_get_activity",  # Tautulli (prefixed legacy)
+        "tautulli.get_activity",
+        "tautulli_get_activity",  # alias
     }
     missing = sorted(name for name in expected if name not in catalog)
     if missing:
@@ -130,4 +132,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

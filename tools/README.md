@@ -38,6 +38,8 @@ Tautulli tools require:
 - `TAUTULLI_API_KEY`: API key for Tautulli
 
 Built-in Tautulli tools live in `tools/tautulli/api.py` (e.g., `tautulli_get_activity`, `tautulli_get_history`).
+Canonical names are namespaced (e.g., `tautulli.get_activity`, `tautulli.get_history`) and the old
+prefixed names remain available as aliases for backwards compatibility.
 
 ## Writing Tools
 
@@ -53,7 +55,7 @@ from tools.jira.client import get_client
 
 @register_tool(
     description="Get current status for a Jira issue",
-    examples=["get_issue_status('PROJ-123')"],
+    examples=["jira.get_issue_status('PROJ-123')"],
 )
 def get_issue_status(issue_key: str) -> dict:
     client = get_client()
@@ -68,8 +70,8 @@ Notes:
 
 - Prefer `namespace="service"` for large multi-service installs to avoid name collisions
   (e.g., `jira.get_issue_status`).
-- If you don’t use `namespace=...`, bake the service into the tool name (e.g.,
-  `tautulli_get_activity`) and be consistent.
+- If you rename a tool (e.g., to introduce namespacing), preserve compatibility with
+  `aliases=[...]` so older names can still be loaded.
 - Keep `name=...`, `namespace=...`, `description=...`, and `examples=[...]` as **literal**
   strings/lists if you want them to be discoverable via AST scanning (without importing).
 - Avoid side effects at import time (no network calls at module import).

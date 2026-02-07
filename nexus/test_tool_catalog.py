@@ -115,6 +115,9 @@ def test_runner_globals_support_load_tool(dummy_tools: str) -> None:
 def test_builtin_tools_are_discoverable() -> None:
     catalog = tool_catalog.get_catalog(refresh=True)
 
-    assert "get_issue_status" in catalog
-    assert "tautulli_get_activity" in catalog
+    assert "jira.get_issue_status" in catalog
+    assert "get_issue_status" in catalog  # alias
+    assert "tautulli.get_activity" in catalog
+    assert "tautulli_get_activity" in catalog  # alias
     assert "n8n.create_workflow" in catalog
+    assert "sonarr.get_series" in catalog
