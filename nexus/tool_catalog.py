@@ -14,7 +14,7 @@ import ast
 import importlib.util
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 from .config import get_setting
 
@@ -37,6 +37,15 @@ class ToolSpec:
 
 
 _CATALOG: Optional[Dict[str, ToolSpec]] = None
+
+
+@dataclass(frozen=True)
+class _FileCacheEntry:
+    fingerprint: Tuple[int, int]  # (mtime_ns, size)
+    specs: Tuple[ToolSpec, ...]
+
+
+_FILE_CACHE: Dict[str, _FileCacheEntry] = {}
 
 
 def get_tool_package_names() -> Sequence[str]:
@@ -66,6 +75,7 @@ def build_catalog() -> Dict[str, ToolSpec]:
 
     catalog: Dict[str, ToolSpec] = {}
     duplicates: List[Tuple[str, str, str]] = []
+    seen_files: Set[str] = set()
 
     for package_name in get_tool_package_names():
         spec = importlib.util.find_spec(package_name)
@@ -74,7 +84,7 @@ def build_catalog() -> Dict[str, ToolSpec]:
 
         for location in spec.submodule_search_locations:
             package_path = Path(location)
-            for tool_spec in scan_package(package_name, package_path):
+            for tool_spec in scan_package(package_name, package_path, seen_files=seen_files):
                 existing = catalog.get(tool_spec.name)
                 if existing is not None and existing.module != tool_spec.module:
                     duplicates.append((tool_spec.name, existing.module, tool_spec.module))
@@ -90,10 +100,20 @@ def build_catalog() -> Dict[str, ToolSpec]:
             "Duplicate tool names found across packages:\n" + "\n".join(lines)
         )
 
+    # Drop cache entries for deleted/unseen files.
+    stale = [path for path in _FILE_CACHE.keys() if path not in seen_files]
+    for path in stale:
+        _FILE_CACHE.pop(path, None)
+
     return catalog
 
 
-def scan_package(package_name: str, package_path: Path) -> Iterable[ToolSpec]:
+def scan_package(
+    package_name: str,
+    package_path: Path,
+    *,
+    seen_files: Optional[Set[str]] = None,
+) -> Iterable[ToolSpec]:
     """Yield ToolSpec objects discovered inside *package_path*."""
 
     for file_path in package_path.rglob("*.py"):
@@ -101,11 +121,36 @@ def scan_package(package_name: str, package_path: Path) -> Iterable[ToolSpec]:
             continue
         if file_path.name.startswith("test_") or file_path.name.endswith("_test.py"):
             continue
+        if seen_files is not None:
+            seen_files.add(str(file_path))
         yield from scan_file(package_name, package_path, file_path)
 
 
 def scan_file(package_name: str, package_root: Path, file_path: Path) -> Iterable[ToolSpec]:
     """Parse a single file and yield any ToolSpec definitions found."""
+
+    try:
+        st = file_path.stat()
+    except OSError:
+        return []
+
+    fingerprint = (getattr(st, "st_mtime_ns", int(st.st_mtime * 1e9)), st.st_size)
+    cache_key = str(file_path)
+    cached = _FILE_CACHE.get(cache_key)
+    if cached is not None and cached.fingerprint == fingerprint:
+        return list(cached.specs)
+
+    specs = list(_scan_file_uncached(package_name, package_root, file_path))
+    _FILE_CACHE[cache_key] = _FileCacheEntry(fingerprint=fingerprint, specs=tuple(specs))
+    return specs
+
+
+def _scan_file_uncached(
+    package_name: str,
+    package_root: Path,
+    file_path: Path,
+) -> Iterable[ToolSpec]:
+    """Uncached scan of a single file (used by scan_file cache wrapper)."""
 
     try:
         source = file_path.read_text(encoding="utf-8")
