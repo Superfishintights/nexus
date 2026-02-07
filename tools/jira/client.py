@@ -12,9 +12,18 @@ from nexus.config import get_setting
 class JiraClient:
     """Simple Jira REST API client using only standard library."""
 
-    def __init__(self, hostname: Optional[str] = None, pat: Optional[str] = None):
+    DEFAULT_TIMEOUT_SECONDS = 30.0
+
+    def __init__(
+        self,
+        hostname: Optional[str] = None,
+        pat: Optional[str] = None,
+        *,
+        timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS,
+    ):
         self.hostname = hostname or get_setting("JIRA_HOSTNAME")
         self.pat = pat or get_setting("JIRA_PAT")
+        self.timeout_seconds = timeout_seconds
 
         if not self.hostname:
             raise ValueError(
@@ -30,9 +39,12 @@ class JiraClient:
         self.base_url = f"{self.hostname}/rest/api/2"
         self.auth_header = f"Bearer {self.pat}"
 
+    def _build_url(self, endpoint: str) -> str:
+        return f"{self.base_url}/{endpoint.lstrip('/')}"
+
     def _make_request(self, endpoint: str) -> Dict[str, Any]:
         """Make a GET request to the Jira API."""
-        url = f"{self.base_url}/{endpoint}"
+        url = self._build_url(endpoint)
 
         try:
             request = urllib.request.Request(url)
@@ -40,7 +52,7 @@ class JiraClient:
             request.add_header("Content-Type", "application/json")
             request.add_header("Accept", "application/json")
 
-            with urllib.request.urlopen(request) as response:
+            with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
                 if response.status == 200:
                     data = response.read().decode("utf-8")
                     return json.loads(data)
