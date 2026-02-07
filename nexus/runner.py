@@ -9,8 +9,9 @@ from dataclasses import dataclass
 from typing import Any, Callable, Dict, Mapping, Optional
 
 from . import config
-from .tool_catalog import get_catalog, spec_to_dict
-from .tool_registry import ToolInfo, ensure_tool_loaded, is_tool_loaded
+from .lazy_tools import LazyTools
+from .tool_catalog import get_catalog
+from .tool_registry import ToolInfo, ensure_tool_loaded
 
 
 @dataclass(frozen=True)
@@ -73,12 +74,7 @@ def build_execution_globals(
         "__builtins__": SAFE_BUILTINS,
         "RESULT": None,
         "RUNNER_SETTINGS": config.RunnerSettings.from_env(),
-        "TOOLS": {
-            spec.name: spec_to_dict(
-                spec, detail_level="summary", loaded=is_tool_loaded(spec.name)
-            )
-            for spec in catalog.values()
-        },
+        "TOOLS": LazyTools(catalog),
         "load_tool": load_tool,
     }
 
