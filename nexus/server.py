@@ -26,6 +26,11 @@ from nexus.tool_registry import get_tool as get_loaded_tool, is_tool_loaded
 mcp = FastMCP("Nexus MCP Server")
 
 
+def _json_dumps(payload: Any) -> str:
+    # Compact output for MCP responses (no pretty-printing).
+    return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+
+
 @mcp.tool()
 def run_code(code: str) -> str:
     """
@@ -57,7 +62,7 @@ def run_code(code: str) -> str:
             'logs': result.logs,
         }
 
-        return json.dumps(response, indent=2, ensure_ascii=False)
+        return _json_dumps(response)
 
     except RunnerExecutionError as e:
         error_response = {
@@ -65,14 +70,14 @@ def run_code(code: str) -> str:
             'error': 'Code execution failed',
             'details': str(e),
         }
-        return json.dumps(error_response, indent=2)
+        return _json_dumps(error_response)
     except Exception as e:
         error_response = {
             'success': False,
             'error': 'Unexpected error',
             'details': str(e),
         }
-        return json.dumps(error_response, indent=2)
+        return _json_dumps(error_response)
 
 
 @mcp.tool()
@@ -104,7 +109,7 @@ def search_tools(
         "totalMatches": len(matches),
         "tools": tools,
     }
-    return json.dumps(response, indent=2, ensure_ascii=False)
+    return _json_dumps(response)
 
 
 @mcp.tool()
@@ -126,7 +131,7 @@ def get_tool(name: str, detail_level: str = "full") -> str:
             "success": True,
             "tool": _tool_to_dict(spec, detail_level=detail_level),
         }
-        return json.dumps(response, indent=2, ensure_ascii=False)
+        return _json_dumps(response)
 
     if is_tool_loaded(name):
         info = get_loaded_tool(name)
@@ -134,14 +139,14 @@ def get_tool(name: str, detail_level: str = "full") -> str:
             "success": True,
             "tool": _tool_info_to_dict(info, detail_level=detail_level),
         }
-        return json.dumps(response, indent=2, ensure_ascii=False)
+        return _json_dumps(response)
 
     error_response = {
         "success": False,
         "error": "Unknown tool",
         "name": name,
     }
-    return json.dumps(error_response, indent=2, ensure_ascii=False)
+    return _json_dumps(error_response)
 
 
 @mcp.tool()
