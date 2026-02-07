@@ -32,6 +32,8 @@ class ToolSpec:
     description: str
     signature: str
     examples: Tuple[str, ...] = ()
+    # If set, this ToolSpec name is an alias for the canonical tool name.
+    alias_of: Optional[str] = None
 
 
 _CATALOG: Optional[Dict[str, ToolSpec]] = None
@@ -127,15 +129,30 @@ def scan_file(package_name: str, package_root: Path, file_path: Path) -> Iterabl
             docstring = decorator_meta.description or (ast.get_docstring(node) or "")
             signature = signature_from_ast(node, source)
             examples = tuple(decorator_meta.examples or ())
-            specs.append(
-                ToolSpec(
-                    name=tool_name,
-                    module=module_path,
-                    description=docstring.strip(),
-                    signature=signature,
-                    examples=examples,
-                )
+            canonical = ToolSpec(
+                name=tool_name,
+                module=module_path,
+                description=docstring.strip(),
+                signature=signature,
+                examples=examples,
+                alias_of=None,
             )
+            specs.append(canonical)
+
+            for alias in list(decorator_meta.aliases or ()):
+                alias_name = (alias or "").strip()
+                if not alias_name or alias_name == tool_name:
+                    continue
+                specs.append(
+                    ToolSpec(
+                        name=alias_name,
+                        module=module_path,
+                        description=canonical.description,
+                        signature=canonical.signature,
+                        examples=canonical.examples,
+                        alias_of=tool_name,
+                    )
+                )
 
     return specs
 
@@ -152,6 +169,7 @@ class DecoratorMetadata:
     namespace: Optional[str] = None
     description: Optional[str] = None
     examples: Optional[List[str]] = None
+    aliases: Optional[List[str]] = None
 
 
 def has_register_tool_decorator(node: ast.FunctionDef) -> bool:
@@ -178,6 +196,7 @@ def extract_decorator_metadata(node: ast.FunctionDef) -> DecoratorMetadata:
             namespace = None
             description = None
             examples: Optional[List[str]] = None
+            aliases: Optional[List[str]] = None
             for keyword in decorator.keywords:
                 if keyword.arg == "name":
                     name = literal_str(keyword.value)
@@ -187,11 +206,14 @@ def extract_decorator_metadata(node: ast.FunctionDef) -> DecoratorMetadata:
                     description = literal_str(keyword.value)
                 elif keyword.arg == "examples":
                     examples = literal_str_list(keyword.value)
+                elif keyword.arg == "aliases":
+                    aliases = literal_str_list(keyword.value)
             return DecoratorMetadata(
                 name=name,
                 namespace=namespace,
                 description=description,
                 examples=examples,
+                aliases=aliases,
             )
     return DecoratorMetadata()
 
@@ -295,16 +317,29 @@ def default_source(node: ast.expr, source: str) -> str:
         return "..."
 
 
-def search_catalog(query: str = "", *, limit: int = 20) -> List[ToolSpec]:
-    """Search the catalog and return best matches."""
+def search_catalog(
+    query: str = "",
+    *,
+    limit: int = 20,
+    include_aliases: bool = False,
+) -> List[ToolSpec]:
+    """Search the catalog and return best matches.
+
+    By default, alias entries are excluded from search results to keep tool
+    discovery output focused on canonical names. Alias names still exist in the
+    catalog so `load_tool("old_name")` can remain backwards-compatible.
+    """
 
     catalog = get_catalog(refresh=True)
+    specs = list(catalog.values())
+    if not include_aliases:
+        specs = [spec for spec in specs if spec.alias_of is None]
     if not query:
-        return sorted(catalog.values(), key=lambda spec: spec.name)[:limit]
+        return sorted(specs, key=lambda spec: spec.name)[:limit]
 
     q = query.lower()
     scored: List[Tuple[int, ToolSpec]] = []
-    for spec in catalog.values():
+    for spec in specs:
         score = score_spec(spec, q)
         if score > 0:
             scored.append((score, spec))
@@ -352,6 +387,8 @@ def spec_to_dict(
             "loaded": loaded,
         }
     )
+    if spec.alias_of is not None:
+        base["aliasOf"] = spec.alias_of
 
     if detail_level == "full":
         base["description"] = spec.description

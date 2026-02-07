@@ -8,8 +8,10 @@ from .client import get_client
 
 
 @register_tool(
+    namespace="jira",
+    aliases=["get_issue_status"],
     description="Get the current status and available transitions for a Jira issue.",
-    examples=["get_issue_status('PROJ-123')"],
+    examples=["jira.get_issue_status('PROJ-123')"],
 )
 def get_issue_status(issue_key: str) -> Dict[str, Any]:
     """Get the current status and available transitions for a Jira issue.
@@ -63,4 +65,3 @@ def get_issue_status(issue_key: str) -> Dict[str, Any]:
     }
 
     return response
-

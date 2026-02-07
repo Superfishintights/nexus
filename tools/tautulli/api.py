@@ -10,10 +10,13 @@ from .client import get_client
 
 
 @register_tool(
+    namespace="tautulli",
+    name="call",
+    aliases=["tautulli_call"],
     description="Call a raw Tautulli API command and return the `response.data` payload.",
     examples=[
-        "tautulli_call('get_activity')",
-        "tautulli_call('get_history', {'length': 5})",
+        "tautulli.call('get_activity')",
+        "tautulli.call('get_history', {'length': 5})",
     ],
 )
 def tautulli_call(cmd: str, params: Optional[Dict[str, Any]] = None) -> Any:
@@ -27,8 +30,11 @@ def tautulli_call(cmd: str, params: Optional[Dict[str, Any]] = None) -> Any:
 
 
 @register_tool(
+    namespace="tautulli",
+    name="get_activity",
+    aliases=["tautulli_get_activity"],
     description="Get current Plex activity from Tautulli.",
-    examples=["tautulli_get_activity()"],
+    examples=["tautulli.get_activity()"],
 )
 def tautulli_get_activity() -> Dict[str, Any]:
     """Get current Plex activity from Tautulli."""
@@ -37,8 +43,11 @@ def tautulli_get_activity() -> Dict[str, Any]:
 
 
 @register_tool(
+    namespace="tautulli",
+    name="get_libraries",
+    aliases=["tautulli_get_libraries"],
     description="List Plex libraries known to Tautulli.",
-    examples=["tautulli_get_libraries()"],
+    examples=["tautulli.get_libraries()"],
 )
 def tautulli_get_libraries() -> Dict[str, Any]:
     """List Plex libraries known to Tautulli."""
@@ -47,8 +56,11 @@ def tautulli_get_libraries() -> Dict[str, Any]:
 
 
 @register_tool(
+    namespace="tautulli",
+    name="get_library_names",
+    aliases=["tautulli_get_library_names"],
     description="Get Plex library names (name/id/type) from Tautulli.",
-    examples=["tautulli_get_library_names()"],
+    examples=["tautulli.get_library_names()"],
 )
 def tautulli_get_library_names() -> List[Dict[str, Any]]:
     """Get Plex library names (name/id/type) from Tautulli."""
@@ -72,8 +84,11 @@ def tautulli_get_library_names() -> List[Dict[str, Any]]:
 
 
 @register_tool(
+    namespace="tautulli",
+    name="get_users",
+    aliases=["tautulli_get_users"],
     description="List users known to Tautulli.",
-    examples=["tautulli_get_users()"],
+    examples=["tautulli.get_users()"],
 )
 def tautulli_get_users() -> Dict[str, Any]:
     """List users known to Tautulli."""
@@ -82,8 +97,11 @@ def tautulli_get_users() -> Dict[str, Any]:
 
 
 @register_tool(
+    namespace="tautulli",
+    name="get_server_info",
+    aliases=["tautulli_get_server_info"],
     description="Get Tautulli server info.",
-    examples=["tautulli_get_server_info()"],
+    examples=["tautulli.get_server_info()"],
 )
 def tautulli_get_server_info() -> Dict[str, Any]:
     """Get Tautulli server info."""
@@ -92,8 +110,11 @@ def tautulli_get_server_info() -> Dict[str, Any]:
 
 
 @register_tool(
+    namespace="tautulli",
+    name="get_history",
+    aliases=["tautulli_get_history"],
     description="Get playback history from Tautulli.",
-    examples=["tautulli_get_history(length=10)", "tautulli_get_history(user='alice', length=5)"],
+    examples=["tautulli.get_history(length=10)", "tautulli.get_history(user='alice', length=5)"],
 )
 def tautulli_get_history(
     *,
@@ -121,4 +142,3 @@ def tautulli_get_history(
     }
     data = get_client().call("get_history", params=params)
     return data if isinstance(data, dict) else {"data": data}
-
