@@ -51,7 +51,7 @@ RESULT = tools_list
     # Example 2: Try to use a Jira tool (will fail if JIRA env vars not set)
     print("Example 2: Get Jira issue status (requires JIRA_HOSTNAME and JIRA_PAT)")
     code2 = """
-issue_status = load_tool('get_issue_status')
+issue_status = load_tool('jira.get_issue_status')
 
 try:
     status = issue_status('PROJ-123')

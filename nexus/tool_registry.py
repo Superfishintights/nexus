@@ -35,6 +35,7 @@ def register_tool(
     namespace: Optional[str] = None,
     description: Optional[str] = None,
     examples: Optional[List[str]] = None,
+    aliases: Optional[List[str]] = None,
 ) -> Callable[[Callable[..., object]], Callable[..., object]]:
     """Decorator used by tool modules to register callables."""
 
@@ -57,7 +58,7 @@ def register_tool(
             signature = str(inspect.signature(target))
         except (TypeError, ValueError):
             signature = "(...)"
-        _REGISTRY[tool_name] = ToolInfo(
+        canonical = ToolInfo(
             name=tool_name,
             module=target.__module__,
             description=doc.strip(),
@@ -65,6 +66,24 @@ def register_tool(
             examples=list(examples or []),
             function=target,
         )
+        _REGISTRY[tool_name] = canonical
+
+        for alias in list(aliases or []):
+            alias_name = alias.strip()
+            if not alias_name:
+                continue
+            if alias_name == tool_name:
+                continue
+            if alias_name in _REGISTRY:
+                raise ValueError(f"A tool named '{alias_name}' has already been registered")
+            _REGISTRY[alias_name] = ToolInfo(
+                name=alias_name,
+                module=canonical.module,
+                description=canonical.description,
+                signature=canonical.signature,
+                examples=list(canonical.examples),
+                function=canonical.function,
+            )
         return target
 
     if func is not None:

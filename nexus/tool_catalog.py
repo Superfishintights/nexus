@@ -14,7 +14,7 @@ import ast
 import importlib.util
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 from .config import get_setting
 
@@ -32,9 +32,20 @@ class ToolSpec:
     description: str
     signature: str
     examples: Tuple[str, ...] = ()
+    # If set, this ToolSpec name is an alias for the canonical tool name.
+    alias_of: Optional[str] = None
 
 
 _CATALOG: Optional[Dict[str, ToolSpec]] = None
+
+
+@dataclass(frozen=True)
+class _FileCacheEntry:
+    fingerprint: Tuple[int, int]  # (mtime_ns, size)
+    specs: Tuple[ToolSpec, ...]
+
+
+_FILE_CACHE: Dict[str, _FileCacheEntry] = {}
 
 
 def get_tool_package_names() -> Sequence[str]:
@@ -64,6 +75,7 @@ def build_catalog() -> Dict[str, ToolSpec]:
 
     catalog: Dict[str, ToolSpec] = {}
     duplicates: List[Tuple[str, str, str]] = []
+    seen_files: Set[str] = set()
 
     for package_name in get_tool_package_names():
         spec = importlib.util.find_spec(package_name)
@@ -72,7 +84,7 @@ def build_catalog() -> Dict[str, ToolSpec]:
 
         for location in spec.submodule_search_locations:
             package_path = Path(location)
-            for tool_spec in scan_package(package_name, package_path):
+            for tool_spec in scan_package(package_name, package_path, seen_files=seen_files):
                 existing = catalog.get(tool_spec.name)
                 if existing is not None and existing.module != tool_spec.module:
                     duplicates.append((tool_spec.name, existing.module, tool_spec.module))
@@ -88,10 +100,20 @@ def build_catalog() -> Dict[str, ToolSpec]:
             "Duplicate tool names found across packages:\n" + "\n".join(lines)
         )
 
+    # Drop cache entries for deleted/unseen files.
+    stale = [path for path in _FILE_CACHE.keys() if path not in seen_files]
+    for path in stale:
+        _FILE_CACHE.pop(path, None)
+
     return catalog
 
 
-def scan_package(package_name: str, package_path: Path) -> Iterable[ToolSpec]:
+def scan_package(
+    package_name: str,
+    package_path: Path,
+    *,
+    seen_files: Optional[Set[str]] = None,
+) -> Iterable[ToolSpec]:
     """Yield ToolSpec objects discovered inside *package_path*."""
 
     for file_path in package_path.rglob("*.py"):
@@ -99,11 +121,36 @@ def scan_package(package_name: str, package_path: Path) -> Iterable[ToolSpec]:
             continue
         if file_path.name.startswith("test_") or file_path.name.endswith("_test.py"):
             continue
+        if seen_files is not None:
+            seen_files.add(str(file_path))
         yield from scan_file(package_name, package_path, file_path)
 
 
 def scan_file(package_name: str, package_root: Path, file_path: Path) -> Iterable[ToolSpec]:
     """Parse a single file and yield any ToolSpec definitions found."""
+
+    try:
+        st = file_path.stat()
+    except OSError:
+        return []
+
+    fingerprint = (getattr(st, "st_mtime_ns", int(st.st_mtime * 1e9)), st.st_size)
+    cache_key = str(file_path)
+    cached = _FILE_CACHE.get(cache_key)
+    if cached is not None and cached.fingerprint == fingerprint:
+        return list(cached.specs)
+
+    specs = list(_scan_file_uncached(package_name, package_root, file_path))
+    _FILE_CACHE[cache_key] = _FileCacheEntry(fingerprint=fingerprint, specs=tuple(specs))
+    return specs
+
+
+def _scan_file_uncached(
+    package_name: str,
+    package_root: Path,
+    file_path: Path,
+) -> Iterable[ToolSpec]:
+    """Uncached scan of a single file (used by scan_file cache wrapper)."""
 
     try:
         source = file_path.read_text(encoding="utf-8")
@@ -127,15 +174,30 @@ def scan_file(package_name: str, package_root: Path, file_path: Path) -> Iterabl
             docstring = decorator_meta.description or (ast.get_docstring(node) or "")
             signature = signature_from_ast(node, source)
             examples = tuple(decorator_meta.examples or ())
-            specs.append(
-                ToolSpec(
-                    name=tool_name,
-                    module=module_path,
-                    description=docstring.strip(),
-                    signature=signature,
-                    examples=examples,
-                )
+            canonical = ToolSpec(
+                name=tool_name,
+                module=module_path,
+                description=docstring.strip(),
+                signature=signature,
+                examples=examples,
+                alias_of=None,
             )
+            specs.append(canonical)
+
+            for alias in list(decorator_meta.aliases or ()):
+                alias_name = (alias or "").strip()
+                if not alias_name or alias_name == tool_name:
+                    continue
+                specs.append(
+                    ToolSpec(
+                        name=alias_name,
+                        module=module_path,
+                        description=canonical.description,
+                        signature=canonical.signature,
+                        examples=canonical.examples,
+                        alias_of=tool_name,
+                    )
+                )
 
     return specs
 
@@ -152,6 +214,7 @@ class DecoratorMetadata:
     namespace: Optional[str] = None
     description: Optional[str] = None
     examples: Optional[List[str]] = None
+    aliases: Optional[List[str]] = None
 
 
 def has_register_tool_decorator(node: ast.FunctionDef) -> bool:
@@ -178,6 +241,7 @@ def extract_decorator_metadata(node: ast.FunctionDef) -> DecoratorMetadata:
             namespace = None
             description = None
             examples: Optional[List[str]] = None
+            aliases: Optional[List[str]] = None
             for keyword in decorator.keywords:
                 if keyword.arg == "name":
                     name = literal_str(keyword.value)
@@ -187,11 +251,14 @@ def extract_decorator_metadata(node: ast.FunctionDef) -> DecoratorMetadata:
                     description = literal_str(keyword.value)
                 elif keyword.arg == "examples":
                     examples = literal_str_list(keyword.value)
+                elif keyword.arg == "aliases":
+                    aliases = literal_str_list(keyword.value)
             return DecoratorMetadata(
                 name=name,
                 namespace=namespace,
                 description=description,
                 examples=examples,
+                aliases=aliases,
             )
     return DecoratorMetadata()
 
@@ -295,16 +362,29 @@ def default_source(node: ast.expr, source: str) -> str:
         return "..."
 
 
-def search_catalog(query: str = "", *, limit: int = 20) -> List[ToolSpec]:
-    """Search the catalog and return best matches."""
+def search_catalog(
+    query: str = "",
+    *,
+    limit: int = 20,
+    include_aliases: bool = False,
+) -> List[ToolSpec]:
+    """Search the catalog and return best matches.
+
+    By default, alias entries are excluded from search results to keep tool
+    discovery output focused on canonical names. Alias names still exist in the
+    catalog so `load_tool("old_name")` can remain backwards-compatible.
+    """
 
     catalog = get_catalog(refresh=True)
+    specs = list(catalog.values())
+    if not include_aliases:
+        specs = [spec for spec in specs if spec.alias_of is None]
     if not query:
-        return sorted(catalog.values(), key=lambda spec: spec.name)[:limit]
+        return sorted(specs, key=lambda spec: spec.name)[:limit]
 
     q = query.lower()
     scored: List[Tuple[int, ToolSpec]] = []
-    for spec in catalog.values():
+    for spec in specs:
         score = score_spec(spec, q)
         if score > 0:
             scored.append((score, spec))
@@ -352,6 +432,8 @@ def spec_to_dict(
             "loaded": loaded,
         }
     )
+    if spec.alias_of is not None:
+        base["aliasOf"] = spec.alias_of
 
     if detail_level == "full":
         base["description"] = spec.description
