@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import urllib.error
+import urllib.parse
 import urllib.request
 from typing import Any, Dict, Optional, Union
 
@@ -12,9 +13,18 @@ from nexus.config import get_setting
 class N8NClient:
     """Simple n8n REST API client using only standard library."""
 
-    def __init__(self, host: Optional[str] = None, api_key: Optional[str] = None):
+    DEFAULT_TIMEOUT_SECONDS = 30.0
+
+    def __init__(
+        self,
+        host: Optional[str] = None,
+        api_key: Optional[str] = None,
+        *,
+        timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS,
+    ):
         self.host = host or get_setting("N8N_HOST")
         self.api_key = api_key or get_setting("N8N_API_KEY")
+        self.timeout_seconds = timeout_seconds
 
         if not self.host:
             raise ValueError(
@@ -31,6 +41,18 @@ class N8NClient:
         self.base_url = f"{self.host}/api/v1"
         self.auth_header = self.api_key
 
+    def _build_url(self, endpoint: str, query_params: Optional[Dict[str, Any]] = None) -> str:
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        if not query_params:
+            return url
+
+        # Drop `None` values; allow lists/tuples via `doseq=True`.
+        filtered = {k: v for k, v in query_params.items() if v is not None}
+        if not filtered:
+            return url
+
+        return url + "?" + urllib.parse.urlencode(filtered, doseq=True)
+
     def _make_request(
         self, 
         endpoint: str, 
@@ -39,17 +61,7 @@ class N8NClient:
         query_params: Optional[Dict[str, Any]] = None
     ) -> Union[Dict[str, Any], list]:
         """Make a request to the n8n API."""
-        url = f"{self.base_url}/{endpoint.lstrip('/')}"
-        
-        if query_params:
-            # Simple query param encoding
-            params = []
-            for k, v in query_params.items():
-                if v is not None:
-                    # Handle lists in query params if needed, but basic for now
-                    params.append(f"{k}={v}")
-            if params:
-                url += "?" + "&".join(params)
+        url = self._build_url(endpoint, query_params=query_params)
 
         try:
             req = urllib.request.Request(url, method=method)
@@ -61,7 +73,7 @@ class N8NClient:
                 json_data = json.dumps(data).encode("utf-8")
                 req.data = json_data
 
-            with urllib.request.urlopen(req) as response:
+            with urllib.request.urlopen(req, timeout=self.timeout_seconds) as response:
                 if response.status in (200, 201):
                     response_data = response.read().decode("utf-8")
                     if not response_data:
