@@ -1,0 +1,3299 @@
+{
+  "api_prefix": "/api/v3",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "alttitle",
+      "filename": "get_alttitle.py",
+      "method": "GET",
+      "name": "get_alttitle",
+      "path": "/api/v3/alttitle",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "alttitle/{id}",
+      "filename": "get_alttitle_by_id.py",
+      "method": "GET",
+      "name": "get_alttitle_by_id",
+      "path": "/api/v3/alttitle/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "autotagging",
+      "filename": "get_autotagging.py",
+      "method": "GET",
+      "name": "get_autotagging",
+      "path": "/api/v3/autotagging",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "autotagging",
+      "filename": "create_autotagging.py",
+      "method": "POST",
+      "name": "create_autotagging",
+      "path": "/api/v3/autotagging",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "autotagging/schema",
+      "filename": "get_autotagging_schema.py",
+      "method": "GET",
+      "name": "get_autotagging_schema",
+      "path": "/api/v3/autotagging/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "autotagging/{id}",
+      "filename": "get_autotagging_by_id.py",
+      "method": "GET",
+      "name": "get_autotagging_by_id",
+      "path": "/api/v3/autotagging/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "autotagging/{id}",
+      "filename": "update_autotagging_by_id.py",
+      "method": "PUT",
+      "name": "update_autotagging_by_id",
+      "path": "/api/v3/autotagging/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "autotagging/{id}",
+      "filename": "delete_autotagging_by_id.py",
+      "method": "DELETE",
+      "name": "delete_autotagging_by_id",
+      "path": "/api/v3/autotagging/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "blocklist",
+      "filename": "get_blocklist.py",
+      "method": "GET",
+      "name": "get_blocklist",
+      "path": "/api/v3/blocklist",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "blocklist/bulk",
+      "filename": "delete_blocklist_bulk.py",
+      "method": "DELETE",
+      "name": "delete_blocklist_bulk",
+      "path": "/api/v3/blocklist/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "blocklist/movie",
+      "filename": "get_blocklist_movie.py",
+      "method": "GET",
+      "name": "get_blocklist_movie",
+      "path": "/api/v3/blocklist/movie",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "blocklist/{id}",
+      "filename": "delete_blocklist_by_id.py",
+      "method": "DELETE",
+      "name": "delete_blocklist_by_id",
+      "path": "/api/v3/blocklist/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "calendar",
+      "filename": "get_calendar.py",
+      "method": "GET",
+      "name": "get_calendar",
+      "path": "/api/v3/calendar",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "collection",
+      "filename": "get_collection.py",
+      "method": "GET",
+      "name": "get_collection",
+      "path": "/api/v3/collection",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "collection",
+      "filename": "update_collection.py",
+      "method": "PUT",
+      "name": "update_collection",
+      "path": "/api/v3/collection",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "collection/{id}",
+      "filename": "get_collection_by_id.py",
+      "method": "GET",
+      "name": "get_collection_by_id",
+      "path": "/api/v3/collection/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "collection/{id}",
+      "filename": "update_collection_by_id.py",
+      "method": "PUT",
+      "name": "update_collection_by_id",
+      "path": "/api/v3/collection/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command",
+      "filename": "get_command.py",
+      "method": "GET",
+      "name": "get_command",
+      "path": "/api/v3/command",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command",
+      "filename": "create_command.py",
+      "method": "POST",
+      "name": "create_command",
+      "path": "/api/v3/command",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command/{id}",
+      "filename": "get_command_by_id.py",
+      "method": "GET",
+      "name": "get_command_by_id",
+      "path": "/api/v3/command/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command/{id}",
+      "filename": "delete_command_by_id.py",
+      "method": "DELETE",
+      "name": "delete_command_by_id",
+      "path": "/api/v3/command/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/downloadclient",
+      "filename": "get_config_downloadclient.py",
+      "method": "GET",
+      "name": "get_config_downloadclient",
+      "path": "/api/v3/config/downloadclient",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/downloadclient/{id}",
+      "filename": "get_config_downloadclient_by_id.py",
+      "method": "GET",
+      "name": "get_config_downloadclient_by_id",
+      "path": "/api/v3/config/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/downloadclient/{id}",
+      "filename": "update_config_downloadclient_by_id.py",
+      "method": "PUT",
+      "name": "update_config_downloadclient_by_id",
+      "path": "/api/v3/config/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/host",
+      "filename": "get_config_host.py",
+      "method": "GET",
+      "name": "get_config_host",
+      "path": "/api/v3/config/host",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/host/{id}",
+      "filename": "get_config_host_by_id.py",
+      "method": "GET",
+      "name": "get_config_host_by_id",
+      "path": "/api/v3/config/host/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/host/{id}",
+      "filename": "update_config_host_by_id.py",
+      "method": "PUT",
+      "name": "update_config_host_by_id",
+      "path": "/api/v3/config/host/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/importlist",
+      "filename": "get_config_importlist.py",
+      "method": "GET",
+      "name": "get_config_importlist",
+      "path": "/api/v3/config/importlist",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/importlist/{id}",
+      "filename": "get_config_importlist_by_id.py",
+      "method": "GET",
+      "name": "get_config_importlist_by_id",
+      "path": "/api/v3/config/importlist/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/importlist/{id}",
+      "filename": "update_config_importlist_by_id.py",
+      "method": "PUT",
+      "name": "update_config_importlist_by_id",
+      "path": "/api/v3/config/importlist/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/indexer",
+      "filename": "get_config_indexer.py",
+      "method": "GET",
+      "name": "get_config_indexer",
+      "path": "/api/v3/config/indexer",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/indexer/{id}",
+      "filename": "get_config_indexer_by_id.py",
+      "method": "GET",
+      "name": "get_config_indexer_by_id",
+      "path": "/api/v3/config/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/indexer/{id}",
+      "filename": "update_config_indexer_by_id.py",
+      "method": "PUT",
+      "name": "update_config_indexer_by_id",
+      "path": "/api/v3/config/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/mediamanagement",
+      "filename": "get_config_mediamanagement.py",
+      "method": "GET",
+      "name": "get_config_mediamanagement",
+      "path": "/api/v3/config/mediamanagement",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/mediamanagement/{id}",
+      "filename": "get_config_mediamanagement_by_id.py",
+      "method": "GET",
+      "name": "get_config_mediamanagement_by_id",
+      "path": "/api/v3/config/mediamanagement/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/mediamanagement/{id}",
+      "filename": "update_config_mediamanagement_by_id.py",
+      "method": "PUT",
+      "name": "update_config_mediamanagement_by_id",
+      "path": "/api/v3/config/mediamanagement/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/metadata",
+      "filename": "get_config_metadata.py",
+      "method": "GET",
+      "name": "get_config_metadata",
+      "path": "/api/v3/config/metadata",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/metadata/{id}",
+      "filename": "get_config_metadata_by_id.py",
+      "method": "GET",
+      "name": "get_config_metadata_by_id",
+      "path": "/api/v3/config/metadata/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/metadata/{id}",
+      "filename": "update_config_metadata_by_id.py",
+      "method": "PUT",
+      "name": "update_config_metadata_by_id",
+      "path": "/api/v3/config/metadata/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/naming",
+      "filename": "get_config_naming.py",
+      "method": "GET",
+      "name": "get_config_naming",
+      "path": "/api/v3/config/naming",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/naming/examples",
+      "filename": "get_config_naming_examples.py",
+      "method": "GET",
+      "name": "get_config_naming_examples",
+      "path": "/api/v3/config/naming/examples",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/naming/{id}",
+      "filename": "get_config_naming_by_id.py",
+      "method": "GET",
+      "name": "get_config_naming_by_id",
+      "path": "/api/v3/config/naming/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/naming/{id}",
+      "filename": "update_config_naming_by_id.py",
+      "method": "PUT",
+      "name": "update_config_naming_by_id",
+      "path": "/api/v3/config/naming/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/ui",
+      "filename": "get_config_ui.py",
+      "method": "GET",
+      "name": "get_config_ui",
+      "path": "/api/v3/config/ui",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/ui/{id}",
+      "filename": "get_config_ui_by_id.py",
+      "method": "GET",
+      "name": "get_config_ui_by_id",
+      "path": "/api/v3/config/ui/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/ui/{id}",
+      "filename": "update_config_ui_by_id.py",
+      "method": "PUT",
+      "name": "update_config_ui_by_id",
+      "path": "/api/v3/config/ui/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "credit",
+      "filename": "get_credit.py",
+      "method": "GET",
+      "name": "get_credit",
+      "path": "/api/v3/credit",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "credit/{id}",
+      "filename": "get_credit_by_id.py",
+      "method": "GET",
+      "name": "get_credit_by_id",
+      "path": "/api/v3/credit/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter",
+      "filename": "get_customfilter.py",
+      "method": "GET",
+      "name": "get_customfilter",
+      "path": "/api/v3/customfilter",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter",
+      "filename": "create_customfilter.py",
+      "method": "POST",
+      "name": "create_customfilter",
+      "path": "/api/v3/customfilter",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter/{id}",
+      "filename": "get_customfilter_by_id.py",
+      "method": "GET",
+      "name": "get_customfilter_by_id",
+      "path": "/api/v3/customfilter/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter/{id}",
+      "filename": "update_customfilter_by_id.py",
+      "method": "PUT",
+      "name": "update_customfilter_by_id",
+      "path": "/api/v3/customfilter/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter/{id}",
+      "filename": "delete_customfilter_by_id.py",
+      "method": "DELETE",
+      "name": "delete_customfilter_by_id",
+      "path": "/api/v3/customfilter/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat",
+      "filename": "get_customformat.py",
+      "method": "GET",
+      "name": "get_customformat",
+      "path": "/api/v3/customformat",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat",
+      "filename": "create_customformat.py",
+      "method": "POST",
+      "name": "create_customformat",
+      "path": "/api/v3/customformat",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat/bulk",
+      "filename": "update_customformat_bulk.py",
+      "method": "PUT",
+      "name": "update_customformat_bulk",
+      "path": "/api/v3/customformat/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat/bulk",
+      "filename": "delete_customformat_bulk.py",
+      "method": "DELETE",
+      "name": "delete_customformat_bulk",
+      "path": "/api/v3/customformat/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat/schema",
+      "filename": "get_customformat_schema.py",
+      "method": "GET",
+      "name": "get_customformat_schema",
+      "path": "/api/v3/customformat/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat/{id}",
+      "filename": "get_customformat_by_id.py",
+      "method": "GET",
+      "name": "get_customformat_by_id",
+      "path": "/api/v3/customformat/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat/{id}",
+      "filename": "update_customformat_by_id.py",
+      "method": "PUT",
+      "name": "update_customformat_by_id",
+      "path": "/api/v3/customformat/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customformat/{id}",
+      "filename": "delete_customformat_by_id.py",
+      "method": "DELETE",
+      "name": "delete_customformat_by_id",
+      "path": "/api/v3/customformat/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "delayprofile",
+      "filename": "get_delayprofile.py",
+      "method": "GET",
+      "name": "get_delayprofile",
+      "path": "/api/v3/delayprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "delayprofile",
+      "filename": "create_delayprofile.py",
+      "method": "POST",
+      "name": "create_delayprofile",
+      "path": "/api/v3/delayprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "delayprofile/reorder/{id}",
+      "filename": "update_delayprofile_reorder_by_id.py",
+      "method": "PUT",
+      "name": "update_delayprofile_reorder_by_id",
+      "path": "/api/v3/delayprofile/reorder/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "delayprofile/{id}",
+      "filename": "get_delayprofile_by_id.py",
+      "method": "GET",
+      "name": "get_delayprofile_by_id",
+      "path": "/api/v3/delayprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "delayprofile/{id}",
+      "filename": "update_delayprofile_by_id.py",
+      "method": "PUT",
+      "name": "update_delayprofile_by_id",
+      "path": "/api/v3/delayprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "delayprofile/{id}",
+      "filename": "delete_delayprofile_by_id.py",
+      "method": "DELETE",
+      "name": "delete_delayprofile_by_id",
+      "path": "/api/v3/delayprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "diskspace",
+      "filename": "get_diskspace.py",
+      "method": "GET",
+      "name": "get_diskspace",
+      "path": "/api/v3/diskspace",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient",
+      "filename": "get_downloadclient.py",
+      "method": "GET",
+      "name": "get_downloadclient",
+      "path": "/api/v3/downloadclient",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient",
+      "filename": "create_downloadclient.py",
+      "method": "POST",
+      "name": "create_downloadclient",
+      "path": "/api/v3/downloadclient",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/action/{name}",
+      "filename": "create_downloadclient_action_by_name.py",
+      "method": "POST",
+      "name": "create_downloadclient_action_by_name",
+      "path": "/api/v3/downloadclient/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/bulk",
+      "filename": "update_downloadclient_bulk.py",
+      "method": "PUT",
+      "name": "update_downloadclient_bulk",
+      "path": "/api/v3/downloadclient/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/bulk",
+      "filename": "delete_downloadclient_bulk.py",
+      "method": "DELETE",
+      "name": "delete_downloadclient_bulk",
+      "path": "/api/v3/downloadclient/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/schema",
+      "filename": "get_downloadclient_schema.py",
+      "method": "GET",
+      "name": "get_downloadclient_schema",
+      "path": "/api/v3/downloadclient/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/test",
+      "filename": "create_downloadclient_test_tool.py",
+      "method": "POST",
+      "name": "create_downloadclient_test",
+      "path": "/api/v3/downloadclient/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/testall",
+      "filename": "create_downloadclient_testall.py",
+      "method": "POST",
+      "name": "create_downloadclient_testall",
+      "path": "/api/v3/downloadclient/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/{id}",
+      "filename": "get_downloadclient_by_id.py",
+      "method": "GET",
+      "name": "get_downloadclient_by_id",
+      "path": "/api/v3/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/{id}",
+      "filename": "update_downloadclient_by_id.py",
+      "method": "PUT",
+      "name": "update_downloadclient_by_id",
+      "path": "/api/v3/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/{id}",
+      "filename": "delete_downloadclient_by_id.py",
+      "method": "DELETE",
+      "name": "delete_downloadclient_by_id",
+      "path": "/api/v3/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions",
+      "filename": "create_exclusions.py",
+      "method": "POST",
+      "name": "create_exclusions",
+      "path": "/api/v3/exclusions",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions/bulk",
+      "filename": "create_exclusions_bulk.py",
+      "method": "POST",
+      "name": "create_exclusions_bulk",
+      "path": "/api/v3/exclusions/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions/bulk",
+      "filename": "delete_exclusions_bulk.py",
+      "method": "DELETE",
+      "name": "delete_exclusions_bulk",
+      "path": "/api/v3/exclusions/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions/paged",
+      "filename": "get_exclusions_paged.py",
+      "method": "GET",
+      "name": "get_exclusions_paged",
+      "path": "/api/v3/exclusions/paged",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions/{id}",
+      "filename": "get_exclusions_by_id.py",
+      "method": "GET",
+      "name": "get_exclusions_by_id",
+      "path": "/api/v3/exclusions/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions/{id}",
+      "filename": "update_exclusions_by_id.py",
+      "method": "PUT",
+      "name": "update_exclusions_by_id",
+      "path": "/api/v3/exclusions/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "exclusions/{id}",
+      "filename": "delete_exclusions_by_id.py",
+      "method": "DELETE",
+      "name": "delete_exclusions_by_id",
+      "path": "/api/v3/exclusions/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "extrafile",
+      "filename": "get_extrafile.py",
+      "method": "GET",
+      "name": "get_extrafile",
+      "path": "/api/v3/extrafile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filesystem",
+      "filename": "get_filesystem.py",
+      "method": "GET",
+      "name": "get_filesystem",
+      "path": "/api/v3/filesystem",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filesystem/mediafiles",
+      "filename": "get_filesystem_mediafiles.py",
+      "method": "GET",
+      "name": "get_filesystem_mediafiles",
+      "path": "/api/v3/filesystem/mediafiles",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filesystem/type",
+      "filename": "get_filesystem_type.py",
+      "method": "GET",
+      "name": "get_filesystem_type",
+      "path": "/api/v3/filesystem/type",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "health",
+      "filename": "get_health.py",
+      "method": "GET",
+      "name": "get_health",
+      "path": "/api/v3/health",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history",
+      "filename": "get_history.py",
+      "method": "GET",
+      "name": "get_history",
+      "path": "/api/v3/history",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history/failed/{id}",
+      "filename": "create_history_failed_by_id.py",
+      "method": "POST",
+      "name": "create_history_failed_by_id",
+      "path": "/api/v3/history/failed/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history/movie",
+      "filename": "get_history_movie.py",
+      "method": "GET",
+      "name": "get_history_movie",
+      "path": "/api/v3/history/movie",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history/since",
+      "filename": "get_history_since.py",
+      "method": "GET",
+      "name": "get_history_since",
+      "path": "/api/v3/history/since",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist",
+      "filename": "get_importlist.py",
+      "method": "GET",
+      "name": "get_importlist",
+      "path": "/api/v3/importlist",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist",
+      "filename": "create_importlist.py",
+      "method": "POST",
+      "name": "create_importlist",
+      "path": "/api/v3/importlist",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/action/{name}",
+      "filename": "create_importlist_action_by_name.py",
+      "method": "POST",
+      "name": "create_importlist_action_by_name",
+      "path": "/api/v3/importlist/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/bulk",
+      "filename": "update_importlist_bulk.py",
+      "method": "PUT",
+      "name": "update_importlist_bulk",
+      "path": "/api/v3/importlist/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/bulk",
+      "filename": "delete_importlist_bulk.py",
+      "method": "DELETE",
+      "name": "delete_importlist_bulk",
+      "path": "/api/v3/importlist/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/movie",
+      "filename": "get_importlist_movie.py",
+      "method": "GET",
+      "name": "get_importlist_movie",
+      "path": "/api/v3/importlist/movie",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/movie",
+      "filename": "create_importlist_movie.py",
+      "method": "POST",
+      "name": "create_importlist_movie",
+      "path": "/api/v3/importlist/movie",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/schema",
+      "filename": "get_importlist_schema.py",
+      "method": "GET",
+      "name": "get_importlist_schema",
+      "path": "/api/v3/importlist/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/test",
+      "filename": "create_importlist_test_tool.py",
+      "method": "POST",
+      "name": "create_importlist_test",
+      "path": "/api/v3/importlist/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/testall",
+      "filename": "create_importlist_testall.py",
+      "method": "POST",
+      "name": "create_importlist_testall",
+      "path": "/api/v3/importlist/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/{id}",
+      "filename": "get_importlist_by_id.py",
+      "method": "GET",
+      "name": "get_importlist_by_id",
+      "path": "/api/v3/importlist/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/{id}",
+      "filename": "update_importlist_by_id.py",
+      "method": "PUT",
+      "name": "update_importlist_by_id",
+      "path": "/api/v3/importlist/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "importlist/{id}",
+      "filename": "delete_importlist_by_id.py",
+      "method": "DELETE",
+      "name": "delete_importlist_by_id",
+      "path": "/api/v3/importlist/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer",
+      "filename": "get_indexer.py",
+      "method": "GET",
+      "name": "get_indexer",
+      "path": "/api/v3/indexer",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer",
+      "filename": "create_indexer.py",
+      "method": "POST",
+      "name": "create_indexer",
+      "path": "/api/v3/indexer",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/action/{name}",
+      "filename": "create_indexer_action_by_name.py",
+      "method": "POST",
+      "name": "create_indexer_action_by_name",
+      "path": "/api/v3/indexer/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/bulk",
+      "filename": "update_indexer_bulk.py",
+      "method": "PUT",
+      "name": "update_indexer_bulk",
+      "path": "/api/v3/indexer/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/bulk",
+      "filename": "delete_indexer_bulk.py",
+      "method": "DELETE",
+      "name": "delete_indexer_bulk",
+      "path": "/api/v3/indexer/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/schema",
+      "filename": "get_indexer_schema.py",
+      "method": "GET",
+      "name": "get_indexer_schema",
+      "path": "/api/v3/indexer/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/test",
+      "filename": "create_indexer_test_tool.py",
+      "method": "POST",
+      "name": "create_indexer_test",
+      "path": "/api/v3/indexer/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/testall",
+      "filename": "create_indexer_testall.py",
+      "method": "POST",
+      "name": "create_indexer_testall",
+      "path": "/api/v3/indexer/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}",
+      "filename": "get_indexer_by_id.py",
+      "method": "GET",
+      "name": "get_indexer_by_id",
+      "path": "/api/v3/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}",
+      "filename": "update_indexer_by_id.py",
+      "method": "PUT",
+      "name": "update_indexer_by_id",
+      "path": "/api/v3/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}",
+      "filename": "delete_indexer_by_id.py",
+      "method": "DELETE",
+      "name": "delete_indexer_by_id",
+      "path": "/api/v3/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerflag",
+      "filename": "get_indexerflag.py",
+      "method": "GET",
+      "name": "get_indexerflag",
+      "path": "/api/v3/indexerflag",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "language",
+      "filename": "get_language.py",
+      "method": "GET",
+      "name": "get_language",
+      "path": "/api/v3/language",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "language/{id}",
+      "filename": "get_language_by_id.py",
+      "method": "GET",
+      "name": "get_language_by_id",
+      "path": "/api/v3/language/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "localization",
+      "filename": "get_localization.py",
+      "method": "GET",
+      "name": "get_localization",
+      "path": "/api/v3/localization",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "localization/language",
+      "filename": "get_localization_language.py",
+      "method": "GET",
+      "name": "get_localization_language",
+      "path": "/api/v3/localization/language",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log",
+      "filename": "get_log.py",
+      "method": "GET",
+      "name": "get_log",
+      "path": "/api/v3/log",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file",
+      "filename": "get_log_file.py",
+      "method": "GET",
+      "name": "get_log_file",
+      "path": "/api/v3/log/file",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file/update",
+      "filename": "get_log_file_update.py",
+      "method": "GET",
+      "name": "get_log_file_update",
+      "path": "/api/v3/log/file/update",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file/update/{filename}",
+      "filename": "get_log_file_update_by_filename.py",
+      "method": "GET",
+      "name": "get_log_file_update_by_filename",
+      "path": "/api/v3/log/file/update/{filename}",
+      "path_params": [
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file/{filename}",
+      "filename": "get_log_file_by_filename.py",
+      "method": "GET",
+      "name": "get_log_file_by_filename",
+      "path": "/api/v3/log/file/{filename}",
+      "path_params": [
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "manualimport",
+      "filename": "get_manualimport.py",
+      "method": "GET",
+      "name": "get_manualimport",
+      "path": "/api/v3/manualimport",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "manualimport",
+      "filename": "create_manualimport.py",
+      "method": "POST",
+      "name": "create_manualimport",
+      "path": "/api/v3/manualimport",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "mediacover/{movieId}/{filename}",
+      "filename": "get_mediacover_by_movie_id_by_filename.py",
+      "method": "GET",
+      "name": "get_mediacover_by_movie_id_by_filename",
+      "path": "/api/v3/mediacover/{movieId}/{filename}",
+      "path_params": [
+        [
+          "movie_id",
+          "int"
+        ],
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata",
+      "filename": "get_metadata.py",
+      "method": "GET",
+      "name": "get_metadata",
+      "path": "/api/v3/metadata",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata",
+      "filename": "create_metadata.py",
+      "method": "POST",
+      "name": "create_metadata",
+      "path": "/api/v3/metadata",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/action/{name}",
+      "filename": "create_metadata_action_by_name.py",
+      "method": "POST",
+      "name": "create_metadata_action_by_name",
+      "path": "/api/v3/metadata/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/schema",
+      "filename": "get_metadata_schema.py",
+      "method": "GET",
+      "name": "get_metadata_schema",
+      "path": "/api/v3/metadata/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/test",
+      "filename": "create_metadata_test_tool.py",
+      "method": "POST",
+      "name": "create_metadata_test",
+      "path": "/api/v3/metadata/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/testall",
+      "filename": "create_metadata_testall.py",
+      "method": "POST",
+      "name": "create_metadata_testall",
+      "path": "/api/v3/metadata/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/{id}",
+      "filename": "get_metadata_by_id.py",
+      "method": "GET",
+      "name": "get_metadata_by_id",
+      "path": "/api/v3/metadata/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/{id}",
+      "filename": "update_metadata_by_id.py",
+      "method": "PUT",
+      "name": "update_metadata_by_id",
+      "path": "/api/v3/metadata/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "metadata/{id}",
+      "filename": "delete_metadata_by_id.py",
+      "method": "DELETE",
+      "name": "delete_metadata_by_id",
+      "path": "/api/v3/metadata/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie",
+      "filename": "get_movie.py",
+      "method": "GET",
+      "name": "get_movie",
+      "path": "/api/v3/movie",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie",
+      "filename": "create_movie.py",
+      "method": "POST",
+      "name": "create_movie",
+      "path": "/api/v3/movie",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/editor",
+      "filename": "update_movie_editor.py",
+      "method": "PUT",
+      "name": "update_movie_editor",
+      "path": "/api/v3/movie/editor",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/editor",
+      "filename": "delete_movie_editor.py",
+      "method": "DELETE",
+      "name": "delete_movie_editor",
+      "path": "/api/v3/movie/editor",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/import",
+      "filename": "create_movie_import.py",
+      "method": "POST",
+      "name": "create_movie_import",
+      "path": "/api/v3/movie/import",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/lookup",
+      "filename": "get_movie_lookup.py",
+      "method": "GET",
+      "name": "get_movie_lookup",
+      "path": "/api/v3/movie/lookup",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/lookup/imdb",
+      "filename": "get_movie_lookup_imdb.py",
+      "method": "GET",
+      "name": "get_movie_lookup_imdb",
+      "path": "/api/v3/movie/lookup/imdb",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/lookup/tmdb",
+      "filename": "get_movie_lookup_tmdb.py",
+      "method": "GET",
+      "name": "get_movie_lookup_tmdb",
+      "path": "/api/v3/movie/lookup/tmdb",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/{id}",
+      "filename": "get_movie_by_id.py",
+      "method": "GET",
+      "name": "get_movie_by_id",
+      "path": "/api/v3/movie/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/{id}",
+      "filename": "update_movie_by_id.py",
+      "method": "PUT",
+      "name": "update_movie_by_id",
+      "path": "/api/v3/movie/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/{id}",
+      "filename": "delete_movie_by_id.py",
+      "method": "DELETE",
+      "name": "delete_movie_by_id",
+      "path": "/api/v3/movie/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "movie/{id}/folder",
+      "filename": "get_movie_by_id_folder.py",
+      "method": "GET",
+      "name": "get_movie_by_id_folder",
+      "path": "/api/v3/movie/{id}/folder",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "moviefile",
+      "filename": "get_moviefile.py",
+      "method": "GET",
+      "name": "get_moviefile",
+      "path": "/api/v3/moviefile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "moviefile/bulk",
+      "filename": "update_moviefile_bulk.py",
+      "method": "PUT",
+      "name": "update_moviefile_bulk",
+      "path": "/api/v3/moviefile/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "moviefile/bulk",
+      "filename": "delete_moviefile_bulk.py",
+      "method": "DELETE",
+      "name": "delete_moviefile_bulk",
+      "path": "/api/v3/moviefile/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "moviefile/{id}",
+      "filename": "get_moviefile_by_id.py",
+      "method": "GET",
+      "name": "get_moviefile_by_id",
+      "path": "/api/v3/moviefile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "moviefile/{id}",
+      "filename": "update_moviefile_by_id.py",
+      "method": "PUT",
+      "name": "update_moviefile_by_id",
+      "path": "/api/v3/moviefile/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "moviefile/{id}",
+      "filename": "delete_moviefile_by_id.py",
+      "method": "DELETE",
+      "name": "delete_moviefile_by_id",
+      "path": "/api/v3/moviefile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification",
+      "filename": "get_notification.py",
+      "method": "GET",
+      "name": "get_notification",
+      "path": "/api/v3/notification",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification",
+      "filename": "create_notification.py",
+      "method": "POST",
+      "name": "create_notification",
+      "path": "/api/v3/notification",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/action/{name}",
+      "filename": "create_notification_action_by_name.py",
+      "method": "POST",
+      "name": "create_notification_action_by_name",
+      "path": "/api/v3/notification/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/schema",
+      "filename": "get_notification_schema.py",
+      "method": "GET",
+      "name": "get_notification_schema",
+      "path": "/api/v3/notification/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/test",
+      "filename": "create_notification_test_tool.py",
+      "method": "POST",
+      "name": "create_notification_test",
+      "path": "/api/v3/notification/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/testall",
+      "filename": "create_notification_testall.py",
+      "method": "POST",
+      "name": "create_notification_testall",
+      "path": "/api/v3/notification/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/{id}",
+      "filename": "get_notification_by_id.py",
+      "method": "GET",
+      "name": "get_notification_by_id",
+      "path": "/api/v3/notification/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/{id}",
+      "filename": "update_notification_by_id.py",
+      "method": "PUT",
+      "name": "update_notification_by_id",
+      "path": "/api/v3/notification/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/{id}",
+      "filename": "delete_notification_by_id.py",
+      "method": "DELETE",
+      "name": "delete_notification_by_id",
+      "path": "/api/v3/notification/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "parse",
+      "filename": "get_parse.py",
+      "method": "GET",
+      "name": "get_parse",
+      "path": "/api/v3/parse",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualitydefinition",
+      "filename": "get_qualitydefinition.py",
+      "method": "GET",
+      "name": "get_qualitydefinition",
+      "path": "/api/v3/qualitydefinition",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualitydefinition/limits",
+      "filename": "get_qualitydefinition_limits.py",
+      "method": "GET",
+      "name": "get_qualitydefinition_limits",
+      "path": "/api/v3/qualitydefinition/limits",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualitydefinition/update",
+      "filename": "update_qualitydefinition_update.py",
+      "method": "PUT",
+      "name": "update_qualitydefinition_update",
+      "path": "/api/v3/qualitydefinition/update",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualitydefinition/{id}",
+      "filename": "get_qualitydefinition_by_id.py",
+      "method": "GET",
+      "name": "get_qualitydefinition_by_id",
+      "path": "/api/v3/qualitydefinition/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualitydefinition/{id}",
+      "filename": "update_qualitydefinition_by_id.py",
+      "method": "PUT",
+      "name": "update_qualitydefinition_by_id",
+      "path": "/api/v3/qualitydefinition/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualityprofile",
+      "filename": "get_qualityprofile.py",
+      "method": "GET",
+      "name": "get_qualityprofile",
+      "path": "/api/v3/qualityprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualityprofile",
+      "filename": "create_qualityprofile.py",
+      "method": "POST",
+      "name": "create_qualityprofile",
+      "path": "/api/v3/qualityprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualityprofile/schema",
+      "filename": "get_qualityprofile_schema.py",
+      "method": "GET",
+      "name": "get_qualityprofile_schema",
+      "path": "/api/v3/qualityprofile/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualityprofile/{id}",
+      "filename": "get_qualityprofile_by_id.py",
+      "method": "GET",
+      "name": "get_qualityprofile_by_id",
+      "path": "/api/v3/qualityprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualityprofile/{id}",
+      "filename": "update_qualityprofile_by_id.py",
+      "method": "PUT",
+      "name": "update_qualityprofile_by_id",
+      "path": "/api/v3/qualityprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "qualityprofile/{id}",
+      "filename": "delete_qualityprofile_by_id.py",
+      "method": "DELETE",
+      "name": "delete_qualityprofile_by_id",
+      "path": "/api/v3/qualityprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue",
+      "filename": "get_queue.py",
+      "method": "GET",
+      "name": "get_queue",
+      "path": "/api/v3/queue",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue/bulk",
+      "filename": "delete_queue_bulk.py",
+      "method": "DELETE",
+      "name": "delete_queue_bulk",
+      "path": "/api/v3/queue/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue/details",
+      "filename": "get_queue_details.py",
+      "method": "GET",
+      "name": "get_queue_details",
+      "path": "/api/v3/queue/details",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue/grab/bulk",
+      "filename": "create_queue_grab_bulk.py",
+      "method": "POST",
+      "name": "create_queue_grab_bulk",
+      "path": "/api/v3/queue/grab/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue/grab/{id}",
+      "filename": "create_queue_grab_by_id.py",
+      "method": "POST",
+      "name": "create_queue_grab_by_id",
+      "path": "/api/v3/queue/grab/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue/status",
+      "filename": "get_queue_status.py",
+      "method": "GET",
+      "name": "get_queue_status",
+      "path": "/api/v3/queue/status",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "queue/{id}",
+      "filename": "delete_queue_by_id.py",
+      "method": "DELETE",
+      "name": "delete_queue_by_id",
+      "path": "/api/v3/queue/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "release",
+      "filename": "get_release.py",
+      "method": "GET",
+      "name": "get_release",
+      "path": "/api/v3/release",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "release",
+      "filename": "create_release.py",
+      "method": "POST",
+      "name": "create_release",
+      "path": "/api/v3/release",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "release/push",
+      "filename": "create_release_push.py",
+      "method": "POST",
+      "name": "create_release_push",
+      "path": "/api/v3/release/push",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "releaseprofile",
+      "filename": "get_releaseprofile.py",
+      "method": "GET",
+      "name": "get_releaseprofile",
+      "path": "/api/v3/releaseprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "releaseprofile",
+      "filename": "create_releaseprofile.py",
+      "method": "POST",
+      "name": "create_releaseprofile",
+      "path": "/api/v3/releaseprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "releaseprofile/{id}",
+      "filename": "get_releaseprofile_by_id.py",
+      "method": "GET",
+      "name": "get_releaseprofile_by_id",
+      "path": "/api/v3/releaseprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "releaseprofile/{id}",
+      "filename": "update_releaseprofile_by_id.py",
+      "method": "PUT",
+      "name": "update_releaseprofile_by_id",
+      "path": "/api/v3/releaseprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "releaseprofile/{id}",
+      "filename": "delete_releaseprofile_by_id.py",
+      "method": "DELETE",
+      "name": "delete_releaseprofile_by_id",
+      "path": "/api/v3/releaseprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "remotepathmapping",
+      "filename": "get_remotepathmapping.py",
+      "method": "GET",
+      "name": "get_remotepathmapping",
+      "path": "/api/v3/remotepathmapping",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "remotepathmapping",
+      "filename": "create_remotepathmapping.py",
+      "method": "POST",
+      "name": "create_remotepathmapping",
+      "path": "/api/v3/remotepathmapping",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "remotepathmapping/{id}",
+      "filename": "get_remotepathmapping_by_id.py",
+      "method": "GET",
+      "name": "get_remotepathmapping_by_id",
+      "path": "/api/v3/remotepathmapping/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "remotepathmapping/{id}",
+      "filename": "update_remotepathmapping_by_id.py",
+      "method": "PUT",
+      "name": "update_remotepathmapping_by_id",
+      "path": "/api/v3/remotepathmapping/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "remotepathmapping/{id}",
+      "filename": "delete_remotepathmapping_by_id.py",
+      "method": "DELETE",
+      "name": "delete_remotepathmapping_by_id",
+      "path": "/api/v3/remotepathmapping/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "rename",
+      "filename": "get_rename.py",
+      "method": "GET",
+      "name": "get_rename",
+      "path": "/api/v3/rename",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "rootfolder",
+      "filename": "get_rootfolder.py",
+      "method": "GET",
+      "name": "get_rootfolder",
+      "path": "/api/v3/rootfolder",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "rootfolder",
+      "filename": "create_rootfolder.py",
+      "method": "POST",
+      "name": "create_rootfolder",
+      "path": "/api/v3/rootfolder",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "rootfolder/{id}",
+      "filename": "get_rootfolder_by_id.py",
+      "method": "GET",
+      "name": "get_rootfolder_by_id",
+      "path": "/api/v3/rootfolder/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "rootfolder/{id}",
+      "filename": "delete_rootfolder_by_id.py",
+      "method": "DELETE",
+      "name": "delete_rootfolder_by_id",
+      "path": "/api/v3/rootfolder/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup",
+      "filename": "get_system_backup.py",
+      "method": "GET",
+      "name": "get_system_backup",
+      "path": "/api/v3/system/backup",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup/restore/upload",
+      "filename": "create_system_backup_restore_upload.py",
+      "method": "POST",
+      "name": "create_system_backup_restore_upload",
+      "path": "/api/v3/system/backup/restore/upload",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup/restore/{id}",
+      "filename": "create_system_backup_restore_by_id.py",
+      "method": "POST",
+      "name": "create_system_backup_restore_by_id",
+      "path": "/api/v3/system/backup/restore/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup/{id}",
+      "filename": "delete_system_backup_by_id.py",
+      "method": "DELETE",
+      "name": "delete_system_backup_by_id",
+      "path": "/api/v3/system/backup/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/restart",
+      "filename": "create_system_restart.py",
+      "method": "POST",
+      "name": "create_system_restart",
+      "path": "/api/v3/system/restart",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/routes",
+      "filename": "get_system_routes.py",
+      "method": "GET",
+      "name": "get_system_routes",
+      "path": "/api/v3/system/routes",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/routes/duplicate",
+      "filename": "get_system_routes_duplicate.py",
+      "method": "GET",
+      "name": "get_system_routes_duplicate",
+      "path": "/api/v3/system/routes/duplicate",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/shutdown",
+      "filename": "create_system_shutdown.py",
+      "method": "POST",
+      "name": "create_system_shutdown",
+      "path": "/api/v3/system/shutdown",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/status",
+      "filename": "get_system_status.py",
+      "method": "GET",
+      "name": "get_system_status",
+      "path": "/api/v3/system/status",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/task",
+      "filename": "get_system_task.py",
+      "method": "GET",
+      "name": "get_system_task",
+      "path": "/api/v3/system/task",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/task/{id}",
+      "filename": "get_system_task_by_id.py",
+      "method": "GET",
+      "name": "get_system_task_by_id",
+      "path": "/api/v3/system/task/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag",
+      "filename": "get_tag.py",
+      "method": "GET",
+      "name": "get_tag",
+      "path": "/api/v3/tag",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag",
+      "filename": "create_tag.py",
+      "method": "POST",
+      "name": "create_tag",
+      "path": "/api/v3/tag",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/detail",
+      "filename": "get_tag_detail.py",
+      "method": "GET",
+      "name": "get_tag_detail",
+      "path": "/api/v3/tag/detail",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/detail/{id}",
+      "filename": "get_tag_detail_by_id.py",
+      "method": "GET",
+      "name": "get_tag_detail_by_id",
+      "path": "/api/v3/tag/detail/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/{id}",
+      "filename": "get_tag_by_id.py",
+      "method": "GET",
+      "name": "get_tag_by_id",
+      "path": "/api/v3/tag/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/{id}",
+      "filename": "update_tag_by_id.py",
+      "method": "PUT",
+      "name": "update_tag_by_id",
+      "path": "/api/v3/tag/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/{id}",
+      "filename": "delete_tag_by_id.py",
+      "method": "DELETE",
+      "name": "delete_tag_by_id",
+      "path": "/api/v3/tag/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "update",
+      "filename": "get_update.py",
+      "method": "GET",
+      "name": "get_update",
+      "path": "/api/v3/update",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "wanted/cutoff",
+      "filename": "get_wanted_cutoff.py",
+      "method": "GET",
+      "name": "get_wanted_cutoff",
+      "path": "/api/v3/wanted/cutoff",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "wanted/missing",
+      "filename": "get_wanted_missing.py",
+      "method": "GET",
+      "name": "get_wanted_missing",
+      "path": "/api/v3/wanted/missing",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "ping",
+      "filename": "get_ping.py",
+      "method": "GET",
+      "name": "get_ping",
+      "path": "/ping",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "ping",
+      "filename": "head_ping.py",
+      "method": "HEAD",
+      "name": "head_ping",
+      "path": "/ping",
+      "path_params": [],
+      "summary": null
+    }
+  ],
+  "canonical_count": 228,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 2,
+  "deprecated_placeholders": [
+    {
+      "api_path_override": null,
+      "deprecated": true,
+      "endpoint": "exclusions",
+      "filename": "get_exclusions.py",
+      "method": "GET",
+      "name": "get_exclusions",
+      "path": "/api/v3/exclusions",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": true,
+      "endpoint": "moviefile/editor",
+      "filename": "update_moviefile_editor.py",
+      "method": "PUT",
+      "name": "update_moviefile_editor",
+      "path": "/api/v3/moviefile/editor",
+      "path_params": [],
+      "summary": null
+    }
+  ],
+  "extra_paths": [
+    "/ping"
+  ],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": false,
+  "namespace": "radarr",
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "/home/jay/Documents/code/nexus/tools/radarr/radarr",
+  "skipped": [
+    {
+      "method": "GET",
+      "path": "/",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "GET",
+      "path": "/api",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "GET",
+      "path": "/content/{path}",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "GET",
+      "path": "/feed/v3/calendar/radarr.ics",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "GET",
+      "path": "/login",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "POST",
+      "path": "/login",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "GET",
+      "path": "/logout",
+      "reason": "out_of_scope"
+    },
+    {
+      "method": "GET",
+      "path": "/{path}",
+      "reason": "out_of_scope"
+    }
+  ],
+  "skipped_count": 8,
+  "skipped_out_of_scope_count": 8,
+  "skipped_unsupported_count": 0,
+  "spec": "/home/jay/Documents/code/nexus/tools/radarr/openapi.json",
+  "tools_root": "/home/jay/Documents/code/nexus/tools/radarr",
+  "write_mode": true,
+  "written_files": [
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_alttitle.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_alttitle_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_autotagging.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_autotagging.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_autotagging_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_autotagging_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_autotagging_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_autotagging_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_blocklist.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_blocklist_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_blocklist_movie.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_blocklist_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_calendar.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_collection.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_collection.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_collection_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_collection_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_command.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_command.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_command_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_command_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_downloadclient.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_downloadclient_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_downloadclient_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_host.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_host_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_host_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_importlist.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_importlist_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_importlist_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_indexer.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_indexer_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_indexer_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_mediamanagement.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_mediamanagement_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_mediamanagement_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_metadata.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_metadata_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_metadata_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_naming.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_naming_examples.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_naming_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_naming_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_ui.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_config_ui_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_config_ui_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_credit.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_credit_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_customfilter.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_customfilter.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_customfilter_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_customfilter_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_customfilter_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_customformat.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_customformat.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_customformat_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_customformat_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_customformat_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_customformat_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_customformat_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_customformat_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_delayprofile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_delayprofile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_delayprofile_reorder_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_delayprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_delayprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_delayprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_diskspace.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_downloadclient.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_downloadclient.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_downloadclient_action_by_name.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_downloadclient_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_downloadclient_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_downloadclient_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_downloadclient_test_tool.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_downloadclient_testall.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_downloadclient_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_downloadclient_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_downloadclient_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_exclusions.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_exclusions_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_exclusions_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_exclusions_paged.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_exclusions_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_exclusions_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_exclusions_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_extrafile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_filesystem.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_filesystem_mediafiles.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_filesystem_type.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_health.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_history.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_history_failed_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_history_movie.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_history_since.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_importlist.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_importlist.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_importlist_action_by_name.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_importlist_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_importlist_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_importlist_movie.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_importlist_movie.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_importlist_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_importlist_test_tool.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_importlist_testall.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_importlist_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_importlist_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_importlist_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_indexer.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_indexer.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_indexer_action_by_name.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_indexer_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_indexer_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_indexer_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_indexer_test_tool.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_indexer_testall.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_indexer_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_indexer_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_indexer_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_indexerflag.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_language.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_language_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_localization.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_localization_language.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_log.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_log_file.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_log_file_update.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_log_file_update_by_filename.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_log_file_by_filename.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_manualimport.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_manualimport.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_mediacover_by_movie_id_by_filename.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_metadata.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_metadata.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_metadata_action_by_name.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_metadata_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_metadata_test_tool.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_metadata_testall.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_metadata_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_metadata_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_metadata_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_movie.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_movie.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_movie_editor.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_movie_editor.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_movie_import.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_movie_lookup.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_movie_lookup_imdb.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_movie_lookup_tmdb.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_movie_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_movie_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_movie_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_movie_by_id_folder.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_moviefile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_moviefile_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_moviefile_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_moviefile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_moviefile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_moviefile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_notification.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_notification.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_notification_action_by_name.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_notification_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_notification_test_tool.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_notification_testall.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_notification_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_notification_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_notification_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_parse.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_qualitydefinition.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_qualitydefinition_limits.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_qualitydefinition_update.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_qualitydefinition_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_qualitydefinition_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_qualityprofile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_qualityprofile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_qualityprofile_schema.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_qualityprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_qualityprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_qualityprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_queue.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_queue_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_queue_details.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_queue_grab_bulk.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_queue_grab_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_queue_status.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_queue_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_release.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_release.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_release_push.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_releaseprofile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_releaseprofile.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_releaseprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_releaseprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_releaseprofile_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_remotepathmapping.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_remotepathmapping.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_remotepathmapping_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_remotepathmapping_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_remotepathmapping_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_rename.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_rootfolder.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_rootfolder.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_rootfolder_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_rootfolder_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_system_backup.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_system_backup_restore_upload.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_system_backup_restore_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_system_backup_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_system_restart.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_system_routes.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_system_routes_duplicate.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_system_shutdown.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_system_status.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_system_task.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_system_task_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_tag.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/create_tag.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_tag_detail.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_tag_detail_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_tag_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_tag_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/delete_tag_by_id.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_update.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_wanted_cutoff.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_wanted_missing.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_ping.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/head_ping.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/get_exclusions.py",
+    "/home/jay/Documents/code/nexus/tools/radarr/radarr/update_moviefile_editor.py"
+  ]
+}
