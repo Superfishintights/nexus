@@ -84,6 +84,59 @@ class TautulliClient:
 
         return response_payload.get("data")
 
+    def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None, *, api_path: Optional[str] = None) -> Any:
+        """Compatibility method for generated modules."""
+        del api_path
+        return self.call(endpoint.strip("/"), params=params)
+
+    def delete(self, endpoint: str, params: Optional[Dict[str, Any]] = None, *, api_path: Optional[str] = None) -> Any:
+        """Compatibility method for generated modules."""
+        del api_path
+        return self.call(endpoint.strip("/"), params=params)
+
+    def head(self, endpoint: str, params: Optional[Dict[str, Any]] = None, *, api_path: Optional[str] = None) -> Any:
+        """Compatibility method for generated modules."""
+        del api_path
+        return self.call(endpoint.strip("/"), params=params)
+
+    def post(
+        self,
+        endpoint: str,
+        body: Optional[Any] = None,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
+        """Compatibility method for generated modules."""
+        del api_path
+        merged: Dict[str, Any] = {}
+        if params:
+            merged.update({k: v for k, v in params.items() if v is not None})
+        if isinstance(body, dict):
+            merged.update({k: v for k, v in body.items() if v is not None})
+        elif body is not None:
+            merged["body"] = body
+        return self.call(endpoint.strip("/"), params=merged or None)
+
+    def put(
+        self,
+        endpoint: str,
+        body: Optional[Any] = None,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
+        """Compatibility method for generated modules."""
+        del api_path
+        merged: Dict[str, Any] = {}
+        if params:
+            merged.update({k: v for k, v in params.items() if v is not None})
+        if isinstance(body, dict):
+            merged.update({k: v for k, v in body.items() if v is not None})
+        elif body is not None:
+            merged["body"] = body
+        return self.call(endpoint.strip("/"), params=merged or None)
+
 
 _default_client: Optional[TautulliClient] = None
 _default_client_key: Optional[tuple[str, str]] = None

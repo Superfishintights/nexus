@@ -41,44 +41,103 @@ class SonarrClient:
 
         self.base_url = self.base_url.rstrip("/")
 
-    def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Any:
+    def get(
+        self,
+        endpoint: str,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
         """Make a GET request to Sonarr API."""
-        return self._request("GET", endpoint, params=params)
+        return self._request("GET", endpoint, params=params, api_path=api_path)
 
-    def post(self, endpoint: str, body: Optional[Dict[str, Any]] = None, params: Optional[Dict[str, Any]] = None) -> Any:
+    def post(
+        self,
+        endpoint: str,
+        body: Optional[Any] = None,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
         """Make a POST request to Sonarr API."""
-        return self._request("POST", endpoint, params=params, body=body)
+        return self._request("POST", endpoint, params=params, body=body, api_path=api_path)
 
-    def put(self, endpoint: str, body: Optional[Dict[str, Any]] = None, params: Optional[Dict[str, Any]] = None) -> Any:
+    def put(
+        self,
+        endpoint: str,
+        body: Optional[Any] = None,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
         """Make a PUT request to Sonarr API."""
-        return self._request("PUT", endpoint, params=params, body=body)
+        return self._request("PUT", endpoint, params=params, body=body, api_path=api_path)
 
-    def delete(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Any:
+    def delete(
+        self,
+        endpoint: str,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
         """Make a DELETE request to Sonarr API."""
-        return self._request("DELETE", endpoint, params=params)
+        return self._request("DELETE", endpoint, params=params, api_path=api_path)
+
+    def head(
+        self,
+        endpoint: str,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        api_path: Optional[str] = None,
+    ) -> Any:
+        """Make a HEAD request to Sonarr API."""
+        return self._request("HEAD", endpoint, params=params, api_path=api_path)
+
+    def _build_url(self, endpoint: str, api_path: Optional[str]) -> str:
+        endpoint = endpoint.lstrip("/")
+        chosen_api_path = self.api_path if api_path is None else api_path
+        path_prefix = chosen_api_path.strip("/") if chosen_api_path else ""
+
+        url = self.base_url
+        if path_prefix:
+            url = f"{url}/{path_prefix}"
+        if endpoint:
+            url = f"{url}/{endpoint}"
+        return url
 
     def _request(
         self,
         method: str,
         endpoint: str,
         params: Optional[Dict[str, Any]] = None,
-        body: Optional[Dict[str, Any]] = None,
+        body: Optional[Any] = None,
+        api_path: Optional[str] = None,
     ) -> Any:
-        endpoint = endpoint.lstrip("/")
-        url = f"{self.base_url}{self.api_path}/{endpoint}"
+        url = self._build_url(endpoint, api_path)
 
         if params:
-            # Filter None values and convert bools/ints
-            query_params = {}
+            # Filter None values and support repeated query values.
+            query_params: Dict[str, Union[str, list[str]]] = {}
             for k, v in params.items():
                 if v is None:
                     continue
-                if isinstance(v, bool):
+                if isinstance(v, (list, tuple)):
+                    values: list[str] = []
+                    for item in v:
+                        if item is None:
+                            continue
+                        if isinstance(item, bool):
+                            values.append("true" if item else "false")
+                        else:
+                            values.append(str(item))
+                    if values:
+                        query_params[k] = values
+                elif isinstance(v, bool):
                     query_params[k] = "true" if v else "false"
                 else:
                     query_params[k] = str(v)
             if query_params:
-                url += f"?{urllib.parse.urlencode(query_params)}"
+                url += f"?{urllib.parse.urlencode(query_params, doseq=True)}"
 
         headers = {
             "X-Api-Key": self.api_key,
@@ -93,10 +152,22 @@ class SonarrClient:
         try:
             request = urllib.request.Request(url, data=data, headers=headers, method=method)
             with urllib.request.urlopen(request, timeout=self.timeout_s) as response:
-                response_data = response.read().decode("utf-8")
-                if not response_data:
+                raw_data = response.read()
+                if not raw_data:
                     return None
-                return json.loads(response_data)
+                response_data = raw_data.decode(response.headers.get_content_charset() or "utf-8")
+
+                content_type = response.headers.get("Content-Type", "").lower()
+                if "json" in content_type:
+                    try:
+                        return json.loads(response_data)
+                    except json.JSONDecodeError:
+                        return response_data
+
+                try:
+                    return json.loads(response_data)
+                except json.JSONDecodeError:
+                    return response_data
 
         except urllib.error.HTTPError as exc:
             error_body = exc.read().decode("utf-8") if exc.fp else "No error details"
