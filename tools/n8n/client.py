@@ -9,6 +9,11 @@ from typing import Any, Dict, Optional, Union
 
 from nexus.config import get_setting
 
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 NexusMCP/0.1"
+)
+
 
 class N8NClient:
     """Simple n8n REST API client using only standard library."""
@@ -68,6 +73,7 @@ class N8NClient:
             req.add_header("X-N8N-API-KEY", self.auth_header)
             req.add_header("Content-Type", "application/json")
             req.add_header("Accept", "application/json")
+            req.add_header("User-Agent", DEFAULT_USER_AGENT)
 
             if data is not None:
                 json_data = json.dumps(data).encode("utf-8")

@@ -35,9 +35,14 @@ def add_node(
     client = get_client()
     
     workflow = client._make_request(f"workflows/{workflow_id}")
-    
-    nodes = workflow.get("nodes", [])
-    connections = workflow.get("connections", {})
+    if not isinstance(workflow, dict):
+        raise ValueError(f"Workflow {workflow_id} returned an unexpected response shape")
+
+    nodes = list(workflow.get("nodes", []) or [])
+    connections = dict(workflow.get("connections", {}) or {})
+
+    if any(existing.get("name") == node_name for existing in nodes if isinstance(existing, dict)):
+        raise ValueError(f"Workflow {workflow_id} already contains a node named {node_name!r}")
     
     # Calculate position if not provided
     if not position:
@@ -59,39 +64,30 @@ def add_node(
     nodes.append(new_node)
     
     if connect_to:
-        # Check if connect_to node exists
-        found = False
-        for n in nodes:
-            if n["name"] == connect_to:
-                found = True
-                break
-        
-        if not found:
-             # Just add the node without connection if not found (or raise error? tool should probably warn but proceed)
-             pass
-        else:
-            if connect_to not in connections:
-                connections[connect_to] = {"main": []}
-            
-            # Simple connection logic (main output 0 -> main input 0)
-            # n8n connection structure: "NodeName": { "main": [ [ { "node": "TargetNode", "type": "main", "index": 0 } ] ] }
-            if "main" not in connections[connect_to]:
-                connections[connect_to]["main"] = []
-                
-            # Ensure we have a list for the first output
-            if not connections[connect_to]["main"]:
-                connections[connect_to]["main"].append([])
-            
-            connections[connect_to]["main"][0].append({
-                "node": node_name,
-                "type": "main",
-                "index": 0
-            })
+        if not any(n.get("name") == connect_to for n in nodes if isinstance(n, dict)):
+            raise ValueError(
+                f"Workflow {workflow_id} does not contain a source node named {connect_to!r}"
+            )
+
+        if connect_to not in connections or not isinstance(connections[connect_to], dict):
+            connections[connect_to] = {"main": []}
+
+        # Simple connection logic (main output 0 -> main input 0).
+        main_outputs = connections[connect_to].setdefault("main", [])
+        if not isinstance(main_outputs, list):
+            raise ValueError(f"Workflow {workflow_id} has an invalid connection shape for {connect_to!r}")
+        if not main_outputs:
+            main_outputs.append([])
+        if not isinstance(main_outputs[0], list):
+            raise ValueError(f"Workflow {workflow_id} has an invalid first output connection list for {connect_to!r}")
+
+        main_outputs[0].append({
+            "node": node_name,
+            "type": "main",
+            "index": 0,
+        })
 
     # Update workflow
-    payload = {
-        "nodes": nodes,
-        "connections": connections
-    }
-    
+    payload = {"nodes": nodes, "connections": connections}
+
     return client._make_request(f"workflows/{workflow_id}", method="PUT", data=payload)

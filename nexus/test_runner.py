@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Example script demonstrating direct usage of the nexus runner.
-This bypasses the MCP server and directly calls run_user_code.
-"""
+"""Example script demonstrating direct usage of the nexus runner."""
 
 import sys
 from pathlib import Path
@@ -44,8 +41,9 @@ RESULT = tools_list
         for tool in result1.result[:3]:
             print(f"  - {tool['name']} from {tool['module']}")
         print("  ...")
+        print(f"Metadata: {result1.metadata}")
     except RunnerExecutionError as e:
-        print(f"Error: {e}")
+        print(f"Error: {e.details.to_dict()}")
     print()
 
     # Example 2: Try to use a Jira tool (will fail if JIRA env vars not set)
@@ -71,8 +69,9 @@ except Exception as e:
         print(f"Result: {result2.result}")
         if result2.logs:
             print(f"Logs: {result2.logs}")
+        print(f"Metadata: {result2.metadata}")
     except RunnerExecutionError as e:
-        print(f"Execution Error: {e}")
+        print(f"Execution Error: {e.details.to_dict()}")
     print()
 
     # Example 3: Demonstrate Python control flow
@@ -99,8 +98,9 @@ RESULT = {
     try:
         result3 = run_user_code(code3)
         print(f"Result: {result3.result}")
+        print(f"Metadata: {result3.metadata}")
     except RunnerExecutionError as e:
-        print(f"Error: {e}")
+        print(f"Error: {e.details.to_dict()}")
     print()
 
     print("=== Test Complete ===")

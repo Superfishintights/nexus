@@ -1,5 +1,6 @@
 from tools.jira.client import JiraClient
 from tools.n8n.client import N8NClient
+from tools.radarr.client import RadarrClient
 
 
 def test_n8n_build_url_encodes_query_params() -> None:
@@ -39,3 +40,18 @@ def test_jira_build_url_normalizes_leading_slash() -> None:
         == "https://jira.example/rest/api/2/issue/PROJ-1"
     )
 
+
+def test_radarr_build_url_uses_v3_by_default() -> None:
+    client = RadarrClient(base_url="https://radarr.example", api_key="test")
+
+    assert client._build_url("/movie", None) == "https://radarr.example/api/v3/movie"
+
+
+def test_radarr_legacy_token_fallback(monkeypatch) -> None:
+    monkeypatch.setenv("RADARR_URL", "https://radarr.example")
+    monkeypatch.delenv("RADARR_API_KEY", raising=False)
+    monkeypatch.setenv("RADARR_TOKEN", "legacy-token")
+
+    client = RadarrClient()
+
+    assert client.api_key == "legacy-token"

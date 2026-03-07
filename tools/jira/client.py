@@ -8,6 +8,11 @@ from typing import Any, Dict, Optional
 
 from nexus.config import get_setting
 
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 NexusMCP/0.1"
+)
+
 
 class JiraClient:
     """Simple Jira REST API client using only standard library."""
@@ -51,6 +56,7 @@ class JiraClient:
             request.add_header("Authorization", self.auth_header)
             request.add_header("Content-Type", "application/json")
             request.add_header("Accept", "application/json")
+            request.add_header("User-Agent", DEFAULT_USER_AGENT)
 
             with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
                 if response.status == 200:

@@ -20,7 +20,13 @@ except ImportError:
     sys.exit(1)
 
 from nexus.runner import run_user_code, RunnerExecutionError
-from nexus.tool_catalog import get_catalog, search_catalog, spec_to_dict, ToolSpec
+from nexus.tool_catalog import (
+    ToolSpec,
+    get_catalog,
+    get_catalog_diagnostics,
+    search_catalog,
+    spec_to_dict,
+)
 from nexus.tool_registry import get_tool as get_loaded_tool, is_tool_loaded
 
 mcp = FastMCP("Nexus MCP Server")
@@ -60,6 +66,7 @@ def run_code(code: str) -> str:
             'success': True,
             'result': result.result,
             'logs': result.logs,
+            'metadata': result.metadata,
         }
 
         return _json_dumps(response)
@@ -68,7 +75,7 @@ def run_code(code: str) -> str:
         error_response = {
             'success': False,
             'error': 'Code execution failed',
-            'details': str(e),
+            'details': e.details.to_dict(),
         }
         return _json_dumps(error_response)
     except Exception as e:
@@ -109,6 +116,9 @@ def search_tools(
         "totalMatches": len(matches),
         "tools": tools,
     }
+    diagnostics = get_catalog_diagnostics()
+    if diagnostics["warnings"]:
+        response["warnings"] = diagnostics["warnings"]
     return _json_dumps(response)
 
 
@@ -131,6 +141,9 @@ def get_tool(name: str, detail_level: str = "full") -> str:
             "success": True,
             "tool": _tool_to_dict(spec, detail_level=detail_level),
         }
+        diagnostics = get_catalog_diagnostics()
+        if diagnostics["warnings"]:
+            response["warnings"] = diagnostics["warnings"]
         return _json_dumps(response)
 
     if is_tool_loaded(name):

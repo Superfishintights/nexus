@@ -1,8 +1,7 @@
 # Tools
 
-This repository includes a lightweight Jira REST v2 client (`tools/jira/client.py`),
-an example Jira tool (`tools/jira/get_issue_status.py`), and a small Tautulli toolset
-(`tools/tautulli/api.py`).
+This repository includes built-in toolsets for Jira, n8n, Sonarr, Radarr, and Tautulli.
+Some are hand-authored, some are generated, and Nexus discovers all of them lazily.
 
 For larger toolsets (dozens/hundreds of tools), keep them in separate packages and have
 Nexus discover them lazily via `NEXUS_TOOL_PACKAGES`.
@@ -37,9 +36,15 @@ Tautulli tools require:
 - `TAUTULLI_URL`: Base URL for your Tautulli instance (e.g., `https://tautulli.example.com`)
 - `TAUTULLI_API_KEY`: API key for Tautulli
 
-Built-in Tautulli tools live in `tools/tautulli/api.py` (e.g., `tautulli_get_activity`, `tautulli_get_history`).
-Canonical names are namespaced (e.g., `tautulli.get_activity`, `tautulli.get_history`) and the old
-prefixed names remain available as aliases for backwards compatibility.
+Radarr tools require:
+
+- `RADARR_URL`: Base URL for your Radarr instance (e.g., `https://radarr.example.com`)
+- `RADARR_API_KEY`: API key for Radarr (`RADARR_TOKEN` is accepted as a legacy fallback)
+
+Built-in Tautulli tools include a curated semantic layer in `tools/tautulli/api.py` plus
+generated endpoint wrappers under `tools/tautulli/`. Canonical names are namespaced
+(for example `tautulli.get_activity`) and compatibility aliases remain available where
+explicitly defined.
 
 ## Writing Tools
 

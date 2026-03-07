@@ -3,9 +3,9 @@ requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "jira-nexus"
+name = "nexus-mcp"
 version = "0.1.0"
-description = "Code-mode MCP server for Jira integration"
+description = "Code-mode MCP server for agent-agnostic tool orchestration"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

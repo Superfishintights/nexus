@@ -2,7 +2,8 @@
 
 Nexus is a “code‑mode” Model Context Protocol (MCP) server. It exposes a small
 MCP surface (`run_code`, `search_tools`, `get_tool`) while letting models
-orchestrate many domain tools programmatically in Python.
+orchestrate many domain tools programmatically in Python across services such as
+Jira, n8n, Sonarr, Radarr, and Tautulli.
 
 ## Requirements
 
