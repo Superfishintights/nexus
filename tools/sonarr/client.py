@@ -10,6 +10,11 @@ from typing import Any, Dict, Optional, Union
 
 from nexus.config import get_setting
 
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 NexusMCP/0.1"
+)
+
 
 class SonarrClient:
     """Simple Sonarr API client using only standard library."""
@@ -143,6 +148,7 @@ class SonarrClient:
             "X-Api-Key": self.api_key,
             "Accept": "application/json",
             "Content-Type": "application/json",
+            "User-Agent": DEFAULT_USER_AGENT,
         }
 
         data = None

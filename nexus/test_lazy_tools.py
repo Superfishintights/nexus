@@ -20,7 +20,7 @@ def dummy_tools(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
             """
             from nexus.tool_registry import register_tool
 
-            @register_tool(description="Alpha tool", examples=["alpha(1)"])
+            @register_tool(description="Alpha tool", examples=["alpha(1)"], aliases=["legacy_alpha"])
             def alpha(x: int, y: str = "hi") -> str:
                 return f"{x}-{y}"
             """
@@ -80,6 +80,7 @@ def test_tools_mapping_is_lazy(dummy_tools: str, monkeypatch: pytest.MonkeyPatch
 
     keys = list(tools.keys())
     assert first_name in keys
+    assert "legacy_alpha" not in keys
     assert calls["count"] == 1
 
     other_name = next(name for name in keys if name != first_name)
@@ -104,6 +105,17 @@ def test_tools_search_matches_catalog_order(dummy_tools: str) -> None:
     assert actual == expected
 
 
+def test_tools_search_supports_multiword_queries(dummy_tools: str) -> None:
+    clear_registry()
+    tool_catalog.get_catalog(refresh=True)
+
+    ns = build_execution_globals()
+    results = ns["TOOLS"].search("alpha tool", limit=5)
+
+    assert results
+    assert results[0]["name"] == "alpha"
+
+
 def test_tools_get_tool_and_loaded_overrides(dummy_tools: str) -> None:
     clear_registry()
     tool_catalog.get_catalog(refresh=True)
@@ -125,10 +137,13 @@ def test_tools_get_tool_and_loaded_overrides(dummy_tools: str) -> None:
     assert alpha_summary["loaded"] is True
     assert alpha_summary["signature"] == info.signature
 
+    # Alias lookups still work directly even though aliases are hidden from iteration.
+    alias_summary = tools["legacy_alpha"]
+    assert alias_summary["aliasOf"] == "alpha"
+
     # Loaded-only fallback: tool exists in registry, even if absent from catalog.
     loaded_info = get_tool("alpha")
     assert loaded_info.name == "alpha"
 
     with pytest.raises(KeyError):
         tools.get_tool("does_not_exist", detail_level="full")
-

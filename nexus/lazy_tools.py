@@ -9,32 +9,14 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, Dict, List, Tuple
 
-from .tool_catalog import ToolSpec, spec_to_dict
+from .tool_catalog import (
+    ToolSpec,
+    discoverable_specs,
+    get_catalog_diagnostics,
+    search_specs,
+    spec_to_dict,
+)
 from .tool_registry import ToolInfo, get_tool as get_loaded_tool, is_tool_loaded
-
-
-def _score_spec(spec: ToolSpec, query: str) -> int:
-    """Same scoring semantics as nexus.tool_catalog.score_spec (duplicated here).
-
-    We keep this local so LazyTools can search a provided catalog snapshot
-    without calling search_catalog(), which forces a catalog refresh.
-    """
-
-    name = spec.name.lower()
-    module = spec.module.lower()
-    description = spec.description.lower()
-
-    if name == query:
-        return 100
-    if name.startswith(query):
-        return 80
-    if query in name:
-        return 60
-    if query in module:
-        return 50
-    if query in description:
-        return 40
-    return 0
 
 
 def _tool_info_to_dict(info: ToolInfo, *, detail_level: str) -> Dict[str, Any]:
@@ -66,13 +48,23 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
 
     def __init__(self, catalog: Mapping[str, ToolSpec]):
         self._catalog = catalog
+        self._discoverable_names = tuple(
+            spec.name
+            for spec in discoverable_specs(
+                self._catalog.values(),
+                catalog=dict(self._catalog),
+            )
+        )
         self._cache: Dict[Tuple[str, str], Dict[str, Any]] = {}
 
     def __iter__(self):
-        return iter(self._catalog)
+        return iter(self._discoverable_names)
 
     def __len__(self) -> int:
-        return len(self._catalog)
+        return len(self._discoverable_names)
+
+    def __contains__(self, name: object) -> bool:
+        return isinstance(name, str) and name in self._catalog
 
     def __getitem__(self, name: str) -> Dict[str, Any]:
         spec = self._catalog[name]
@@ -114,28 +106,8 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
     ) -> List[Dict[str, Any]]:
         """Search within this catalog snapshot."""
 
-        if limit <= 0:
-            return []
-
-        # Keep discovery focused on canonical tool names by default.
-        specs = [spec for spec in self._catalog.values() if spec.alias_of is None]
-
-        q = (query or "").strip().lower()
-        if not q:
-            top = sorted(specs, key=lambda spec: spec.name)[:limit]
-            return [self._spec_to_tool_dict(spec, detail_level=detail_level) for spec in top]
-
-        scored: List[Tuple[int, ToolSpec]] = []
-        for spec in specs:
-            score = _score_spec(spec, q)
-            if score > 0:
-                scored.append((score, spec))
-
-        scored.sort(key=lambda item: (-item[0], item[1].name))
-        return [
-            self._spec_to_tool_dict(spec, detail_level=detail_level)
-            for _, spec in scored[:limit]
-        ]
+        specs = search_specs(self._catalog.values(), query, limit=limit)
+        return [self._spec_to_tool_dict(spec, detail_level=detail_level) for spec in specs]
 
     def get_tool(self, name: str, detail_level: str = "full") -> Dict[str, Any]:
         """Return metadata for a single tool, falling back to loaded-only tools."""
@@ -148,6 +120,11 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
             return _tool_info_to_dict(get_loaded_tool(name), detail_level=detail_level)
 
         raise KeyError(f"Unknown tool: {name}")
+
+    def diagnostics(self) -> Dict[str, Any]:
+        """Return catalog diagnostics for the current tool snapshot."""
+
+        return get_catalog_diagnostics()
 
 
 __all__ = ["LazyTools"]

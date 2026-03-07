@@ -73,9 +73,15 @@ def _ensure_tools_in_env() -> None:
 
 
 def _build_catalog_and_assert_tools() -> None:
-    from nexus.tool_catalog import get_catalog
+    from nexus.tool_catalog import get_catalog, get_catalog_diagnostics
 
     catalog = get_catalog(refresh=True)
+    diagnostics = get_catalog_diagnostics()
+    if diagnostics["warnings"]:
+        raise RuntimeError(
+            "Catalog warnings detected during selftest: "
+            + "; ".join(diagnostics["warnings"])
+        )
 
     expected = {
         "jira.get_issue_status",
@@ -106,6 +112,10 @@ def _runner_smoke() -> None:
     )
     if rr.result != 42:
         raise RuntimeError(f"run_user_code returned unexpected RESULT: {rr.result!r}")
+    if rr.metadata.get("executionModel") != "subprocess":
+        raise RuntimeError(f"run_user_code did not use subprocess execution: {rr.metadata!r}")
+    if rr.metadata.get("limits", {}).get("timeoutSeconds", 0) <= 0:
+        raise RuntimeError(f"run_user_code returned invalid limits metadata: {rr.metadata!r}")
 
 
 def main() -> int:
