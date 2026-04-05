@@ -1,0 +1,1609 @@
+{
+  "api_prefix": "/api/v2",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder",
+      "filename": "get_account_holder.py",
+      "method": "GET",
+      "name": "get_account_holder",
+      "path": "/api/v2/account-holder",
+      "path_params": [],
+      "summary": "Get basic information about the account holder"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/business",
+      "filename": "get_account_holder_business.py",
+      "method": "GET",
+      "name": "get_account_holder_business",
+      "path": "/api/v2/account-holder/business",
+      "path_params": [],
+      "summary": "Get a business account holder's details"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/business/correspondence-address",
+      "filename": "get_account_holder_business_correspondence_address.py",
+      "method": "GET",
+      "name": "get_account_holder_business_correspondence_address",
+      "path": "/api/v2/account-holder/business/correspondence-address",
+      "path_params": [],
+      "summary": "Get a company's correspondence address"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/business/registered-address",
+      "filename": "get_account_holder_business_registered_address.py",
+      "method": "GET",
+      "name": "get_account_holder_business_registered_address",
+      "path": "/api/v2/account-holder/business/registered-address",
+      "path_params": [],
+      "summary": "Get a company's registered address"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/individual",
+      "filename": "get_account_holder_individual.py",
+      "method": "GET",
+      "name": "get_account_holder_individual",
+      "path": "/api/v2/account-holder/individual",
+      "path_params": [],
+      "summary": "Get an individual account holder's details"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/individual/email",
+      "filename": "update_account_holder_individual_email.py",
+      "method": "PUT",
+      "name": "update_account_holder_individual_email",
+      "path": "/api/v2/account-holder/individual/email",
+      "path_params": [],
+      "summary": "Update an individual account holder's email address"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/joint",
+      "filename": "get_account_holder_joint.py",
+      "method": "GET",
+      "name": "get_account_holder_joint",
+      "path": "/api/v2/account-holder/joint",
+      "path_params": [],
+      "summary": "Get a joint account holder's details"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/name",
+      "filename": "get_account_holder_name.py",
+      "method": "GET",
+      "name": "get_account_holder_name",
+      "path": "/api/v2/account-holder/name",
+      "path_params": [],
+      "summary": "Get the name of the account holder"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/sole-trader",
+      "filename": "get_account_holder_sole_trader.py",
+      "method": "GET",
+      "name": "get_account_holder_sole_trader",
+      "path": "/api/v2/account-holder/sole-trader",
+      "path_params": [],
+      "summary": "Get sole trader business details"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/{accountHolderUid}/profile-image",
+      "filename": "get_account_holder_by_account_holder_uid_profile_image.py",
+      "method": "GET",
+      "name": "get_account_holder_by_account_holder_uid_profile_image",
+      "path": "/api/v2/account-holder/{accountHolderUid}/profile-image",
+      "path_params": [
+        [
+          "account_holder_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a profile image if one exists"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/{accountHolderUid}/profile-image",
+      "filename": "update_account_holder_by_account_holder_uid_profile_image.py",
+      "method": "PUT",
+      "name": "update_account_holder_by_account_holder_uid_profile_image",
+      "path": "/api/v2/account-holder/{accountHolderUid}/profile-image",
+      "path_params": [
+        [
+          "account_holder_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update a profile image if one already exists"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account-holder/{accountHolderUid}/profile-image",
+      "filename": "delete_account_holder_by_account_holder_uid_profile_image.py",
+      "method": "DELETE",
+      "name": "delete_account_holder_by_account_holder_uid_profile_image",
+      "path": "/api/v2/account-holder/{accountHolderUid}/profile-image",
+      "path_params": [
+        [
+          "account_holder_uid",
+          "str"
+        ]
+      ],
+      "summary": "Delete a profile image if one exists"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals",
+      "filename": "get_account_by_account_uid_savings_goals.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_savings_goals",
+      "path": "/api/v2/account/{accountUid}/savings-goals",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get all savings goals"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals",
+      "filename": "update_account_by_account_uid_savings_goals.py",
+      "method": "PUT",
+      "name": "update_account_by_account_uid_savings_goals",
+      "path": "/api/v2/account/{accountUid}/savings-goals",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Create a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}",
+      "filename": "get_account_by_account_uid_savings_goals_by_savings_goal_uid.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_savings_goals_by_savings_goal_uid",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}",
+      "filename": "update_account_by_account_uid_savings_goals_by_savings_goal_uid.py",
+      "method": "PUT",
+      "name": "update_account_by_account_uid_savings_goals_by_savings_goal_uid",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update an existing goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}",
+      "filename": "delete_account_by_account_uid_savings_goals_by_savings_goal_uid.py",
+      "method": "DELETE",
+      "name": "delete_account_by_account_uid_savings_goals_by_savings_goal_uid",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Delete a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}/add-money/{transferUid}",
+      "filename": "update_account_by_account_uid_savings_goals_by_savings_goal_uid_add_money_by_transfer_uid.py",
+      "method": "PUT",
+      "name": "update_account_by_account_uid_savings_goals_by_savings_goal_uid_add_money_by_transfer_uid",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/add-money/{transferUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ],
+        [
+          "transfer_uid",
+          "str"
+        ]
+      ],
+      "summary": "Add money into a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}/photo",
+      "filename": "get_account_by_account_uid_savings_goals_by_savings_goal_uid_photo.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_savings_goals_by_savings_goal_uid_photo",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/photo",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the photo associated with a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}/recurring-transfer",
+      "filename": "get_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/recurring-transfer",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the recurring transfer of a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}/recurring-transfer",
+      "filename": "update_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer.py",
+      "method": "PUT",
+      "name": "update_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/recurring-transfer",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Create a recurring transfer into a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}/recurring-transfer",
+      "filename": "delete_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer.py",
+      "method": "DELETE",
+      "name": "delete_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/recurring-transfer",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ]
+      ],
+      "summary": "Delete the recurring transfer of a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/savings-goals/{savingsGoalUid}/withdraw-money/{transferUid}",
+      "filename": "update_account_by_account_uid_savings_goals_by_savings_goal_uid_withdraw_money_by_transfer_uid.py",
+      "method": "PUT",
+      "name": "update_account_by_account_uid_savings_goals_by_savings_goal_uid_withdraw_money_by_transfer_uid",
+      "path": "/api/v2/account/{accountUid}/savings-goals/{savingsGoalUid}/withdraw-money/{transferUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "savings_goal_uid",
+          "str"
+        ],
+        [
+          "transfer_uid",
+          "str"
+        ]
+      ],
+      "summary": "Withdraw money from a savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/spaces",
+      "filename": "get_account_by_account_uid_spaces.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_spaces",
+      "path": "/api/v2/account/{accountUid}/spaces",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get all active savings and spending spaces"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/spaces/spending/{spaceUid}",
+      "filename": "get_account_by_account_uid_spaces_spending_by_space_uid.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_spaces_spending_by_space_uid",
+      "path": "/api/v2/account/{accountUid}/spaces/spending/{spaceUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "space_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a spending space"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "account/{accountUid}/spaces/{spaceUid}/photo",
+      "filename": "get_account_by_account_uid_spaces_by_space_uid_photo.py",
+      "method": "GET",
+      "name": "get_account_by_account_uid_spaces_by_space_uid_photo",
+      "path": "/api/v2/account/{accountUid}/spaces/{spaceUid}/photo",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "space_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the photo associated with a space"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "accounts",
+      "filename": "get_accounts.py",
+      "method": "GET",
+      "name": "get_accounts",
+      "path": "/api/v2/accounts",
+      "path_params": [],
+      "summary": "Get the accounts associated with an account holder"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "accounts/{accountUid}/balance",
+      "filename": "get_accounts_by_account_uid_balance.py",
+      "method": "GET",
+      "name": "get_accounts_by_account_uid_balance",
+      "path": "/api/v2/accounts/{accountUid}/balance",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get an account's balance"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "accounts/{accountUid}/confirmation-of-funds",
+      "filename": "get_accounts_by_account_uid_confirmation_of_funds.py",
+      "method": "GET",
+      "name": "get_accounts_by_account_uid_confirmation_of_funds",
+      "path": "/api/v2/accounts/{accountUid}/confirmation-of-funds",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get whether there are available funds for a requested amount"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "accounts/{accountUid}/feed-export",
+      "filename": "get_accounts_by_account_uid_feed_export.py",
+      "method": "GET",
+      "name": "get_accounts_by_account_uid_feed_export",
+      "path": "/api/v2/accounts/{accountUid}/feed-export",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Download a Feed Export for a given date range"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "accounts/{accountUid}/identifiers",
+      "filename": "get_accounts_by_account_uid_identifiers.py",
+      "method": "GET",
+      "name": "get_accounts_by_account_uid_identifiers",
+      "path": "/api/v2/accounts/{accountUid}/identifiers",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get an account's bank identifiers"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "addresses",
+      "filename": "get_addresses.py",
+      "method": "GET",
+      "name": "get_addresses",
+      "path": "/api/v2/addresses",
+      "path_params": [],
+      "summary": "Get the account holder's addresses"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "addresses",
+      "filename": "create_addresses.py",
+      "method": "POST",
+      "name": "create_addresses",
+      "path": "/api/v2/addresses",
+      "path_params": [],
+      "summary": "Update the account holder's current address"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards",
+      "filename": "get_cards.py",
+      "method": "GET",
+      "name": "get_cards",
+      "path": "/api/v2/cards",
+      "path_params": [],
+      "summary": "Get all the cards for an account holder"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/atm-enabled",
+      "filename": "update_cards_by_card_uid_controls_atm_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_atm_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/atm-enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update ATM withdrawal control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/currency-switch",
+      "filename": "update_cards_by_card_uid_controls_currency_switch.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_currency_switch",
+      "path": "/api/v2/cards/{cardUid}/controls/currency-switch",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update currency switch payments control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/enabled",
+      "filename": "update_cards_by_card_uid_controls_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update card lock"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/gambling-enabled",
+      "filename": "update_cards_by_card_uid_controls_gambling_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_gambling_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/gambling-enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update gambling payments control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/mag-stripe-enabled",
+      "filename": "update_cards_by_card_uid_controls_mag_stripe_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_mag_stripe_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/mag-stripe-enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update magstripe payments control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/mobile-wallet-enabled",
+      "filename": "update_cards_by_card_uid_controls_mobile_wallet_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_mobile_wallet_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/mobile-wallet-enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update mobile wallet payments control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/online-enabled",
+      "filename": "update_cards_by_card_uid_controls_online_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_online_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/online-enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update online payments control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "cards/{cardUid}/controls/pos-enabled",
+      "filename": "update_cards_by_card_uid_controls_pos_enabled.py",
+      "method": "PUT",
+      "name": "update_cards_by_card_uid_controls_pos_enabled",
+      "path": "/api/v2/cards/{cardUid}/controls/pos-enabled",
+      "path_params": [
+        [
+          "card_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update card present payments (contactless and chip and pin) control"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "direct-debit/mandates",
+      "filename": "get_direct_debit_mandates.py",
+      "method": "GET",
+      "name": "get_direct_debit_mandates",
+      "path": "/api/v2/direct-debit/mandates",
+      "path_params": [],
+      "summary": "Get a list of direct debit mandates"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "direct-debit/mandates/account/{accountUid}",
+      "filename": "get_direct_debit_mandates_account_by_account_uid.py",
+      "method": "GET",
+      "name": "get_direct_debit_mandates_account_by_account_uid",
+      "path": "/api/v2/direct-debit/mandates/account/{accountUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a list of direct debit mandates"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "direct-debit/mandates/{mandateUid}",
+      "filename": "get_direct_debit_mandates_by_mandate_uid.py",
+      "method": "GET",
+      "name": "get_direct_debit_mandates_by_mandate_uid",
+      "path": "/api/v2/direct-debit/mandates/{mandateUid}",
+      "path_params": [
+        [
+          "mandate_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the direct debit mandate with the specified identifier"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "direct-debit/mandates/{mandateUid}",
+      "filename": "delete_direct_debit_mandates_by_mandate_uid.py",
+      "method": "DELETE",
+      "name": "delete_direct_debit_mandates_by_mandate_uid",
+      "path": "/api/v2/direct-debit/mandates/{mandateUid}",
+      "path_params": [
+        [
+          "mandate_uid",
+          "str"
+        ]
+      ],
+      "summary": "Cancel the direct debit mandate with the specified identifier"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "direct-debit/mandates/{mandateUid}/payments",
+      "filename": "get_direct_debit_mandates_by_mandate_uid_payments.py",
+      "method": "GET",
+      "name": "get_direct_debit_mandates_by_mandate_uid_payments",
+      "path": "/api/v2/direct-debit/mandates/{mandateUid}/payments",
+      "path_params": [
+        [
+          "mandate_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a transaction history for a direct debit"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the account holder's feed items which were created or updated since a given date"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/paginated-transactions",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_paginated_transactions.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_paginated_transactions",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/paginated-transactions",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get paginated feed items for a category between two timestamps"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/transactions-between",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_transactions_between.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_transactions_between",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/transactions-between",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the account holder's feed items for the specified category, which were created between two timestamps"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Fetches a single feed item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/attachments",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/attachments",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Fetches the list of items attached to a feed item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/attachments",
+      "filename": "create_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments.py",
+      "method": "POST",
+      "name": "create_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/attachments",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Uploads an attachment to a feed item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/attachments/{feedItemAttachmentUid}",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments_by_feed_item_attachment_uid.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments_by_feed_item_attachment_uid",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/attachments/{feedItemAttachmentUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ],
+        [
+          "feed_item_attachment_uid",
+          "str"
+        ]
+      ],
+      "summary": "Downloads the feed item attachment"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/mastercard",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_mastercard.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_mastercard",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/mastercard",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Fetches additional details about the Mastercard Feed Item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/receipt",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipt.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipt",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/receipt",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Fetches the receipt, created by the registered application, for a given feed item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/receipt",
+      "filename": "update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipt.py",
+      "method": "PUT",
+      "name": "update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipt",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/receipt",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Submit a receipt for a feed item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/receipts",
+      "filename": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipts.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipts",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/receipts",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Fetches all receipts for a given feed item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/spending-category",
+      "filename": "update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_spending_category.py",
+      "method": "PUT",
+      "name": "update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_spending_category",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/spending-category",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Changes the spending category for a transaction"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/user-note",
+      "filename": "update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_user_note.py",
+      "method": "PUT",
+      "name": "update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_user_note",
+      "path": "/api/v2/feed/account/{accountUid}/category/{categoryUid}/{feedItemUid}/user-note",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "feed_item_uid",
+          "str"
+        ]
+      ],
+      "summary": "Changes the user-specified note attached to a transaction"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/round-up",
+      "filename": "get_feed_account_by_account_uid_round_up.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_round_up",
+      "path": "/api/v2/feed/account/{accountUid}/round-up",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Returns the the round-up goal associated with an account if one has been created"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/round-up",
+      "filename": "update_feed_account_by_account_uid_round_up.py",
+      "method": "PUT",
+      "name": "update_feed_account_by_account_uid_round_up",
+      "path": "/api/v2/feed/account/{accountUid}/round-up",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Activates transaction round-up and adds remainder to savings goal"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/round-up",
+      "filename": "delete_feed_account_by_account_uid_round_up.py",
+      "method": "DELETE",
+      "name": "delete_feed_account_by_account_uid_round_up",
+      "path": "/api/v2/feed/account/{accountUid}/round-up",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Deletes the round-up goal associated with an account if one exists"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "feed/account/{accountUid}/settled-transactions-between",
+      "filename": "get_feed_account_by_account_uid_settled_transactions_between.py",
+      "method": "GET",
+      "name": "get_feed_account_by_account_uid_settled_transactions_between",
+      "path": "/api/v2/feed/account/{accountUid}/settled-transactions-between",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the account holder's settled feed items for the specified account, which have settlement time between the two provided timestamps"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "identity/individual",
+      "filename": "get_identity_individual.py",
+      "method": "GET",
+      "name": "get_identity_individual",
+      "path": "/api/v2/identity/individual",
+      "path_params": [],
+      "summary": "The individual who authorised the application"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "identity/logout",
+      "filename": "update_identity_logout.py",
+      "method": "PUT",
+      "name": "update_identity_logout",
+      "path": "/api/v2/identity/logout",
+      "path_params": [],
+      "summary": "Logout the current individual"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "identity/token",
+      "filename": "get_identity_token.py",
+      "method": "GET",
+      "name": "get_identity_token",
+      "path": "/api/v2/identity/token",
+      "path_params": [],
+      "summary": "Get current token identity"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees",
+      "filename": "get_payees.py",
+      "method": "GET",
+      "name": "get_payees",
+      "path": "/api/v2/payees",
+      "path_params": [],
+      "summary": "Get an account holder's payees"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees",
+      "filename": "update_payees.py",
+      "method": "PUT",
+      "name": "update_payees",
+      "path": "/api/v2/payees",
+      "path_params": [],
+      "summary": "Create a payee"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}",
+      "filename": "get_payees_by_payee_uid.py",
+      "method": "GET",
+      "name": "get_payees_by_payee_uid",
+      "path": "/api/v2/payees/{payeeUid}",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a specific account holder payee"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}",
+      "filename": "update_payees_by_payee_uid.py",
+      "method": "PUT",
+      "name": "update_payees_by_payee_uid",
+      "path": "/api/v2/payees/{payeeUid}",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update a payee"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}",
+      "filename": "delete_payees_by_payee_uid.py",
+      "method": "DELETE",
+      "name": "delete_payees_by_payee_uid",
+      "path": "/api/v2/payees/{payeeUid}",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ]
+      ],
+      "summary": "Deletes a payee"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}/account",
+      "filename": "update_payees_by_payee_uid_account.py",
+      "method": "PUT",
+      "name": "update_payees_by_payee_uid_account",
+      "path": "/api/v2/payees/{payeeUid}/account",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ]
+      ],
+      "summary": "Create a payee account"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}/account/{accountUid}",
+      "filename": "delete_payees_by_payee_uid_account_by_account_uid.py",
+      "method": "DELETE",
+      "name": "delete_payees_by_payee_uid_account_by_account_uid",
+      "path": "/api/v2/payees/{payeeUid}/account/{accountUid}",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ],
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Delete a payee account"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}/account/{accountUid}/payments",
+      "filename": "get_payees_by_payee_uid_account_by_account_uid_payments.py",
+      "method": "GET",
+      "name": "get_payees_by_payee_uid_account_by_account_uid_payments",
+      "path": "/api/v2/payees/{payeeUid}/account/{accountUid}/payments",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ],
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "View a history of payments to your payee"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}/account/{accountUid}/scheduled-payments",
+      "filename": "get_payees_by_payee_uid_account_by_account_uid_scheduled_payments.py",
+      "method": "GET",
+      "name": "get_payees_by_payee_uid_account_by_account_uid_scheduled_payments",
+      "path": "/api/v2/payees/{payeeUid}/account/{accountUid}/scheduled-payments",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ],
+        [
+          "account_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get scheduled payments"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payees/{payeeUid}/image",
+      "filename": "get_payees_by_payee_uid_image.py",
+      "method": "GET",
+      "name": "get_payees_by_payee_uid_image",
+      "path": "/api/v2/payees/{payeeUid}/image",
+      "path_params": [
+        [
+          "payee_uid",
+          "str"
+        ]
+      ],
+      "summary": "Serves the image for the payee"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}",
+      "filename": "update_payments_local_account_by_account_uid_category_by_category_uid.py",
+      "method": "PUT",
+      "name": "update_payments_local_account_by_account_uid_category_by_category_uid",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ]
+      ],
+      "summary": "Create payment"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}/standing-orders",
+      "filename": "get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders.py",
+      "method": "GET",
+      "name": "get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}/standing-orders",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ]
+      ],
+      "summary": "List standing orders"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}/standing-orders",
+      "filename": "update_payments_local_account_by_account_uid_category_by_category_uid_standing_orders.py",
+      "method": "PUT",
+      "name": "update_payments_local_account_by_account_uid_category_by_category_uid_standing_orders",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}/standing-orders",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ]
+      ],
+      "summary": "Create a new standing order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}",
+      "filename": "get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid.py",
+      "method": "GET",
+      "name": "get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "payment_order_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a standing order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}",
+      "filename": "update_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid.py",
+      "method": "PUT",
+      "name": "update_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "payment_order_uid",
+          "str"
+        ]
+      ],
+      "summary": "Update a standing order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}",
+      "filename": "delete_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid.py",
+      "method": "DELETE",
+      "name": "delete_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "payment_order_uid",
+          "str"
+        ]
+      ],
+      "summary": "Cancel a standing order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}/upcoming-payments",
+      "filename": "get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid_upcoming_payments.py",
+      "method": "GET",
+      "name": "get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid_upcoming_payments",
+      "path": "/api/v2/payments/local/account/{accountUid}/category/{categoryUid}/standing-orders/{paymentOrderUid}/upcoming-payments",
+      "path_params": [
+        [
+          "account_uid",
+          "str"
+        ],
+        [
+          "category_uid",
+          "str"
+        ],
+        [
+          "payment_order_uid",
+          "str"
+        ]
+      ],
+      "summary": "List the next payment dates of a standing order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/payment-order/{paymentOrderUid}",
+      "filename": "get_payments_local_payment_order_by_payment_order_uid.py",
+      "method": "GET",
+      "name": "get_payments_local_payment_order_by_payment_order_uid",
+      "path": "/api/v2/payments/local/payment-order/{paymentOrderUid}",
+      "path_params": [
+        [
+          "payment_order_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get a payment order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "payments/local/payment-order/{paymentOrderUid}/payments",
+      "filename": "get_payments_local_payment_order_by_payment_order_uid_payments.py",
+      "method": "GET",
+      "name": "get_payments_local_payment_order_by_payment_order_uid_payments",
+      "path": "/api/v2/payments/local/payment-order/{paymentOrderUid}/payments",
+      "path_params": [
+        [
+          "payment_order_uid",
+          "str"
+        ]
+      ],
+      "summary": "Get the payments associated with a payment order"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "settle-up/profile",
+      "filename": "get_settle_up_profile.py",
+      "method": "GET",
+      "name": "get_settle_up_profile",
+      "path": "/api/v2/settle-up/profile",
+      "path_params": [],
+      "summary": "Fetch Settle Up profile for an account holder"
+    }
+  ],
+  "canonical_count": 87,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": false,
+  "namespace": "starling",
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "/home/jay/Documents/code/nexus/tools/starling",
+  "skipped": [],
+  "skipped_count": 0,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 0,
+  "spec": "/home/jay/Documents/code/nexus/tools/starling-openapi.json",
+  "tools_root": "/home/jay/Documents/code/nexus/tools",
+  "write_mode": true,
+  "written_files": [
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_business.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_business_correspondence_address.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_business_registered_address.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_individual.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_holder_individual_email.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_joint.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_name.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_sole_trader.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_holder_by_account_holder_uid_profile_image.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_holder_by_account_holder_uid_profile_image.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_account_holder_by_account_holder_uid_profile_image.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_savings_goals.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_by_account_uid_savings_goals.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_savings_goals_by_savings_goal_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_by_account_uid_savings_goals_by_savings_goal_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_account_by_account_uid_savings_goals_by_savings_goal_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_by_account_uid_savings_goals_by_savings_goal_uid_add_money_by_transfer_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_savings_goals_by_savings_goal_uid_photo.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_account_by_account_uid_savings_goals_by_savings_goal_uid_recurring_transfer.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_account_by_account_uid_savings_goals_by_savings_goal_uid_withdraw_money_by_transfer_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_spaces.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_spaces_spending_by_space_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_account_by_account_uid_spaces_by_space_uid_photo.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_accounts.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_accounts_by_account_uid_balance.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_accounts_by_account_uid_confirmation_of_funds.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_accounts_by_account_uid_feed_export.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_accounts_by_account_uid_identifiers.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_addresses.py",
+    "/home/jay/Documents/code/nexus/tools/starling/create_addresses.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_cards.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_atm_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_currency_switch.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_gambling_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_mag_stripe_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_mobile_wallet_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_online_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_cards_by_card_uid_controls_pos_enabled.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_direct_debit_mandates.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_direct_debit_mandates_account_by_account_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_direct_debit_mandates_by_mandate_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_direct_debit_mandates_by_mandate_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_direct_debit_mandates_by_mandate_uid_payments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_paginated_transactions.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_transactions_between.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/create_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_attachments_by_feed_item_attachment_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_mastercard.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipt.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipt.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_receipts.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_spending_category.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_feed_account_by_account_uid_category_by_category_uid_by_feed_item_uid_user_note.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_round_up.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_feed_account_by_account_uid_round_up.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_feed_account_by_account_uid_round_up.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_feed_account_by_account_uid_settled_transactions_between.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_identity_individual.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_identity_logout.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_identity_token.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payees.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_payees.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payees_by_payee_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_payees_by_payee_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_payees_by_payee_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_payees_by_payee_uid_account.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_payees_by_payee_uid_account_by_account_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payees_by_payee_uid_account_by_account_uid_payments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payees_by_payee_uid_account_by_account_uid_scheduled_payments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payees_by_payee_uid_image.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_payments_local_account_by_account_uid_category_by_category_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_payments_local_account_by_account_uid_category_by_category_uid_standing_orders.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/update_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/delete_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payments_local_account_by_account_uid_category_by_category_uid_standing_orders_by_payment_order_uid_upcoming_payments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payments_local_payment_order_by_payment_order_uid.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_payments_local_payment_order_by_payment_order_uid_payments.py",
+    "/home/jay/Documents/code/nexus/tools/starling/get_settle_up_profile.py"
+  ]
+}

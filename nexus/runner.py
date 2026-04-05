@@ -18,6 +18,7 @@ from typing import Any, Callable, Dict, Mapping, Optional
 from . import config
 from .lazy_tools import LazyTools
 from .tool_catalog import get_catalog
+from .tool_policy import ToolPolicy, get_active_tool_policy
 from .tool_registry import ToolInfo, ensure_tool_loaded
 
 
@@ -89,7 +90,7 @@ class RunnerExecutionError(RuntimeError):
         self.details = details
 
 
-SAFE_BUILTINS = {
+BASE_SAFE_BUILTINS = {
     "abs": abs,
     "all": all,
     "any": any,
@@ -116,8 +117,42 @@ SAFE_BUILTINS = {
     "ValueError": ValueError,
     "zip": zip,
     "print": print,
+}
+
+UNRESTRICTED_BUILTINS = {
+    **BASE_SAFE_BUILTINS,
     "__import__": builtins.__import__,
 }
+
+RESTRICTED_BUILTINS = dict(BASE_SAFE_BUILTINS)
+
+
+class RestrictedToolCallable:
+    """Opaque callable wrapper that blocks direct access to function globals."""
+
+    __slots__ = ("_func", "_name", "_doc")
+
+    def __init__(self, func: Callable[..., object], *, name: str, doc: str) -> None:
+        object.__setattr__(self, "_func", func)
+        object.__setattr__(self, "_name", name)
+        object.__setattr__(self, "_doc", doc)
+
+    def __call__(self, *args: object, **kwargs: object) -> object:
+        return object.__getattribute__(self, "_func")(*args, **kwargs)
+
+    def __getattribute__(self, name: str) -> object:
+        if name in {"__call__", "__class__", "__doc__", "__name__", "name"}:
+            if name == "__doc__":
+                return object.__getattribute__(self, "_doc")
+            if name == "__name__":
+                return object.__getattribute__(self, "_name")
+            if name == "name":
+                return object.__getattribute__(self, "_name")
+            return object.__getattribute__(self, name)
+        raise AttributeError(f"{type(self).__name__!s} does not expose attribute {name!r}")
+
+    def __repr__(self) -> str:
+        return f"<RestrictedToolCallable {object.__getattribute__(self, '_name')}>"
 
 
 class _BoundedStdout(io.StringIO):
@@ -199,6 +234,7 @@ def _normalize_result(value: Any, *, max_result_chars: int) -> tuple[Any, bool]:
 def build_execution_globals(
     *,
     additional_globals: Optional[Mapping[str, Any]] = None,
+    policy: Optional[ToolPolicy] = None,
 ) -> Dict[str, Any]:
     """Construct the globals dictionary used for `exec`.
 
@@ -210,16 +246,24 @@ def build_execution_globals(
     * Read-only configuration (e.g., Jira settings), if configured.
     """
 
+    policy = policy or get_active_tool_policy()
     catalog = get_catalog(refresh=True)
 
     def load_tool(name: str) -> Callable[..., object]:
-        return ensure_tool_loaded(name).function
+        info = ensure_tool_loaded(name, policy=policy)
+        if policy.is_restricted:
+            return RestrictedToolCallable(
+                info.function,
+                name=info.canonical_name,
+                doc=info.description,
+            )
+        return info.function
 
     ns: Dict[str, Any] = {
-        "__builtins__": SAFE_BUILTINS,
+        "__builtins__": RESTRICTED_BUILTINS if policy.is_restricted else UNRESTRICTED_BUILTINS,
         "RESULT": None,
         "RUNNER_SETTINGS": config.RunnerSettings.from_env(),
-        "TOOLS": LazyTools(catalog),
+        "TOOLS": LazyTools(catalog, policy=policy),
         "load_tool": load_tool,
     }
 
@@ -234,12 +278,17 @@ def execute_user_code_in_process(
     *,
     globals_override: Optional[Mapping[str, Any]] = None,
     limits: Optional[RunnerLimits] = None,
+    policy: Optional[ToolPolicy] = None,
 ) -> RunnerResult:
     """Execute Python code directly in the current process."""
 
     limits = limits or RunnerLimits.from_env()
     prepared_code = textwrap.dedent(code)
-    exec_globals = build_execution_globals(additional_globals=globals_override)
+    policy = policy or get_active_tool_policy()
+    exec_globals = build_execution_globals(
+        additional_globals=globals_override,
+        policy=policy,
+    )
     stdout_buffer = _BoundedStdout(limits.max_stdout_chars)
 
     try:
@@ -267,6 +316,7 @@ def execute_user_code_in_process(
         globals={"RESULT": normalized_result},
         metadata={
             "limits": limits.to_dict(),
+            "policy": policy.to_dict(),
             "truncatedLogs": stdout_buffer.truncated,
             "truncatedResult": truncated_result,
             "executionModel": "in_process",
@@ -279,6 +329,7 @@ def run_user_code(
     *,
     globals_override: Optional[Mapping[str, Any]] = None,
     limits: Optional[RunnerLimits] = None,
+    policy: Optional[ToolPolicy] = None,
 ) -> RunnerResult:
     """Execute Python *code* and return the structured result.
 
@@ -291,17 +342,20 @@ def run_user_code(
     """
 
     limits = limits or RunnerLimits.from_env()
+    policy = policy or get_active_tool_policy()
     if globals_override:
         return execute_user_code_in_process(
             code,
             globals_override=globals_override,
             limits=limits,
+            policy=policy,
         )
 
     worker_payload = json.dumps(
         {
             "code": code,
             "limits": limits.to_dict(),
+            "policy": policy.to_dict(),
         },
         ensure_ascii=False,
     )
