@@ -6,6 +6,7 @@ import pytest
 
 from nexus import tool_catalog
 from nexus.runner import build_execution_globals
+from nexus.tool_policy import ToolPolicy
 from nexus.tool_registry import clear_registry, ensure_tool_loaded, get_tool, is_tool_loaded
 
 
@@ -147,3 +148,35 @@ def test_tools_get_tool_and_loaded_overrides(dummy_tools: str) -> None:
 
     with pytest.raises(KeyError):
         tools.get_tool("does_not_exist", detail_level="full")
+
+
+def test_restricted_policy_filters_tools_search_get_and_load(dummy_tools: str) -> None:
+    clear_registry()
+    tool_catalog.get_catalog(refresh=True)
+    policy = ToolPolicy(
+        mode="restricted",
+        allowed_tools=frozenset({"alpha"}),
+    )
+
+    ns = build_execution_globals(policy=policy)
+    tools = ns["TOOLS"]
+
+    assert "alpha" in tools
+    assert "legacy_alpha" not in tools
+    assert "beta_tool" not in tools
+    assert [tool["name"] for tool in tools.search("", limit=20)] == ["alpha"]
+
+    with pytest.raises(KeyError):
+        tools.get_tool("legacy_alpha", detail_level="summary")
+
+    with pytest.raises(KeyError):
+        tools.get_tool("beta_tool", detail_level="summary")
+
+    alpha_fn = ns["load_tool"]("alpha")
+    assert alpha_fn(2, "yo") == "2-yo"
+
+    with pytest.raises(KeyError):
+        ns["load_tool"]("beta_tool")
+
+    with pytest.raises((KeyError, PermissionError)):
+        ensure_tool_loaded("legacy_alpha", policy=policy)

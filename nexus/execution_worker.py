@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 
+from .tool_policy import ToolPolicy
 from .runner import RunnerExecutionError, RunnerLimits, execute_user_code_in_process
 
 
@@ -16,7 +17,12 @@ def main() -> int:
             max_stdout_chars=int(payload["limits"]["maxStdoutChars"]),
             max_result_chars=int(payload["limits"]["maxResultChars"]),
         )
-        result = execute_user_code_in_process(payload["code"], limits=limits)
+        policy = ToolPolicy.from_dict(payload.get("policy", {}))
+        result = execute_user_code_in_process(
+            payload["code"],
+            limits=limits,
+            policy=policy,
+        )
         json.dump(
             {
                 "success": True,

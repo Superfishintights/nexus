@@ -12,10 +12,13 @@ from typing import Any, Dict, List, Tuple
 from .tool_catalog import (
     ToolSpec,
     discoverable_specs,
+    filter_catalog,
     get_catalog_diagnostics,
+    resolve_tool_request,
     search_specs,
     spec_to_dict,
 )
+from .tool_policy import ToolPolicy
 from .tool_registry import ToolInfo, get_tool as get_loaded_tool, is_tool_loaded
 
 
@@ -46,13 +49,26 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
     Tool dicts are not built until accessed.
     """
 
-    def __init__(self, catalog: Mapping[str, ToolSpec]):
-        self._catalog = catalog
+    def __init__(
+        self,
+        catalog: Mapping[str, ToolSpec],
+        *,
+        policy: ToolPolicy | None = None,
+    ):
+        self._raw_catalog = dict(catalog)
+        self._policy = policy
+        self._allow_aliases = not bool(policy and policy.is_restricted)
+        self._catalog = filter_catalog(
+            self._raw_catalog,
+            policy=policy,
+            allow_aliases=self._allow_aliases,
+        )
         self._discoverable_names = tuple(
             spec.name
             for spec in discoverable_specs(
                 self._catalog.values(),
                 catalog=dict(self._catalog),
+                policy=policy,
             )
         )
         self._cache: Dict[Tuple[str, str], Dict[str, Any]] = {}
@@ -67,7 +83,12 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
         return isinstance(name, str) and name in self._catalog
 
     def __getitem__(self, name: str) -> Dict[str, Any]:
-        spec = self._catalog[name]
+        spec = resolve_tool_request(
+            name,
+            catalog=self._raw_catalog,
+            policy=self._policy,
+            allow_aliases=self._allow_aliases,
+        )
         return self._spec_to_tool_dict(spec, detail_level="summary")
 
     def _spec_to_tool_dict(self, spec: ToolSpec, *, detail_level: str) -> Dict[str, Any]:
@@ -106,17 +127,31 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
     ) -> List[Dict[str, Any]]:
         """Search within this catalog snapshot."""
 
-        specs = search_specs(self._catalog.values(), query, limit=limit)
+        specs = search_specs(
+            self._catalog.values(),
+            query,
+            limit=limit,
+            policy=self._policy,
+            catalog=self._catalog,
+        )
         return [self._spec_to_tool_dict(spec, detail_level=detail_level) for spec in specs]
 
     def get_tool(self, name: str, detail_level: str = "full") -> Dict[str, Any]:
         """Return metadata for a single tool, falling back to loaded-only tools."""
 
-        spec = self._catalog.get(name)
+        try:
+            spec = resolve_tool_request(
+                name,
+                catalog=self._raw_catalog,
+                policy=self._policy,
+                allow_aliases=self._allow_aliases,
+            )
+        except KeyError:
+            spec = None
         if spec is not None:
             return self._spec_to_tool_dict(spec, detail_level=detail_level)
 
-        if is_tool_loaded(name):
+        if self._allow_aliases and is_tool_loaded(name):
             return _tool_info_to_dict(get_loaded_tool(name), detail_level=detail_level)
 
         raise KeyError(f"Unknown tool: {name}")
@@ -124,7 +159,10 @@ class LazyTools(Mapping[str, Dict[str, Any]]):
     def diagnostics(self) -> Dict[str, Any]:
         """Return catalog diagnostics for the current tool snapshot."""
 
-        return get_catalog_diagnostics()
+        diagnostics = get_catalog_diagnostics()
+        if self._policy is not None:
+            diagnostics = {**diagnostics, "policy": self._policy.to_dict()}
+        return diagnostics
 
 
 __all__ = ["LazyTools"]
