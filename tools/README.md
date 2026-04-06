@@ -35,6 +35,9 @@ NEXUS_TOOL_PACKAGES=nexus_tools_n8n
 
 ## Notes
 
+- In the monorepo, the legacy value `NEXUS_TOOL_PACKAGES=tools` expands to all
+  first-party tool packs for backwards compatibility.
+
 - Discovery is AST-based; modules must be syntactically valid Python.
 - Keep `@register_tool(...)` metadata literal where possible for scan accuracy.
 - Keep service configuration in env vars or `.env`.

@@ -29,13 +29,18 @@ pip install -e ./tool_packs/nexus_tools_n8n
 ## Configure Tool Discovery
 
 Nexus no longer assumes a built-in `tools` package by default.
-Set `NEXUS_TOOL_PACKAGES` to the installed package roots:
+Set `NEXUS_TOOL_PACKAGES` to the installed pack roots:
 
 ```bash
 export NEXUS_TOOL_PACKAGES="nexus_tools_jira,nexus_tools_n8n"
 ```
 
-You can also set this in `.env`.
+When running from this monorepo, Nexus also bootstraps local `tool_packs/<name>`
+directories onto `sys.path`, so you can point `NEXUS_TOOL_PACKAGES` at the local
+pack roots without separately installing each one.
+
+The legacy value `NEXUS_TOOL_PACKAGES=tools` is treated as a compatibility alias
+for all first-party tool packs in the monorepo, but explicit pack names are preferred.
 
 ## Run
 

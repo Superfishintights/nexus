@@ -13,6 +13,7 @@ from __future__ import annotations
 import ast
 import importlib.util
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
@@ -27,6 +28,17 @@ from .tool_policy import (
 
 TOOL_PACKAGES_ENV = "NEXUS_TOOL_PACKAGES"
 DEFAULT_TOOL_PACKAGES: Tuple[str, ...] = ()
+REPO_ROOT = Path(__file__).resolve().parents[1]
+LOCAL_TOOL_PACKS_ROOT = REPO_ROOT / "tool_packs"
+LEGACY_ALL_PACKAGES_ALIASES = frozenset({"tools"})
+FIRST_PARTY_TOOL_PACK_ORDER: Tuple[str, ...] = (
+    "nexus_tools_jira",
+    "nexus_tools_n8n",
+    "nexus_tools_radarr",
+    "nexus_tools_sonarr",
+    "nexus_tools_tautulli",
+    "nexus_tools_starling",
+)
 
 
 @dataclass(frozen=True)
@@ -185,7 +197,8 @@ def get_tool_package_names() -> Sequence[str]:
     if not raw:
         return DEFAULT_TOOL_PACKAGES
     names = [name.strip() for name in raw.split(",") if name.strip()]
-    return tuple(names) or DEFAULT_TOOL_PACKAGES
+    expanded = _expand_tool_package_names(names)
+    return tuple(expanded) or DEFAULT_TOOL_PACKAGES
 
 
 def get_catalog(*, refresh: bool = False) -> Dict[str, ToolSpec]:
@@ -221,8 +234,11 @@ def build_catalog() -> Dict[str, ToolSpec]:
     duplicates: List[Tuple[str, str, str]] = []
     problems: List[CatalogProblem] = []
     seen_files: Set[str] = set()
+    package_names = tuple(get_tool_package_names())
 
-    for package_name in get_tool_package_names():
+    _ensure_tool_pack_paths(package_names)
+
+    for package_name in package_names:
         spec = importlib.util.find_spec(package_name)
         if spec is None or spec.submodule_search_locations is None:
             problems.append(
@@ -264,6 +280,72 @@ def build_catalog() -> Dict[str, ToolSpec]:
 
     _CATALOG_PROBLEMS = tuple(problems)
     return catalog
+
+
+def _expand_tool_package_names(names: Sequence[str]) -> List[str]:
+    expanded: List[str] = []
+    seen: Set[str] = set()
+
+    for name in names:
+        if name in LEGACY_ALL_PACKAGES_ALIASES:
+            candidates = discover_local_tool_packages()
+        else:
+            candidates = (name,)
+
+        for candidate in candidates:
+            normalized = candidate.strip()
+            if not normalized or normalized in seen:
+                continue
+            expanded.append(normalized)
+            seen.add(normalized)
+
+    return expanded
+
+
+def discover_local_tool_packages(tool_packs_root: Path = LOCAL_TOOL_PACKS_ROOT) -> Tuple[str, ...]:
+    """Return first-party tool package roots available in the local monorepo."""
+
+    if not tool_packs_root.exists():
+        return ()
+
+    discovered: List[str] = []
+    for package_root in tool_packs_root.iterdir():
+        if not package_root.is_dir():
+            continue
+        package_name = package_root.name
+        if not package_name.startswith("nexus_tools_"):
+            continue
+        if not (package_root / "pyproject.toml").exists():
+            continue
+        if not (package_root / package_name / "__init__.py").exists():
+            continue
+        discovered.append(package_name)
+
+    preferred_index = {
+        package_name: index for index, package_name in enumerate(FIRST_PARTY_TOOL_PACK_ORDER)
+    }
+    package_names = sorted(
+        discovered,
+        key=lambda name: (preferred_index.get(name, len(FIRST_PARTY_TOOL_PACK_ORDER)), name),
+    )
+    return tuple(package_names)
+
+
+def _ensure_tool_pack_paths(package_names: Sequence[str]) -> None:
+    """Expose local monorepo tool packs on sys.path when available."""
+
+    if not package_names or not LOCAL_TOOL_PACKS_ROOT.exists():
+        return
+
+    for package_name in package_names:
+        package_root = LOCAL_TOOL_PACKS_ROOT / package_name
+        if not package_root.is_dir():
+            continue
+        if not (package_root / package_name / "__init__.py").exists():
+            continue
+        package_root_s = str(package_root)
+        if package_root_s not in sys.path:
+            sys.path.insert(0, package_root_s)
 
 
 def scan_package(
