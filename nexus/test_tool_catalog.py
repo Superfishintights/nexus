@@ -94,6 +94,16 @@ def test_catalog_empty_by_default(
     assert diagnostics["warnings"] == []
 
 
+def test_legacy_tools_alias_expands_to_local_tool_packs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, "tools")
+
+    package_names = tool_catalog.get_tool_package_names()
+
+    assert package_names == builtin_tool_packages(include_starling=True)
+
+
 def test_catalog_scans_without_import(dummy_tools: str) -> None:
     clear_registry()
 
@@ -227,6 +237,27 @@ def test_builtin_tools_are_discoverable(builtin_packs: tuple[str, ...]) -> None:
     assert "tautulli_get_activity" in catalog  # alias
     assert "n8n.create_workflow" in catalog
     assert "sonarr.get_series" in catalog
+
+
+def test_catalog_bootstraps_local_tool_pack_paths(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package_name = "nexus_tools_tautulli"
+    package_root = str((Path(__file__).resolve().parents[1] / "tool_packs" / package_name))
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, package_name)
+    monkeypatch.setattr(
+        sys,
+        "path",
+        [entry for entry in sys.path if entry != package_root],
+    )
+    clear_registry()
+    tool_catalog._CATALOG = None
+    tool_catalog._FILE_CACHE.clear()
+
+    catalog = tool_catalog.get_catalog(refresh=True)
+
+    assert "tautulli.get_activity" in catalog
+    assert package_root in sys.path
 
 
 @pytest.mark.parametrize(
