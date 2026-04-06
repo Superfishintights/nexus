@@ -10,7 +10,6 @@ Runs a quick health check without requiring pytest:
 
 from __future__ import annotations
 
-import os
 import sys
 import traceback
 from pathlib import Path
@@ -58,7 +57,11 @@ def _compile_all(py_files: list[Path]) -> None:
 
 
 def _build_catalog_and_assert_behavior() -> None:
-    from nexus.tool_catalog import get_catalog, get_catalog_diagnostics
+    from nexus.tool_catalog import (
+        get_catalog,
+        get_catalog_diagnostics,
+        get_tool_package_names,
+    )
 
     catalog = get_catalog(refresh=True)
     diagnostics = get_catalog_diagnostics()
@@ -68,11 +71,7 @@ def _build_catalog_and_assert_behavior() -> None:
             + "; ".join(diagnostics["warnings"])
         )
 
-    configured = [
-        name.strip()
-        for name in (os.environ.get("NEXUS_TOOL_PACKAGES") or "").split(",")
-        if name.strip()
-    ]
+    configured = tuple(get_tool_package_names())
     if configured and not catalog:
         raise RuntimeError(
             "NEXUS_TOOL_PACKAGES is configured but the tool catalog is empty: "
