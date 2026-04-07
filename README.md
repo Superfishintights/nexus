@@ -1,9 +1,11 @@
 # Nexus MCP Server
 
-Nexus is a “code‑mode” Model Context Protocol (MCP) server. It exposes a small
-MCP surface (`run_code`, `search_tools`, `get_tool`) while letting models
-orchestrate many domain tools programmatically in Python across services such as
-Jira, n8n, Sonarr, Radarr, and Tautulli.
+Nexus is a code-mode Model Context Protocol (MCP) server. Core runtime and tool packs are now split for distribution:
+
+- `nexus-core`: MCP server/runtime (`nexus/`)
+- Tool packs: separate Python packages with distinct import roots
+
+This repo remains a monorepo for development.
 
 ## Requirements
 
@@ -11,17 +13,34 @@ Jira, n8n, Sonarr, Radarr, and Tautulli.
 
 ## Install
 
+Install core:
+
 ```bash
 pip install -e ./nexus
 ```
 
-If you prefer a virtual environment:
+Install only the tool packs you want:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ./nexus
+pip install -e ./tool_packs/nexus_tools_jira
+pip install -e ./tool_packs/nexus_tools_n8n
 ```
+
+## Configure Tool Discovery
+
+Nexus no longer assumes a built-in `tools` package by default.
+Set `NEXUS_TOOL_PACKAGES` to the installed pack roots:
+
+```bash
+export NEXUS_TOOL_PACKAGES="nexus_tools_jira,nexus_tools_n8n"
+```
+
+When running from this monorepo, Nexus also bootstraps local `tool_packs/<name>`
+directories onto `sys.path`, so you can point `NEXUS_TOOL_PACKAGES` at the local
+pack roots without separately installing each one.
+
+The legacy value `NEXUS_TOOL_PACKAGES=tools` is treated as a compatibility alias
+for all first-party tool packs in the monorepo, but explicit pack names are preferred.
 
 ## Run
 
@@ -30,8 +49,6 @@ python nexus/server.py
 ```
 
 ## Self-test (stdlib only)
-
-For copy/paste deployments (or when `pytest` is unavailable), run:
 
 ```bash
 python nexus/selftest.py
@@ -42,57 +59,36 @@ python nexus/selftest.py
 Nexus reads settings from:
 
 1) Process environment variables
-2) A `.env` file (recommended for portability across shells/OS)
+2) A `.env` file
 
-Supported `.env` locations (lowest precedence → highest):
+Supported `.env` locations (lowest precedence to highest):
 
 - User config:
   - Linux: `~/.config/nexus/.env` (or `$XDG_CONFIG_HOME/nexus/.env`)
   - macOS: `~/Library/Application Support/nexus/.env`
   - Windows: `%APPDATA%\\nexus\\.env`
-- Project-local: `./.env` (current working directory)
+- Project-local: `./.env`
 
-Override the search path by setting `NEXUS_ENV_FILE` to an explicit file path.
+Override lookup with `NEXUS_ENV_FILE`.
 
-Notes:
+## Tool Pack Import Roots
 
-- `.env` changes are picked up automatically (no server restart needed).
-- Tool discovery is refreshed on each `search_tools`/`get_tool`/`run_code` call, so adding tool files/packages does not require a restart.
+Current first-party pack roots:
 
-## Tool Packages
+- `nexus_tools_jira`
+- `nexus_tools_n8n`
+- `nexus_tools_sonarr`
+- `nexus_tools_radarr`
+- `nexus_tools_tautulli`
+- `nexus_tools_starling`
 
-Nexus discovers tools by scanning Python packages for functions decorated with
-`@register_tool`. By default it scans the built‑in `tools` package.
+## MCP Client Setup
 
-For large multi-service installs, prefer `@register_tool(namespace="service")` so tool
-names are unambiguous (e.g., `jira.get_issue_status`).
-
-Notes:
-
-- Discovery is via AST parsing (no imports). Tool modules must be valid Python; files
-  with syntax errors are skipped and their tools won’t be discoverable.
-- Tool file layout does not affect MCP “context bloat” (results are filtered by
-  `search_tools`/`get_tool`), but it does affect scan/import performance. See
-  `tools/ADDING_TOOLSETS.md`.
-
-To add external tool packages, install them on the machine and set:
-
-```bash
-export NEXUS_TOOL_PACKAGES="tools,company_tools,generated_tools"
-```
-
-Tools are loaded lazily: use `search_tools` to find what you need, and import or
-`load_tool("tool_name")` inside `run_code`.
-
-## MCP Client Setup (examples)
-
-Nexus is a stdio MCP server. Configure your MCP client to run:
+Nexus is a stdio MCP server. Configure your client to run:
 
 - Command: `python`
 - Args: `nexus/server.py`
-- Working directory: the repo root (so `./.env` and local tool packages are available)
-
-**JSON example**
+- Working directory: repo root
 
 ```json
 {
@@ -104,13 +100,4 @@ Nexus is a stdio MCP server. Configure your MCP client to run:
     }
   }
 }
-```
-
-**TOML example**
-
-```toml
-[mcp.servers.nexus]
-command = "python"
-args = ["nexus/server.py"]
-cwd = "/absolute/path/to/nexus-repo"
 ```

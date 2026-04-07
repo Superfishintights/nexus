@@ -1,6 +1,16 @@
-from tools.jira.client import JiraClient
-from tools.n8n.client import N8NClient
-from tools.radarr.client import RadarrClient
+from nexus.test_helpers import add_tool_pack_paths
+
+add_tool_pack_paths(
+    (
+        "nexus_tools_jira",
+        "nexus_tools_n8n",
+        "nexus_tools_radarr",
+    )
+)
+
+from nexus_tools_jira.client import JiraClient
+from nexus_tools_n8n.client import N8NClient
+from nexus_tools_radarr.client import RadarrClient
 
 
 def test_n8n_build_url_encodes_query_params() -> None:

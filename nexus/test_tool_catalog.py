@@ -6,6 +6,8 @@ import pytest
 
 from nexus import tool_catalog
 from nexus.runner import build_execution_globals
+from nexus.test_helpers import builtin_tool_packages, configure_tool_packages
+from nexus.tool_policy import ToolPolicy
 from nexus.tool_registry import clear_registry, ensure_tool_loaded, is_tool_loaded
 
 
@@ -20,7 +22,7 @@ def dummy_tools(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
             """
             from nexus.tool_registry import register_tool
 
-            @register_tool(description="Alpha tool", examples=["alpha(1)"])
+            @register_tool(description="Alpha tool", examples=["alpha(1)"], aliases=["legacy_alpha"])
             def alpha(x: int, y: str = "hi") -> str:
                 \"\"\"Alpha docstring.\"\"\"
                 return f"{x}-{y}"
@@ -67,6 +69,41 @@ def dummy_tools(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
             sys.modules.pop(module_name, None)
 
 
+@pytest.fixture
+def builtin_packs(monkeypatch: pytest.MonkeyPatch) -> tuple[str, ...]:
+    return configure_tool_packages(monkeypatch, builtin_tool_packages())
+
+
+def test_catalog_empty_by_default(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    env_file = tmp_path / "empty.env"
+    env_file.write_text("", encoding="utf-8")
+    monkeypatch.delenv(tool_catalog.TOOL_PACKAGES_ENV, raising=False)
+    monkeypatch.setenv("NEXUS_ENV_FILE", str(env_file))
+    clear_registry()
+    tool_catalog._CATALOG = None
+    tool_catalog._FILE_CACHE.clear()
+
+    catalog = tool_catalog.get_catalog(refresh=True)
+    diagnostics = tool_catalog.get_catalog_diagnostics()
+
+    assert tool_catalog.get_tool_package_names() == ()
+    assert catalog == {}
+    assert diagnostics["warnings"] == []
+
+
+def test_legacy_tools_alias_expands_to_local_tool_packs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, "tools")
+
+    package_names = tool_catalog.get_tool_package_names()
+
+    assert package_names == builtin_tool_packages(include_starling=True)
+
+
 def test_catalog_scans_without_import(dummy_tools: str) -> None:
     clear_registry()
 
@@ -79,6 +116,7 @@ def test_catalog_scans_without_import(dummy_tools: str) -> None:
     assert catalog["alpha"].module.endswith("dummy_tools.alpha")
     assert catalog["alpha"].description == "Alpha tool"
     assert catalog["alpha"].examples == ("alpha(1)",)
+    assert catalog["alpha"].tool_class == "read"
     assert catalog["alpha"].signature.startswith("(x")
 
 
@@ -106,6 +144,42 @@ def test_runner_globals_support_load_tool(dummy_tools: str) -> None:
     assert "demo.gamma" in ns["TOOLS"]
     alpha_fn = ns["load_tool"]("alpha")
     assert alpha_fn(2, "yo") == "2-yo"
+
+
+def test_policy_filters_search_and_resolution(dummy_tools: str) -> None:
+    clear_registry()
+    catalog = tool_catalog.get_catalog(refresh=True)
+    policy = ToolPolicy(
+        mode="restricted",
+        allowed_tools=frozenset({"alpha"}),
+    )
+
+    visible = tool_catalog.search_catalog("", limit=20, policy=policy)
+    visible_names = [spec.name for spec in visible]
+
+    assert visible_names == ["alpha"]
+    assert tool_catalog.resolve_tool_request(
+        "alpha",
+        catalog=catalog,
+        policy=policy,
+        allow_aliases=False,
+    ).name == "alpha"
+
+    with pytest.raises(KeyError):
+        tool_catalog.resolve_tool_request(
+            "legacy_alpha",
+            catalog=catalog,
+            policy=policy,
+            allow_aliases=False,
+        )
+
+    with pytest.raises(KeyError):
+        tool_catalog.resolve_tool_request(
+            "beta_tool",
+            catalog=catalog,
+            policy=policy,
+            allow_aliases=False,
+        )
 
 
 def test_catalog_reports_nonfatal_problems(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -153,7 +227,8 @@ def test_duplicate_names_in_same_module_fail(tmp_path: Path, monkeypatch: pytest
         tool_catalog.get_catalog(refresh=True)
 
 
-def test_builtin_tools_are_discoverable() -> None:
+def test_builtin_tools_are_discoverable(builtin_packs: tuple[str, ...]) -> None:
+    del builtin_packs
     catalog = tool_catalog.get_catalog(refresh=True)
 
     assert "jira.get_issue_status" in catalog
@@ -162,6 +237,27 @@ def test_builtin_tools_are_discoverable() -> None:
     assert "tautulli_get_activity" in catalog  # alias
     assert "n8n.create_workflow" in catalog
     assert "sonarr.get_series" in catalog
+
+
+def test_catalog_bootstraps_local_tool_pack_paths(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package_name = "nexus_tools_tautulli"
+    package_root = str((Path(__file__).resolve().parents[1] / "tool_packs" / package_name))
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, package_name)
+    monkeypatch.setattr(
+        sys,
+        "path",
+        [entry for entry in sys.path if entry != package_root],
+    )
+    clear_registry()
+    tool_catalog._CATALOG = None
+    tool_catalog._FILE_CACHE.clear()
+
+    catalog = tool_catalog.get_catalog(refresh=True)
+
+    assert "tautulli.get_activity" in catalog
+    assert package_root in sys.path
 
 
 @pytest.mark.parametrize(
@@ -184,7 +280,12 @@ def test_builtin_tools_are_discoverable() -> None:
         ("show radarr queue status", "radarr.get_queue_status"),
     ],
 )
-def test_builtin_catalog_matches_natural_language_tasks(query: str, expected: str) -> None:
+def test_builtin_catalog_matches_natural_language_tasks(
+    query: str,
+    expected: str,
+    builtin_packs: tuple[str, ...],
+) -> None:
+    del builtin_packs
     matches = tool_catalog.search_catalog(query, limit=5)
 
     assert matches, f"Expected matches for query: {query}"

@@ -2,15 +2,14 @@
 """Stdlib-only self-test for copy/paste deployments.
 
 Runs a quick health check without requiring pytest:
-- Compile core modules + tool modules (py_compile).
-- Build the tool catalog (AST scan).
-- Assert a few canonical built-in tool names exist.
+- Compile core modules plus any local tool pack modules (py_compile).
+- Build the configured tool catalog (AST scan).
+- Verify empty-catalog core behavior when no tool packs are configured.
 - Execute a minimal run_user_code snippet that sets RESULT.
 """
 
 from __future__ import annotations
 
-import os
 import sys
 import traceback
 from pathlib import Path
@@ -29,12 +28,11 @@ def _ensure_repo_on_syspath(root: Path) -> None:
 
 def _iter_py_files(root: Path) -> list[Path]:
     files: list[Path] = []
-    for rel in ("nexus", "tools"):
+    for rel in ("nexus", "tool_packs"):
         base = root / rel
         if not base.exists():
             continue
         for p in base.rglob("*.py"):
-            # Keep the selftest strict: compile everything under these roots.
             files.append(p)
     return sorted(set(files))
 
@@ -58,22 +56,12 @@ def _compile_all(py_files: list[Path]) -> None:
         raise RuntimeError("\n".join(lines))
 
 
-def _ensure_tools_in_env() -> None:
-    # Health-check should validate the built-in `tools/` package even if a user
-    # has configured additional packages.
-    current = (os.environ.get("NEXUS_TOOL_PACKAGES") or "").strip()
-    if not current:
-        os.environ["NEXUS_TOOL_PACKAGES"] = "tools"
-        return
-
-    names = [n.strip() for n in current.split(",") if n.strip()]
-    if "tools" not in names:
-        names.append("tools")
-        os.environ["NEXUS_TOOL_PACKAGES"] = ",".join(names)
-
-
-def _build_catalog_and_assert_tools() -> None:
-    from nexus.tool_catalog import get_catalog, get_catalog_diagnostics
+def _build_catalog_and_assert_behavior() -> None:
+    from nexus.tool_catalog import (
+        get_catalog,
+        get_catalog_diagnostics,
+        get_tool_package_names,
+    )
 
     catalog = get_catalog(refresh=True)
     diagnostics = get_catalog_diagnostics()
@@ -83,21 +71,16 @@ def _build_catalog_and_assert_tools() -> None:
             + "; ".join(diagnostics["warnings"])
         )
 
-    expected = {
-        "jira.get_issue_status",
-        "get_issue_status",  # alias
-        "sonarr.get_series",
-        "n8n.create_workflow",
-        "tautulli.get_activity",
-        "tautulli_get_activity",  # alias
-    }
-    missing = sorted(name for name in expected if name not in catalog)
-    if missing:
-        available = ", ".join(sorted(catalog.keys())[:50])
+    configured = tuple(get_tool_package_names())
+    if configured and not catalog:
         raise RuntimeError(
-            "Tool catalog missing expected tools: "
-            + ", ".join(missing)
-            + f"\nFirst 50 discovered tools: {available}"
+            "NEXUS_TOOL_PACKAGES is configured but the tool catalog is empty: "
+            + ", ".join(configured)
+        )
+    if not configured and catalog:
+        raise RuntimeError(
+            "Core selftest expected an empty catalog with no configured tool packs, "
+            f"but discovered: {', '.join(sorted(catalog)[:20])}"
         )
 
 
@@ -122,14 +105,13 @@ def main() -> int:
     try:
         root = _repo_root()
         _ensure_repo_on_syspath(root)
-        _ensure_tools_in_env()
 
         py_files = _iter_py_files(root)
         if not py_files:
-            raise RuntimeError("No Python files found under nexus/ and tools/.")
+            raise RuntimeError("No Python files found under nexus/ or tool_packs/.")
 
         _compile_all(py_files)
-        _build_catalog_and_assert_tools()
+        _build_catalog_and_assert_behavior()
         _runner_smoke()
     except Exception as exc:
         print(f"nexus selftest failed: {exc}", file=sys.stderr)

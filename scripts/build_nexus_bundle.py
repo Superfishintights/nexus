@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build a single-file Nexus bundle for copy/paste deployments.
+"""Build a single-file Nexus core bundle for copy/paste deployments.
 
 The generated output is a self-extracting Python script. It embeds selected
-repo files as compressed JSON and can rewrite them into an existing checkout.
+core files as compressed JSON and can rewrite them into an existing checkout.
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ EXCLUDED_PARTS = {"__pycache__", ".pytest_cache", "jira_nexus.egg-info"}
 
 BUNDLE_TEMPLATE = Template(
     """#!/usr/bin/env python3
-\"\"\"Self-extracting Nexus bundle.
+\"\"\"Self-extracting Nexus core bundle.
 
 Generated from commit: $commit
 Bundle profile: $profile
@@ -74,7 +74,7 @@ def _backup_file(root: Path, rel_path: str, backup_dir: Path) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Apply the bundled Nexus files.")
+    parser = argparse.ArgumentParser(description="Apply the bundled Nexus core files.")
     parser.add_argument(
         "target_root",
         nargs="?",
@@ -214,7 +214,7 @@ def build_bundle(output_path: Path, profile: str) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build a self-extracting Nexus bundle.")
+    parser = argparse.ArgumentParser(description="Build a self-extracting Nexus core bundle.")
     parser.add_argument(
         "--output",
         default=str(DEFAULT_OUTPUT),
@@ -222,7 +222,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--profile",
-        default="nexus-only",
+        default="nexus-core-only",
         help="Label embedded into the generated bundle metadata.",
     )
     args = parser.parse_args()

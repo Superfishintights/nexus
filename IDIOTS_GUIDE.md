@@ -93,7 +93,7 @@ This is often called “Code Mode”.
     - `RESULT` placeholder
     - `TOOLS` (catalog summaries)
     - `load_tool(name)` helper
-    - optional env config in `RUNNER_SETTINGS`
+    - core runtime metadata in `RUNNER_SETTINGS`
 
 - `nexus/tool_catalog.py`
   - AST‑based scanner.
@@ -111,9 +111,9 @@ This is often called “Code Mode”.
   - `ensure_tool_loaded(name)` imports a tool’s module on demand.
 
 - `nexus/config.py`
-  - Backwards-compatible re-exports for configuration helpers and settings.
+  - Backwards-compatible re-exports for core configuration helpers.
   - Env + `.env` parsing lives in `nexus/env.py`.
-  - Per-service settings live in `nexus/settings/*` and are exposed as `RUNNER_SETTINGS`.
+  - Pack-specific settings are no longer imported into core automatically.
 
 - `nexus/test_tool_catalog.py`
   - Pytest regression tests proving:
@@ -125,9 +125,9 @@ This is often called “Code Mode”.
   - Demo script for running the runner without MCP.
   - Useful in interviews to show the flow locally.
 
-### `tools/` (built‑in example tools)
+### `tool_packs/` (installable tool packs)
 
-- `tools/jira/client.py`
+- `tool_packs/nexus_tools_jira/nexus_tools_jira/client.py`
   - Standard‑library Jira HTTP client.
   - READ/WRITE capable if you add POST/PUT/DELETE helpers.
 
@@ -208,7 +208,8 @@ In `nexus/tool_catalog.py`:
 
 - `get_tool_package_names()`
   - reads `NEXUS_TOOL_PACKAGES` (comma‑separated) from env or `.env`.
-  - defaults to `tools`.
+  - defaults to no tool packs.
+  - treats the legacy value `tools` as a monorepo compatibility alias for all first-party packs.
 
 - `build_catalog()`
   - locates packages via `importlib.util.find_spec`.
@@ -280,14 +281,14 @@ Two ways tools get loaded:
 
 1. **User code imports a module**
    ```python
-   from tools.jira.get_issue_status import get_issue_status
+   from nexus_tools_jira.get_issue_status import get_issue_status
    RESULT = get_issue_status("PROJ-123")
    ```
    Import triggers decorator registration.
 
 2. **User code calls `load_tool`**
    ```python
-   issue_status = load_tool("get_issue_status")
+   issue_status = load_tool("jira.get_issue_status")
    RESULT = issue_status("PROJ-123")
    ```
    `load_tool` uses `ensure_tool_loaded`.
@@ -386,7 +387,7 @@ multiple tool packages), which prevents “mixed up tool” ambiguity at runtime
 
 ### First‑party (inside this repo)
 
-1. Add a file under a domain package, e.g. `tools/sourcegraph/search.py`.
+1. Add a file under a tool-pack package, e.g. `tool_packs/nexus_tools_acme/nexus_tools_acme/get_widget.py`.
 2. Decorate a top‑level function with `@register_tool` (prefer `namespace=...` for multi-service installs).
 3. That’s it — catalog will find it on next search.
 
@@ -400,7 +401,7 @@ multiple tool packages), which prevents “mixed up tool” ambiguity at runtime
    ```
 4. Point Nexus at it:
    ```bash
-   export NEXUS_TOOL_PACKAGES="tools,company_tools"
+   export NEXUS_TOOL_PACKAGES="nexus_tools_jira,company_tools"
    ```
 
 Nexus will scan both packages lazily.
@@ -408,7 +409,7 @@ Nexus will scan both packages lazily.
 If you prefer `.env` instead of shell exports, add:
 
 ```text
-NEXUS_TOOL_PACKAGES=tools,company_tools
+NEXUS_TOOL_PACKAGES=nexus_tools_jira,company_tools
 ```
 
 ---
