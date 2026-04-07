@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import pytest
 
-from tools.n8n.add_node import add_node
+from nexus.test_helpers import add_tool_pack_paths
+
+add_tool_pack_paths(("nexus_tools_n8n",))
+
+from nexus_tools_n8n.add_node import add_node
 
 
 class FakeClient:
@@ -19,7 +23,7 @@ class FakeClient:
 
 def test_add_node_raises_when_connect_source_missing(monkeypatch: pytest.MonkeyPatch) -> None:
     fake = FakeClient({"nodes": [], "connections": {}})
-    monkeypatch.setattr("tools.n8n.add_node.get_client", lambda: fake)
+    monkeypatch.setattr("nexus_tools_n8n.add_node.get_client", lambda: fake)
 
     with pytest.raises(ValueError, match="does not contain a source node"):
         add_node(
@@ -32,7 +36,7 @@ def test_add_node_raises_when_connect_source_missing(monkeypatch: pytest.MonkeyP
 
 def test_add_node_rejects_duplicate_names(monkeypatch: pytest.MonkeyPatch) -> None:
     fake = FakeClient({"nodes": [{"name": "Fetch", "position": [0, 0]}], "connections": {}})
-    monkeypatch.setattr("tools.n8n.add_node.get_client", lambda: fake)
+    monkeypatch.setattr("nexus_tools_n8n.add_node.get_client", lambda: fake)
 
     with pytest.raises(ValueError, match="already contains a node named"):
         add_node(
@@ -51,7 +55,7 @@ def test_add_node_updates_workflow_when_connection_exists(
             "connections": {},
         }
     )
-    monkeypatch.setattr("tools.n8n.add_node.get_client", lambda: fake)
+    monkeypatch.setattr("nexus_tools_n8n.add_node.get_client", lambda: fake)
 
     result = add_node(
         workflow_id="1",

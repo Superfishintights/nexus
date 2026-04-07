@@ -24,9 +24,11 @@ from nexus.tool_catalog import (
     ToolSpec,
     get_catalog,
     get_catalog_diagnostics,
+    resolve_tool_request,
     search_catalog,
     spec_to_dict,
 )
+from nexus.tool_policy import get_active_tool_policy
 from nexus.tool_registry import get_tool as get_loaded_tool, is_tool_loaded
 
 mcp = FastMCP("Nexus MCP Server")
@@ -40,17 +42,16 @@ def _json_dumps(payload: Any) -> str:
 @mcp.tool()
 def run_code(code: str) -> str:
     """
-    Execute Python code that imports and calls tool functions from any domain.
+    Execute Python code that calls tool functions from configured Nexus tool packs.
 
-    The code can import tools from configured packages (default: tools.*)
-    and must set RESULT to the final value. Available tools can be discovered
+    The code must set RESULT to the final value. Available tools can be discovered
     via the search_tools/get_tool MCP endpoints or through the TOOLS global
     (a lazy catalog) within the execution environment.
 
     Examples:
         # Discover tools and call one lazily.
         # (Model would typically call search_tools/get_tool first.)
-        issue_status = load_tool("get_issue_status")
+        issue_status = load_tool("jira.get_issue_status")
         RESULT = issue_status("PROJ-123")
 
     Args:
@@ -60,7 +61,8 @@ def run_code(code: str) -> str:
         JSON string containing the execution result and logs
     """
     try:
-        result = run_user_code(code)
+        policy = get_active_tool_policy()
+        result = run_user_code(code, policy=policy)
 
         response = {
             'success': True,
@@ -104,7 +106,8 @@ def search_tools(
         JSON string containing matching tool metadata.
     """
 
-    matches = search_catalog(query, limit=limit)
+    policy = get_active_tool_policy()
+    matches = search_catalog(query, limit=limit, policy=policy)
     tools: List[Dict[str, Any]] = [
         _tool_to_dict(spec, detail_level=detail_level) for spec in matches
     ]
@@ -115,6 +118,7 @@ def search_tools(
         "detailLevel": detail_level,
         "totalMatches": len(matches),
         "tools": tools,
+        "policy": policy.to_dict(),
     }
     diagnostics = get_catalog_diagnostics()
     if diagnostics["warnings"]:
@@ -127,30 +131,41 @@ def get_tool(name: str, detail_level: str = "full") -> str:
     """Return metadata for a single tool by name.
 
     Args:
-        name: Registered tool name (e.g., "get_issue_status").
+        name: Registered canonical tool name (e.g., "jira.get_issue_status").
         detail_level: One of "name", "summary", "full".
 
     Returns:
         JSON string with tool metadata or an error if not found.
     """
 
+    policy = get_active_tool_policy()
     catalog = get_catalog(refresh=True)
-    spec = catalog.get(name)
+    try:
+        spec = resolve_tool_request(
+            name,
+            catalog=catalog,
+            policy=policy,
+            allow_aliases=not policy.is_restricted,
+        )
+    except KeyError:
+        spec = None
     if spec is not None:
         response = {
             "success": True,
             "tool": _tool_to_dict(spec, detail_level=detail_level),
+            "policy": policy.to_dict(),
         }
         diagnostics = get_catalog_diagnostics()
         if diagnostics["warnings"]:
             response["warnings"] = diagnostics["warnings"]
         return _json_dumps(response)
 
-    if is_tool_loaded(name):
+    if not policy.is_restricted and is_tool_loaded(name):
         info = get_loaded_tool(name)
         response = {
             "success": True,
             "tool": _tool_info_to_dict(info, detail_level=detail_level),
+            "policy": policy.to_dict(),
         }
         return _json_dumps(response)
 

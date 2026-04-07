@@ -13,15 +13,32 @@ from __future__ import annotations
 import ast
 import importlib.util
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
 from .config import get_setting
+from .tool_policy import (
+    ToolPolicy,
+    classify_tool_name,
+    namespace_for_tool,
+)
 
 
 TOOL_PACKAGES_ENV = "NEXUS_TOOL_PACKAGES"
-DEFAULT_TOOL_PACKAGES = ("tools",)
+DEFAULT_TOOL_PACKAGES: Tuple[str, ...] = ()
+REPO_ROOT = Path(__file__).resolve().parents[1]
+LOCAL_TOOL_PACKS_ROOT = REPO_ROOT / "tool_packs"
+LEGACY_ALL_PACKAGES_ALIASES = frozenset({"tools"})
+FIRST_PARTY_TOOL_PACK_ORDER: Tuple[str, ...] = (
+    "nexus_tools_jira",
+    "nexus_tools_n8n",
+    "nexus_tools_radarr",
+    "nexus_tools_sonarr",
+    "nexus_tools_tautulli",
+    "nexus_tools_starling",
+)
 
 
 @dataclass(frozen=True)
@@ -33,6 +50,7 @@ class ToolSpec:
     description: str
     signature: str
     examples: Tuple[str, ...] = ()
+    tool_class: str = "read"
     # If set, this ToolSpec name is an alias for the canonical tool name.
     alias_of: Optional[str] = None
 
@@ -172,14 +190,15 @@ _FILE_CACHE: Dict[str, _FileCacheEntry] = {}
 def get_tool_package_names() -> Sequence[str]:
     """Return configured tool package names.
 
-    Reads comma-separated names from NEXUS_TOOL_PACKAGES. Defaults to ["tools"].
+    Reads comma-separated names from NEXUS_TOOL_PACKAGES. Defaults to no tool packs.
     """
 
     raw = (get_setting(TOOL_PACKAGES_ENV) or "").strip()
     if not raw:
         return DEFAULT_TOOL_PACKAGES
     names = [name.strip() for name in raw.split(",") if name.strip()]
-    return names or DEFAULT_TOOL_PACKAGES
+    expanded = _expand_tool_package_names(names)
+    return tuple(expanded) or DEFAULT_TOOL_PACKAGES
 
 
 def get_catalog(*, refresh: bool = False) -> Dict[str, ToolSpec]:
@@ -215,8 +234,11 @@ def build_catalog() -> Dict[str, ToolSpec]:
     duplicates: List[Tuple[str, str, str]] = []
     problems: List[CatalogProblem] = []
     seen_files: Set[str] = set()
+    package_names = tuple(get_tool_package_names())
 
-    for package_name in get_tool_package_names():
+    _ensure_tool_pack_paths(package_names)
+
+    for package_name in package_names:
         spec = importlib.util.find_spec(package_name)
         if spec is None or spec.submodule_search_locations is None:
             problems.append(
@@ -258,6 +280,72 @@ def build_catalog() -> Dict[str, ToolSpec]:
 
     _CATALOG_PROBLEMS = tuple(problems)
     return catalog
+
+
+def _expand_tool_package_names(names: Sequence[str]) -> List[str]:
+    expanded: List[str] = []
+    seen: Set[str] = set()
+
+    for name in names:
+        if name in LEGACY_ALL_PACKAGES_ALIASES:
+            candidates = discover_local_tool_packages()
+        else:
+            candidates = (name,)
+
+        for candidate in candidates:
+            normalized = candidate.strip()
+            if not normalized or normalized in seen:
+                continue
+            expanded.append(normalized)
+            seen.add(normalized)
+
+    return expanded
+
+
+def discover_local_tool_packages(tool_packs_root: Path = LOCAL_TOOL_PACKS_ROOT) -> Tuple[str, ...]:
+    """Return first-party tool package roots available in the local monorepo."""
+
+    if not tool_packs_root.exists():
+        return ()
+
+    discovered: List[str] = []
+    for package_root in tool_packs_root.iterdir():
+        if not package_root.is_dir():
+            continue
+        package_name = package_root.name
+        if not package_name.startswith("nexus_tools_"):
+            continue
+        if not (package_root / "pyproject.toml").exists():
+            continue
+        if not (package_root / package_name / "__init__.py").exists():
+            continue
+        discovered.append(package_name)
+
+    preferred_index = {
+        package_name: index for index, package_name in enumerate(FIRST_PARTY_TOOL_PACK_ORDER)
+    }
+    package_names = sorted(
+        discovered,
+        key=lambda name: (preferred_index.get(name, len(FIRST_PARTY_TOOL_PACK_ORDER)), name),
+    )
+    return tuple(package_names)
+
+
+def _ensure_tool_pack_paths(package_names: Sequence[str]) -> None:
+    """Expose local monorepo tool packs on sys.path when available."""
+
+    if not package_names or not LOCAL_TOOL_PACKS_ROOT.exists():
+        return
+
+    for package_name in package_names:
+        package_root = LOCAL_TOOL_PACKS_ROOT / package_name
+        if not package_root.is_dir():
+            continue
+        if not (package_root / package_name / "__init__.py").exists():
+            continue
+        package_root_s = str(package_root)
+        if package_root_s not in sys.path:
+            sys.path.insert(0, package_root_s)
 
 
 def scan_package(
@@ -372,6 +460,7 @@ def _scan_file_uncached(
                 description=docstring.strip(),
                 signature=signature,
                 examples=examples,
+                tool_class=decorator_meta.tool_class or classify_tool_name(tool_name),
                 alias_of=None,
             )
             specs.append(canonical)
@@ -387,6 +476,7 @@ def _scan_file_uncached(
                         description=canonical.description,
                         signature=canonical.signature,
                         examples=canonical.examples,
+                        tool_class=canonical.tool_class,
                         alias_of=tool_name,
                     )
                 )
@@ -406,6 +496,7 @@ class DecoratorMetadata:
     namespace: Optional[str] = None
     description: Optional[str] = None
     examples: Optional[List[str]] = None
+    tool_class: Optional[str] = None
     aliases: Optional[List[str]] = None
 
 
@@ -437,6 +528,7 @@ def extract_decorator_metadata(
             namespace = None
             description = None
             examples: Optional[List[str]] = None
+            tool_class = None
             aliases: Optional[List[str]] = None
             for keyword in decorator.keywords:
                 if keyword.arg == "name":
@@ -447,6 +539,8 @@ def extract_decorator_metadata(
                     description = literal_str(keyword.value)
                 elif keyword.arg == "examples":
                     examples = literal_str_list(keyword.value)
+                elif keyword.arg == "tool_class":
+                    tool_class = literal_str(keyword.value)
                 elif keyword.arg == "aliases":
                     aliases = literal_str_list(keyword.value)
             return DecoratorMetadata(
@@ -454,6 +548,7 @@ def extract_decorator_metadata(
                 namespace=namespace,
                 description=description,
                 examples=examples,
+                tool_class=tool_class,
                 aliases=aliases,
             )
     return DecoratorMetadata()
@@ -567,11 +662,101 @@ def canonical_specs(specs: Iterable[ToolSpec]) -> List[ToolSpec]:
     return [spec for spec in specs if spec.alias_of is None]
 
 
+def canonical_name_for_spec(spec: ToolSpec) -> str:
+    return spec.alias_of or spec.name
+
+
+def get_canonical_spec(spec: ToolSpec, catalog: Dict[str, ToolSpec]) -> ToolSpec:
+    if spec.alias_of is None:
+        return spec
+    return catalog[spec.alias_of]
+
+
+def is_spec_allowed(
+    spec: ToolSpec,
+    *,
+    policy: Optional[ToolPolicy],
+    catalog: Dict[str, ToolSpec],
+    allow_aliases: bool,
+) -> bool:
+    if spec.alias_of is not None and not allow_aliases:
+        return False
+    if policy is None or not policy.is_restricted:
+        return True
+    canonical = get_canonical_spec(spec, catalog)
+    return policy.check_canonical(
+        canonical.name,
+        namespace=namespace_for_tool(canonical.name),
+        tool_class=canonical.tool_class,
+    )
+
+
+def filter_specs_by_policy(
+    specs: Iterable[ToolSpec],
+    *,
+    policy: Optional[ToolPolicy],
+    catalog: Dict[str, ToolSpec],
+    allow_aliases: bool,
+) -> List[ToolSpec]:
+    return [
+        spec
+        for spec in specs
+        if is_spec_allowed(
+            spec,
+            policy=policy,
+            catalog=catalog,
+            allow_aliases=allow_aliases,
+        )
+    ]
+
+
+def filter_catalog(
+    catalog: Dict[str, ToolSpec],
+    *,
+    policy: Optional[ToolPolicy],
+    allow_aliases: bool,
+) -> Dict[str, ToolSpec]:
+    return {
+        spec.name: spec
+        for spec in filter_specs_by_policy(
+            catalog.values(),
+            policy=policy,
+            catalog=catalog,
+            allow_aliases=allow_aliases,
+        )
+    }
+
+
+def resolve_tool_request(
+    name: str,
+    *,
+    catalog: Dict[str, ToolSpec],
+    policy: Optional[ToolPolicy],
+    allow_aliases: bool,
+) -> ToolSpec:
+    spec = catalog.get(name)
+    if spec is None:
+        raise KeyError(f"Unknown tool: {name}")
+    if spec.alias_of is not None and not allow_aliases:
+        raise KeyError(
+            f"Tool '{name}' is not available in restricted mode; use canonical name '{spec.alias_of}'"
+        )
+    if not is_spec_allowed(
+        spec,
+        policy=policy,
+        catalog=catalog,
+        allow_aliases=allow_aliases,
+    ):
+        raise KeyError(f"Unknown tool: {name}")
+    return spec
+
+
 def discoverable_specs(
     specs: Iterable[ToolSpec],
     *,
     catalog: Optional[Dict[str, ToolSpec]] = None,
     include_aliases: bool = False,
+    policy: Optional[ToolPolicy] = None,
 ) -> List[ToolSpec]:
     """Return the default agent-facing discovery surface."""
 
@@ -583,6 +768,13 @@ def discoverable_specs(
 
     if not include_aliases:
         spec_list = canonical_specs(spec_list)
+
+    spec_list = filter_specs_by_policy(
+        spec_list,
+        policy=policy,
+        catalog=catalog,
+        allow_aliases=include_aliases,
+    )
 
     return [spec for spec in spec_list if _is_discoverable(spec, catalog)]
 
@@ -665,6 +857,8 @@ def search_specs(
     *,
     limit: int = 20,
     include_aliases: bool = False,
+    policy: Optional[ToolPolicy] = None,
+    catalog: Optional[Dict[str, ToolSpec]] = None,
 ) -> List[ToolSpec]:
     """Search an iterable of specs using the catalog's shared scoring rules."""
 
@@ -674,6 +868,8 @@ def search_specs(
     spec_list = discoverable_specs(
         specs,
         include_aliases=include_aliases,
+        catalog=catalog,
+        policy=policy,
     )
     if not query:
         return sorted(spec_list, key=lambda spec: spec.name)[:limit]
@@ -694,6 +890,7 @@ def search_catalog(
     *,
     limit: int = 20,
     include_aliases: bool = False,
+    policy: Optional[ToolPolicy] = None,
 ) -> List[ToolSpec]:
     """Search the catalog and return best matches.
 
@@ -708,6 +905,8 @@ def search_catalog(
         query,
         limit=limit,
         include_aliases=include_aliases,
+        policy=policy,
+        catalog=catalog,
     )
 
 
@@ -841,11 +1040,14 @@ def spec_to_dict(
         {
             "description": description,
             "signature": spec.signature,
+            "toolClass": spec.tool_class,
             "loaded": loaded,
         }
     )
     if spec.alias_of is not None:
         base["aliasOf"] = spec.alias_of
+    else:
+        base["canonicalName"] = spec.name
 
     if detail_level == "full":
         base["description"] = spec.description
@@ -857,12 +1059,17 @@ def spec_to_dict(
 __all__ = [
     "ToolSpec",
     "CatalogProblem",
+    "canonical_name_for_spec",
     "canonical_specs",
     "discoverable_specs",
+    "filter_catalog",
     "get_tool_package_names",
     "get_catalog",
     "get_catalog_diagnostics",
     "get_catalog_problems",
+    "get_canonical_spec",
+    "is_spec_allowed",
+    "resolve_tool_request",
     "search_catalog",
     "search_specs",
     "score_spec",

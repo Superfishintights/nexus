@@ -4,15 +4,17 @@ This repo is designed for **large** tool libraries without MCP “tool schema bl
 The model only talks to Nexus via `search_tools`, `get_tool`, and `run_code`; everything
 else is discovered and loaded on demand.
 
-## Recommended layout (per service)
+## Recommended layout (per service pack)
 
 For a new service named `acme`, create:
 
 ```text
-tools/acme/
-  __init__.py
-  client.py
-  api.py
+tool_packs/nexus_tools_acme/
+  pyproject.toml
+  nexus_tools_acme/
+    __init__.py
+    client.py
+    api.py
 ```
 
 Split `api.py` into multiple files when it grows (Nexus scans subpackages recursively).
@@ -80,23 +82,14 @@ Nexus discovers tools via AST scanning (no imports). To make discovery accurate:
 - Keep `namespace="..."`, `name="..."`, `description="..."`, and `examples=[...]` as **literal strings/lists**.
 - Put any computed documentation in the function docstring (which is also scanned).
 
-### Optional: typed settings (`RUNNER_SETTINGS`)
+### Configuration guidance
 
 Most tool clients should read configuration directly via `nexus.config.get_setting`
-from the environment or `.env`. Per-service settings under `nexus/settings/*` are
-optional and exist to expose typed config to code executed via `run_code` (available as
-`RUNNER_SETTINGS`).
+from the environment or `.env`.
 
-Only add a `nexus/settings/<service>.py` module if you want:
-
-- validation in one place (required env vars, URL normalization, fallbacks)
-- a typed settings object available to snippets (`RUNNER_SETTINGS.<service>`)
-
-If you do add one:
-
-1. Create `nexus/settings/<service>.py` as a dataclass with a `from_env()` classmethod.
-2. Wire it into `nexus/settings/runner.py` so it’s loaded into `RunnerSettings`.
-3. Export it from `nexus/settings/__init__.py` and `nexus/config.py`.
+`RUNNER_SETTINGS` is now core metadata about the active tool packages and tool policy,
+not a pack-specific settings bundle. Keep pack-specific validation local to the client
+module unless there is a clear shared runtime need.
 
 ## Shared client template (standard library HTTP)
 
@@ -149,5 +142,5 @@ def get_client() -> AcmeClient:
 - Make tool return values JSON-serializable (dict/list/str/int/bool/None).
 - Avoid import-time side effects (no network calls when the module is imported).
 - Use `search_tools` and `get_tool` to validate discoverability.
-- Validate syntax: `python -m py_compile tools/<service>/*.py`.
+- Validate syntax: `python -m py_compile tool_packs/nexus_tools_<service>/nexus_tools_<service>/*.py`.
 - Run `pytest -q` from repo root after changes.

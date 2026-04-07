@@ -12,6 +12,13 @@ from dataclasses import dataclass
 from types import ModuleType
 from typing import Any, Callable, Dict, Iterable, List, Optional
 
+from .tool_policy import (
+    ToolAccessError,
+    ToolPolicy,
+    classify_tool_name,
+    namespace_for_tool,
+)
+
 
 @dataclass(frozen=True)
 class ToolInfo:
@@ -22,7 +29,13 @@ class ToolInfo:
     description: str
     signature: str
     examples: List[str]
+    tool_class: str
     function: Callable[..., object]
+    alias_of: Optional[str] = None
+
+    @property
+    def canonical_name(self) -> str:
+        return self.alias_of or self.name
 
 
 _REGISTRY: Dict[str, ToolInfo] = {}
@@ -35,6 +48,7 @@ def register_tool(
     namespace: Optional[str] = None,
     description: Optional[str] = None,
     examples: Optional[List[str]] = None,
+    tool_class: Optional[str] = None,
     aliases: Optional[List[str]] = None,
 ) -> Callable[[Callable[..., object]], Callable[..., object]]:
     """Decorator used by tool modules to register callables."""
@@ -64,6 +78,7 @@ def register_tool(
             description=doc.strip(),
             signature=signature,
             examples=list(examples or []),
+            tool_class=tool_class or classify_tool_name(tool_name),
             function=target,
         )
         _REGISTRY[tool_name] = canonical
@@ -82,7 +97,9 @@ def register_tool(
                 description=canonical.description,
                 signature=canonical.signature,
                 examples=list(canonical.examples),
+                tool_class=canonical.tool_class,
                 function=canonical.function,
+                alias_of=canonical.name,
             )
         return target
 
@@ -115,7 +132,7 @@ def is_tool_loaded(name: str) -> bool:
     return name in _REGISTRY
 
 
-def ensure_tool_loaded(name: str) -> ToolInfo:
+def ensure_tool_loaded(name: str, *, policy: Optional[ToolPolicy] = None) -> ToolInfo:
     """Ensure the tool named *name* is imported and registered.
 
     This consults the tool catalog for the module path, imports that module,
@@ -123,20 +140,46 @@ def ensure_tool_loaded(name: str) -> ToolInfo:
     """
 
     if name in _REGISTRY:
-        return _REGISTRY[name]
+        info = _REGISTRY[name]
+        if policy is not None and policy.is_restricted and info.alias_of is not None:
+            raise ToolAccessError(
+                f"Tool '{name}' is not available in restricted mode; use canonical name '{info.alias_of}'"
+            )
+        _assert_tool_allowed(info, policy=policy)
+        return info
 
     # Local import to avoid circular dependency at module load time.
-    from .tool_catalog import get_catalog
+    from .tool_catalog import get_catalog, resolve_tool_request
 
-    spec = get_catalog().get(name)
-    if spec is None:
-        raise KeyError(f"Unknown tool: {name}")
+    catalog = get_catalog()
+    spec = resolve_tool_request(
+        name,
+        catalog=catalog,
+        policy=policy,
+        allow_aliases=not bool(policy and policy.is_restricted),
+    )
     importlib.import_module(spec.module)
     if name not in _REGISTRY:
         raise RuntimeError(
             f"Tool '{name}' did not register itself when importing '{spec.module}'"
         )
-    return _REGISTRY[name]
+    info = _REGISTRY[name]
+    _assert_tool_allowed(info, policy=policy)
+    return info
+
+
+def _assert_tool_allowed(info: ToolInfo, *, policy: Optional[ToolPolicy]) -> None:
+    if policy is None:
+        return
+    if policy.is_restricted and info.alias_of is not None:
+        raise ToolAccessError(
+            f"Tool '{info.name}' is not available in restricted mode; use canonical name '{info.alias_of}'"
+        )
+    policy.assert_canonical_allowed(
+        info.canonical_name,
+        namespace=namespace_for_tool(info.canonical_name),
+        tool_class=info.tool_class,
+    )
 
 
 def auto_import(package: ModuleType) -> None:

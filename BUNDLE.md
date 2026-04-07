@@ -1,30 +1,40 @@
 # Nexus Bundle
 
-This repo can generate a single-file bundle for copy/paste deployment of the
-`nexus/` tree.
+This repo can generate a single-file bundle for copy/paste deployment of `nexus-core` files.
 
-Build it:
+Build:
 
 ```bash
 python scripts/build_nexus_bundle.py
 ```
 
-That produces:
+Output:
 
 - `nexus_bundle.py`
 
-Use it on the target machine:
+Apply on target checkout:
 
 ```bash
 python nexus_bundle.py /path/to/existing/repo
 ```
 
-Helpful flags:
+Flags:
 
-- `--dry-run`: show which files would be rewritten
-- `--list`: list embedded files
-- `--no-backup`: skip file backups
-- `--backup-dir <dir>`: choose where changed-file backups are stored
+- `--dry-run`
+- `--list`
+- `--no-backup`
+- `--backup-dir <dir>`
 
-The current bundle profile includes only `nexus/**` and excludes local cache and
-build artefacts.
+## Scope
+
+Bundle profile is core-only (`nexus/**`):
+
+- Runtime modules under `nexus/`
+- `nexus/pyproject.toml`
+- Core tests under `nexus/`
+
+Not included:
+
+- `tool_packs/`
+- legacy `tools/`
+- caches and build artifacts

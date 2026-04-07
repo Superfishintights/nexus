@@ -1,82 +1,25 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
-
-from ..env import ConfigurationError
-from .confluence import ConfluenceSettings
-from .gitlab import GitLabSettings
-from .jenkins import JenkinsSettings
-from .jira import JiraSettings
-from .sonarr import SonarrSettings
-from .sourcegraph import SourcegraphSettings
-from .talos import TalosSettings
-from .tautulli import TautulliSettings
+from typing import Tuple
 
 
 @dataclass(frozen=True)
 class RunnerSettings:
-    """Top-level settings for the runner environment."""
+    """Core runner settings exposed inside `run_code` snippets."""
 
-    jira: Optional[JiraSettings] = None
-    sourcegraph: Optional[SourcegraphSettings] = None
-    confluence: Optional[ConfluenceSettings] = None
-    gitlab: Optional[GitLabSettings] = None
-    jenkins: Optional[JenkinsSettings] = None
-    sonarr: Optional[SonarrSettings] = None
-    talos: Optional[TalosSettings] = None
-    tautulli: Optional[TautulliSettings] = None
+    tool_packages: Tuple[str, ...] = ()
+    tool_policy_name: str = "unrestricted"
+    tool_policy_mode: str = "unrestricted"
 
     @classmethod
     def from_env(cls) -> "RunnerSettings":
-        try:
-            jira = JiraSettings.from_env()
-        except ConfigurationError:
-            jira = None
+        from ..tool_catalog import get_tool_package_names
+        from ..tool_policy import get_active_tool_policy
 
-        try:
-            sourcegraph = SourcegraphSettings.from_env()
-        except ConfigurationError:
-            sourcegraph = None
-
-        try:
-            confluence = ConfluenceSettings.from_env()
-        except ConfigurationError:
-            confluence = None
-
-        try:
-            gitlab = GitLabSettings.from_env()
-        except ConfigurationError:
-            gitlab = None
-
-        try:
-            jenkins = JenkinsSettings.from_env()
-        except ConfigurationError:
-            jenkins = None
-
-        try:
-            sonarr = SonarrSettings.from_env()
-        except ConfigurationError:
-            sonarr = None
-
-        try:
-            talos = TalosSettings.from_env()
-        except ConfigurationError:
-            talos = None
-
-        try:
-            tautulli = TautulliSettings.from_env()
-        except ConfigurationError:
-            tautulli = None
-
+        policy = get_active_tool_policy()
         return cls(
-            jira=jira,
-            sourcegraph=sourcegraph,
-            confluence=confluence,
-            gitlab=gitlab,
-            jenkins=jenkins,
-            sonarr=sonarr,
-            talos=talos,
-            tautulli=tautulli,
+            tool_packages=tuple(get_tool_package_names()),
+            tool_policy_name=policy.name,
+            tool_policy_mode=policy.mode,
         )
-
