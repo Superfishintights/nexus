@@ -321,6 +321,8 @@ when Nexus has:
 
 ## Phase 2 — Incremental Python improvements only where justified
 
+If Phase 1 shows no material gap, this phase can be skipped.
+
 Focus:
 
 - reduce avoidable cold-start cost if Phase 1 shows it is a meaningful
