@@ -39,7 +39,18 @@ The strongest near-term opportunity is to:
 3. validate a restricted runtime that still supports legitimate tool usage,
 4. only then decide whether deeper runtime changes are justified.
 
-## Current-Phase Scope
+## Primary Code Touchpoints
+
+Later execution or review work should stay grounded in these files:
+
+- `nexus/server.py` — public MCP boundary and current tool-discovery / tool-metadata surface
+- `nexus/runner.py` — execution globals, lazy tool loading, limits, and runner behavior
+- `nexus/execution_worker.py` — subprocess execution boundary for bounded runs
+- `nexus/tool_policy.py` — policy modes, presets, authorization semantics, and restricted-mode expectations
+
+If a proposed roadmap change does not clearly relate back to one or more of these touchpoints, it is probably too speculative for the current phase.
+
+## Decision Rule
 
 The current phase must stay narrow and evidence-driven.
 
@@ -108,6 +119,34 @@ The current phase does **not** include:
 
 Dynamic tool creation and broader CLI execution can be revisited later **only after** the core runtime boundary and restricted-runtime story are proven.
 
+## Review Summary: What Stays, Tightens, Or Moves Later
+
+### Keep
+
+- the brownfield framing around `server.py`, `runner.py`, `execution_worker.py`, and `tool_policy.py`
+- the decision rule to keep Python by default
+- external references as inspiration, not mandates
+- “minimal change needed” as a valid outcome
+
+### Tighten
+
+- the first phase so it centers only on benchmark/eval baselining, host/runner boundary clarification, and restricted-runtime validation
+- the decision gates so alternate runtimes/supervisors require explicit proof instead of vague upside
+- the handoff so future execution can see which code areas matter most
+
+### Defer
+
+- persistent runners,
+- Go supervisor / sidecar exploration,
+- alternate runtimes,
+- dynamic tool creation,
+- broad shell / CLI execution,
+- broader platform expansion.
+
+### Remove From First-Phase Assumptions
+
+Do not treat generic optimization backlog work—cold-start tuning, catalog refresh tweaks, telemetry expansion, or similar cleanup—as the first milestone unless the benchmark/eval phase proves those items are the real bottleneck.
+
 ## Recommended Direction
 
 ### 1. Benchmark first
@@ -173,11 +212,9 @@ They are **demoted from default roadmap to gated follow-on options**.
 
 ## Phased Plan
 
-## Phase 1 — Prove the current path before expanding scope
+## Phase 1 — Prove the current path before optimizing it
 
-Phase 1 is the entire near-term priority. It has three linked workstreams, and later-phase work must **not** be treated as a prerequisite for finishing this phase.
-
-### Workstream A — Baseline and evaluation harness
+This phase is intentionally narrow. It exists to answer what Nexus should do next, not to pre-commit to a larger rewrite.
 
 Deliverables:
 
@@ -185,68 +222,41 @@ Deliverables:
 - repeatable fixture-backed functional checks,
 - safety cases,
 - agent eval set,
-- stored machine-readable results.
+- stored machine-readable baseline results,
+- an explicit host/runner boundary sketch tied to `server.py`, `runner.py`, `execution_worker.py`, and `tool_policy.py`,
+- restricted-runtime validation cases that show what is blocked vs what still works.
 
 Success criteria:
 
 - current Nexus behavior is measured rather than guessed,
 - there is a clear control baseline for later comparisons,
+- the host/runner boundary is concrete enough to prototype without reopening requirements,
+- restricted-runtime claims are validated against allowed tool behavior,
 - later architectural claims can be falsified.
 
-### Workstream B — Clarify the host/runner boundary
+Not part of Phase 1 unless the evidence demands it:
+
+- broad performance tuning,
+- large telemetry expansion,
+- dynamic tool creation,
+- broad shell / CLI execution,
+- alternate runtime or supervisor implementation work.
+
+## Phase 2 — Improve the current Python path only where Phase 1 proves it matters
 
 Focus:
 
-- define the runner protocol,
-- move tool execution responsibility fully to the host,
-- make runner behavior narrower and easier to restrict,
-- preserve existing tool-pack functionality.
+- reduce avoidable cold-start cost when benchmarks show it matters,
+- improve catalog refresh behavior when it is a measured pain point,
+- improve structured telemetry and errors where validation gaps were exposed,
+- tighten policy enforcement where restricted-runtime tests found real weaknesses.
 
 Success criteria:
 
-- tools still work through the host,
-- runner no longer needs direct tool-pack imports,
-- policy semantics remain consistent,
-- the boundary is explicit enough to support later restriction or backend swaps.
-
-### Workstream C — Validate restricted-runtime behavior
-
-Focus:
-
-- restrict direct runner capabilities,
-- test blocked behaviors explicitly,
-- confirm allowed tool calls still function,
-- gather safety/performance tradeoff data.
-
-Success criteria:
-
-- bad runner behaviors are blocked or terminated,
-- legitimate tool usage still works,
-- logs and error reporting make failures understandable.
-
-### Phase 1 exit rule
-
-Do not advance because a later option sounds attractive. Advance only when Nexus has:
-
-- a measured benchmark/eval baseline,
-- an explicit host/runner boundary,
-- a restricted-runtime proof that still preserves approved tool workflows,
-- enough evidence to decide whether incremental Python work is sufficient or a follow-on is justified.
-
-## Phase 2 — Take only the incremental Python improvements that Phase 1 justifies
-
-Focus:
-
-- reduce avoidable cold-start cost if Phase 1 shows it is a meaningful bottleneck,
-- improve catalog refresh behavior where it affects measured tool-use reliability,
-- improve structured telemetry and errors where they help explain eval failures,
-- tighten existing policy enforcement where restricted-runtime validation exposed gaps.
-
-Success criteria:
-
-- improvements are tied to measured Phase 1 findings rather than broad cleanup,
-- no regressions appear in intended tool behavior,
-- the remaining gaps are explicit enough to justify either staying on Python or testing a follow-on.
+- changes are justified by Phase 1 evidence,
+- there is measurable improvement in the targeted pain points,
+- intended tool behavior does not regress,
+- the deployment story remains simple.
 
 ## Phase 3 — Explore conditional follow-ons only if justified
 
@@ -255,7 +265,8 @@ Possible follow-ons:
 - persistent Python runner,
 - Go supervisor/sidecar,
 - alternate sandboxed runtime,
-- broader extensibility work.
+- broader extensibility work,
+- richer local/CLI workflows.
 
 These happen only if Phase 1 and Phase 2 evidence show a real gap worth closing.
 
@@ -270,45 +281,6 @@ A follow-on or rewrite path should only advance if it shows a clear gain that ma
 - measurably better agent outcomes.
 
 Vague upside is not enough.
-
-## Valid Future Branches
-
-These are valid later branches, not current commitments:
-
-- Go as a supervisor or deployment helper,
-- alternate sandbox runtimes,
-- broader tool/runtime extensibility,
-- richer local/CLI workflows.
-
-The plan should pivot toward them **only** when benchmark and restricted-runtime evidence justify it.
-
-## Worktree Strategy
-
-Use separate worktrees for experiments that may diverge significantly:
-
-- baseline / planning,
-- benchmark harness,
-- runner-boundary prototype,
-- supervisor prototype if later justified.
-
-The goal is to keep experiments isolated and comparable without destabilizing the main branch.
-
-## Suggested Repository Additions
-
-Add incrementally, not all at once:
-
-- `benchmarks/README.md`
-- `benchmarks/cases/`
-- `benchmarks/results/`
-- `benchmarks/fixtures/`
-- `scripts/bench.py`
-- `scripts/bench_compare.py`
-- `scripts/run_eval.py`
-- `scripts/fixture_api_server.py`
-- `nexus/runner_protocol.py`
-- `nexus/runner_backends/`
-
-These additions should only appear when they support the active phase.
 
 ## Decision Gates
 
@@ -342,7 +314,35 @@ These additions should only appear when they support the active phase.
 - the host/runner boundary can be tightened incrementally,
 - and alternate approaches do not outperform the current path enough to justify disruption.
 
-“Do nothing major yet” is a valid conclusion.
+## Worktree Strategy
+
+Use separate worktrees for experiments that may diverge significantly:
+
+- baseline / planning,
+- benchmark harness,
+- runner-boundary prototype,
+- supervisor prototype if later justified.
+
+The goal is to keep experiments isolated and comparable without destabilizing the main branch.
+
+## Possible Repository Additions When A Phase Needs Them
+
+Add incrementally, not all at once:
+
+- `benchmarks/README.md`
+- `benchmarks/cases/`
+- `benchmarks/results/`
+- `benchmarks/fixtures/`
+- `scripts/bench.py`
+- `scripts/bench_compare.py`
+- `scripts/run_eval.py`
+- `scripts/fixture_api_server.py`
+- `nexus/runner_protocol.py`
+- `nexus/runner_backends/`
+
+These additions should only appear when they support the active phase and should not be treated as hidden prerequisites for approving Phase 1.
+
+## Success Criteria
 
 ## Later-Only Follow-ons
 
@@ -373,11 +373,10 @@ If a proposed direction cannot explain how it improves or preserves behavior aro
 
 1. Build the benchmark and eval harness.
 2. Measure the current Python path.
-3. Tighten the host/runner boundary.
-4. Validate restricted-runtime behavior.
-5. Apply only the incremental Python improvements justified by that evidence.
-6. Reassess whether persistent runners, supervisors, or alternate runtimes are still justified.
-7. Only then expand into follow-on capabilities if the evidence supports it.
+3. Define the host/runner boundary from the current codebase touchpoints.
+4. Validate restricted-runtime behavior against allowed tool workflows.
+5. Decide whether targeted Python improvements are justified.
+6. Only then consider persistent runners, supervisors, alternate runtimes, or broader runtime features.
 
 ## Final Recommendation
 
@@ -386,9 +385,6 @@ Treat the existing codebase as a starting advantage, not a mistake.
 For the next stage of Nexus:
 
 - measure before rewriting,
-- prioritize the benchmark/eval baseline,
-- make the host/runner boundary explicit,
-- prove restricted-runtime behavior without breaking legitimate tool access,
-- keep Python as the default path unless evidence proves otherwise,
+- narrow the first phase to benchmarks/evals, host/runner clarification, and restricted-runtime proof,
 - defer speculative platform expansion,
 - and preserve minimal change as a valid outcome.
