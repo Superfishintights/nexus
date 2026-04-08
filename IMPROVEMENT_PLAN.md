@@ -79,6 +79,16 @@ Later execution or review work should stay grounded in these files:
 
 If a proposed roadmap change does not clearly relate back to one or more of these touchpoints, it is probably too speculative for the current phase.
 
+## Verification Path For The Next Execution Lane
+
+Any follow-on implementation or review should verify the plan against these checkpoints:
+
+- benchmark/eval artifacts must show the actual bottleneck before optimization work is prioritized
+- host/runner boundary proposals must map back to `server.py`, `runner.py`, `execution_worker.py`, and `tool_policy.py`
+- restricted-runtime validation must prove blocked shell/network/filesystem behavior **and** preserved host-mediated tool access
+- proposed phase work must explicitly avoid reintroducing web UI, cloud/shared deployment, Rust, dynamic tool creation, or broad CLI execution into the current phase
+- if the measured results do not justify a larger move, “do nothing major yet” remains the correct outcome
+
 ## Decision Rule
 
 The current phase must stay narrow and evidence-driven.
