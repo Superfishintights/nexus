@@ -413,3 +413,12 @@ For the next stage of Nexus:
 - keep Python as the default path unless evidence proves otherwise,
 - defer speculative platform expansion,
 - preserve minimal change as a valid outcome.
+
+
+## References
+https://www.anthropic.com/engineering/code-execution-with-mcp
+https://blog.cloudflare.com/code-mode/
+https://x.com/RhysSullivan/status/2030903539871154193
+https://github.com/RhysSullivan/executor
+
+- the above git can be cloned locally if required for any reason
