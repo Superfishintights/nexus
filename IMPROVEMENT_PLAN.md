@@ -397,7 +397,7 @@ Use separate worktrees for experiments that may diverge significantly:
 - supervisor prototype if later justified.
 
 The goal is to keep experiments isolated and comparable without
-Destabilizing the main branch.
+destabilizing the main branch.
 
 ## Final Recommendation
 
