@@ -65,6 +65,7 @@ Any follow-on implementation or review should verify the plan against these chec
 - host/runner boundary proposals must map back to `server.py`, `runner.py`, `execution_worker.py`, and `tool_policy.py`
 - restricted-runtime validation must prove blocked shell/network/filesystem behavior **and** preserved host-mediated tool access
 - proposed phase work must explicitly avoid reintroducing web UI, cloud/shared deployment, Rust, dynamic tool creation, or broad CLI execution into the current phase
+- proposed execution plans should cite which verification checkpoint or measured result justifies the work before expanding scope
 - if the measured results do not justify a larger move, “do nothing major yet” remains the correct outcome
 
 ## Decision Rule
