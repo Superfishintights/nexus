@@ -54,16 +54,44 @@ Nexus keeps a small host/runner boundary:
 
 - `nexus/server.py` is the host-facing MCP surface for `search_tools`,
   `get_tool`, and `run_code`.
-- `nexus/runner.py` prepares snippet globals and launches the execution worker.
-- `nexus/execution_worker.py` runs the snippet in a subprocess.
+- `nexus/runner.py` prepares snippet globals and reuses a pooled persistent execution worker by default.
+- `nexus/execution_worker.py` runs snippets in subprocess workers that can serve multiple requests before restart.
 - Tool policy and tool loading stay on the Nexus side of the boundary so
   restricted mode can block arbitrary imports while still allowing approved
   canonical tool calls.
+
+Set `NEXUS_RUN_CODE_MODE=oneshot` to force the previous spawn-per-call behavior for comparison or debugging.
+
+Persistent-runner tuning knobs:
+
+- `NEXUS_RUN_CODE_MODE=persistent_pool` — default pooled warm workers
+- `NEXUS_RUN_CODE_MODE=persistent` — single warm worker, best for sequential latency
+- `NEXUS_RUN_CODE_MODE=oneshot` — legacy spawn-per-call mode
+- `NEXUS_PERSISTENT_WORKER_POOL_SIZE` — pool size in pooled mode (default `4`)
+- `NEXUS_PERSISTENT_WORKER_MAX_REQUESTS` — recycle a worker after N requests (default `100`)
+- `NEXUS_PERSISTENT_WORKER_IDLE_SECONDS` — recycle a worker after idle time (default `300`)
+
+## Phase-1 benchmark harness
+
+Generate a machine-readable baseline for the current catalog + runner path:
+
+```bash
+python -m nexus.benchmark_phase1 --iterations 5 --warmups 1
+```
+
+This writes a JSON report under `.omx/benchmarks/` by default and gives you a repeatable baseline for:
+
+- catalog listing/search latency,
+- `get_tool` lookup latency,
+- trivial `run_code` latency, and
+- lazy `TOOLS.search(...)` orchestration latency.
 
 ## Self-test (stdlib only)
 
 ```bash
 python nexus/selftest.py
+python nexus/selftest.py --benchmark
+python nexus/selftest.py --compare-run-modes --benchmark-iterations 5 --benchmark-warmups 1
 ```
 
 ## Configuration (cross-platform)
