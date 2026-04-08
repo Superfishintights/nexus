@@ -68,6 +68,27 @@ Any follow-on implementation or review should verify the plan against these chec
 - proposed execution plans should cite which verification checkpoint or measured result justifies the work before expanding scope
 - if the measured results do not justify a larger move, “do nothing major yet” remains the correct outcome
 
+## Primary Code Touchpoints
+
+Later execution or review work should stay grounded in these files:
+
+- `nexus/server.py` — public MCP boundary and current tool-discovery / tool-metadata surface
+- `nexus/runner.py` — execution globals, lazy tool loading, limits, and runner behavior
+- `nexus/execution_worker.py` — subprocess execution boundary for bounded runs
+- `nexus/tool_policy.py` — policy modes, presets, authorization semantics, and restricted-mode expectations
+
+If a proposed roadmap change does not clearly relate back to one or more of these touchpoints, it is probably too speculative for the current phase.
+
+## Verification Path For The Next Execution Lane
+
+Any follow-on implementation or review should verify the plan against these checkpoints:
+
+- benchmark/eval artifacts must show the actual bottleneck before optimization work is prioritized
+- host/runner boundary proposals must map back to `server.py`, `runner.py`, `execution_worker.py`, and `tool_policy.py`
+- restricted-runtime validation must prove blocked shell/network/filesystem behavior **and** preserved host-mediated tool access
+- proposed phase work must explicitly avoid reintroducing web UI, cloud/shared deployment, Rust, dynamic tool creation, or broad CLI execution into the current phase
+- if the measured results do not justify a larger move, “do nothing major yet” remains the correct outcome
+
 ## Decision Rule
 
 The current phase must stay narrow and evidence-driven.
@@ -146,6 +167,34 @@ The current phase does **not** include:
 Dynamic tool creation and broader CLI execution can be revisited later
 **only after** the core runtime boundary and restricted-runtime story
 are proven.
+
+## Review Summary: What Stays, Tightens, Or Moves Later
+
+### Keep
+
+- the brownfield framing around `server.py`, `runner.py`, `execution_worker.py`, and `tool_policy.py`
+- the decision rule to keep Python by default
+- external references as inspiration, not mandates
+- “minimal change needed” as a valid outcome
+
+### Tighten
+
+- the first phase so it centers only on benchmark/eval baselining, host/runner boundary clarification, and restricted-runtime validation
+- the decision gates so alternate runtimes/supervisors require explicit proof instead of vague upside
+- the handoff so future execution can see which code areas matter most
+
+### Defer
+
+- persistent runners,
+- Go supervisor / sidecar exploration,
+- alternate runtimes,
+- dynamic tool creation,
+- broad shell / CLI execution,
+- broader platform expansion.
+
+### Remove From First-Phase Assumptions
+
+Do not treat generic optimization backlog work—cold-start tuning, catalog refresh tweaks, telemetry expansion, or similar cleanup—as the first milestone unless the benchmark/eval phase proves those items are the real bottleneck.
 
 ## Review Summary: What Stays, Tightens, Or Moves Later
 
@@ -437,6 +486,34 @@ These additions should only appear when they support the active phase.
 - the benchmark/eval harness shows current behavior is already acceptable,
 - or the proposed alternatives do not produce enough benefit to justify
   disruption.
+
+## Worktree Strategy
+
+Use separate worktrees for experiments that may diverge significantly:
+
+- baseline / planning,
+- benchmark harness,
+- runner-boundary prototype,
+- supervisor prototype if later justified.
+
+The goal is to keep experiments isolated and comparable without destabilizing the main branch.
+
+## Possible Repository Additions When A Phase Needs Them
+
+Add incrementally, not all at once:
+
+- `benchmarks/README.md`
+- `benchmarks/cases/`
+- `benchmarks/results/`
+- `benchmarks/fixtures/`
+- `scripts/bench.py`
+- `scripts/bench_compare.py`
+- `scripts/run_eval.py`
+- `scripts/fixture_api_server.py`
+- `nexus/runner_protocol.py`
+- `nexus/runner_backends/`
+
+These additions should only appear when they support the active phase and should not be treated as hidden prerequisites for approving Phase 1.
 
 ## Success Criteria
 
