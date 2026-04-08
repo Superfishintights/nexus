@@ -126,3 +126,34 @@ RESULT = "should not reach"
 
     assert exc_info.value.details.error_type in {"ToolAccessError", "KeyError"}
     assert "legacy_alpha" in exc_info.value.details.message
+
+
+def test_run_user_code_restricted_mode_allows_approved_tool_calls(dummy_runner_tools: str) -> None:
+    del dummy_runner_tools
+    result = run_user_code(
+        """
+tool = load_tool("alpha")
+RESULT = {
+    "value": tool(4),
+    "tool_type": type(tool).__name__,
+}
+""",
+        policy=ToolPolicy(mode="restricted", allowed_tools=frozenset({"alpha"})),
+    )
+
+    assert result.result == {"value": 5, "tool_type": "RestrictedToolCallable"}
+
+
+def test_run_user_code_restricted_mode_hides_tool_globals(dummy_runner_tools: str) -> None:
+    del dummy_runner_tools
+    with pytest.raises(RunnerExecutionError) as exc_info:
+        run_user_code(
+            """
+tool = load_tool("alpha")
+RESULT = tool.__globals__
+""",
+            policy=ToolPolicy(mode="restricted", allowed_tools=frozenset({"alpha"})),
+        )
+
+    assert exc_info.value.details.error_type == "AttributeError"
+    assert "__globals__" in exc_info.value.details.message
