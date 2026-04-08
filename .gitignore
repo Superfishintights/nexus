@@ -12,3 +12,4 @@ venv/
 !.env.example
 AGENTS.md
 .codex
+.omx/
