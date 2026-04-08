@@ -48,6 +48,18 @@ for all first-party tool packs in the monorepo, but explicit pack names are pref
 python nexus/server.py
 ```
 
+## Execution model
+
+Nexus keeps a small host/runner boundary:
+
+- `nexus/server.py` is the host-facing MCP surface for `search_tools`,
+  `get_tool`, and `run_code`.
+- `nexus/runner.py` prepares snippet globals and launches the execution worker.
+- `nexus/execution_worker.py` runs the snippet in a subprocess.
+- Tool policy and tool loading stay on the Nexus side of the boundary so
+  restricted mode can block arbitrary imports while still allowing approved
+  canonical tool calls.
+
 ## Self-test (stdlib only)
 
 ```bash
