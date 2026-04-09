@@ -24,7 +24,14 @@ Phase 1 keeps the host/runner contract explicit:
   policy checks instead of direct runner imports.
 
 In restricted mode, snippets lose `__import__`, only canonical allowed tools can
-be loaded, and approved tool calls still succeed through `load_tool(...)`.
+be loaded, and approved tool calls still succeed through `load_tool(...)` while
+still counting against the snippet timeout budget. Those approved tool calls now
+run in short-lived subprocesses, and pooled-worker queue wait time also counts
+against the same request deadline.
+
+Restricted mode is not a full hostile-code sandbox. It blocks direct imports and
+common introspection/frame escapes, but untrusted-code isolation still requires
+an OS/container boundary outside the Python runtime itself.
 
 Tool integrations are distributed separately as installable tool-pack packages such as:
 

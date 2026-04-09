@@ -10,8 +10,13 @@ configured tool package.
 """
 
 import json
+import os
 import sys
+import time
 from typing import Any, Dict, List
+
+os.environ.setdefault("FASTMCP_LOG_LEVEL", "ERROR")
+os.environ.setdefault("FASTMCP_CHECK_FOR_UPDATES", "off")
 
 try:
     from fastmcp import FastMCP
@@ -218,5 +223,16 @@ def _tool_info_to_dict(info, *, detail_level: str) -> Dict[str, Any]:
     return base
 
 
+def _startup_trace(message: str) -> None:
+    if os.getenv("NEXUS_STARTUP_TRACE", "").strip().lower() not in {"1", "true", "yes", "on"}:
+        return
+    print(
+        f"[nexus-startup] ts={time.time():.6f} pid={os.getpid()} {message}",
+        file=sys.stderr,
+        flush=True,
+    )
+
+
 if __name__ == "__main__":
-    mcp.run()
+    _startup_trace("bootstrap-complete")
+    mcp.run(show_banner=False)

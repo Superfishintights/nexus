@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import atexit
+import ast
 import builtins
 import contextlib
 import io
@@ -16,7 +17,7 @@ import textwrap
 import time
 import threading
 import traceback
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Callable, Dict, Mapping, Optional
 
@@ -95,6 +96,10 @@ class RunnerExecutionError(RuntimeError):
         self.details = details
 
 
+class RestrictedCodeError(RuntimeError):
+    """Raised when restricted-mode validation rejects user code."""
+
+
 BASE_SAFE_BUILTINS = {
     "abs": abs,
     "all": all,
@@ -130,6 +135,21 @@ UNRESTRICTED_BUILTINS = {
 }
 
 RESTRICTED_BUILTINS = dict(BASE_SAFE_BUILTINS)
+RESTRICTED_SAFE_ATTRS = frozenset({"__doc__", "__name__"})
+RESTRICTED_BLOCKED_ATTRS = frozenset(
+    {
+        "ag_frame",
+        "cr_frame",
+        "f_builtins",
+        "f_code",
+        "f_globals",
+        "f_locals",
+        "f_trace",
+        "gi_code",
+        "gi_frame",
+        "tb_frame",
+    }
+)
 
 RUN_CODE_MODE_ENV = "NEXUS_RUN_CODE_MODE"
 RUN_CODE_MODE_ONESHOT = "oneshot"
@@ -173,6 +193,27 @@ class RestrictedToolCallable(HostedToolCallable):
 
     def __repr__(self) -> str:
         return f"<RestrictedToolCallable {object.__getattribute__(self, '_name')}>"
+
+
+def _worker_pythonpath(repo_root: str) -> str:
+    paths: list[str] = []
+    seen: set[str] = set()
+
+    def add(path: str | None) -> None:
+        if not path:
+            return
+        if path in seen:
+            return
+        seen.add(path)
+        paths.append(path)
+
+    add(repo_root)
+    for path in sys.path:
+        add(path)
+    existing = os.environ.get("PYTHONPATH", "")
+    for path in existing.split(os.pathsep):
+        add(path)
+    return os.pathsep.join(paths)
 
 
 class _BoundedStdout(io.StringIO):
@@ -254,6 +295,142 @@ def _normalize_result(value: Any, *, max_result_chars: int) -> tuple[Any, bool]:
 def _serialize_tool_result(value: Any) -> Any:
     serialized = json.dumps(value, default=_json_default, ensure_ascii=False)
     return json.loads(serialized)
+
+
+class _RestrictedCodeValidator(ast.NodeVisitor):
+    def __init__(self) -> None:
+        self.blocked_attr: tuple[str, int, int] | None = None
+
+    def visit_Attribute(self, node: ast.Attribute) -> None:  # noqa: N802
+        attr = node.attr
+        is_dunder = attr.startswith("__") and attr.endswith("__")
+        if attr in RESTRICTED_BLOCKED_ATTRS or (is_dunder and attr not in RESTRICTED_SAFE_ATTRS):
+            self.blocked_attr = (attr, node.lineno, node.col_offset)
+            return
+        self.generic_visit(node)
+
+
+def _validate_restricted_code(code: str) -> None:
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return
+
+    validator = _RestrictedCodeValidator()
+    validator.visit(tree)
+    if validator.blocked_attr is None:
+        return
+
+    attr, lineno, col_offset = validator.blocked_attr
+    raise RunnerExecutionError(
+        RunnerErrorDetails(
+            error_type=RestrictedCodeError.__name__,
+            message=(
+                f"Restricted mode forbids attribute access to {attr!r} "
+                f"at line {lineno}:{col_offset + 1}"
+            ),
+        )
+    )
+
+
+def _invoke_tool_with_deadline(
+    tool_name: str,
+    module_name: str,
+    args: tuple[object, ...],
+    kwargs: dict[str, object],
+    *,
+    timeout_seconds: float | None,
+) -> object:
+    if timeout_seconds is not None and timeout_seconds <= 0:
+        raise RunnerExecutionError(
+            RunnerErrorDetails(
+                error_type="ExecutionTimeout",
+                message=f"Tool call {tool_name!r} exceeded the remaining execution budget",
+                timed_out=True,
+            )
+        )
+
+    repo_root = str(Path(__file__).resolve().parent.parent)
+    worker_env = os.environ.copy()
+    worker_env["PYTHONPATH"] = _worker_pythonpath(repo_root)
+    process = subprocess.Popen(
+        [sys.executable, "-m", "nexus.tool_execution_worker"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        cwd=repo_root,
+        env=worker_env,
+        start_new_session=True,
+        bufsize=1,
+    )
+    payload = {
+        "toolName": tool_name,
+        "module": module_name,
+        "args": list(args),
+        "kwargs": kwargs,
+    }
+    try:
+        stdout, stderr = process.communicate(
+            json.dumps(payload, ensure_ascii=False) + "\n",
+            timeout=timeout_seconds,
+        )
+    except subprocess.TimeoutExpired as exc:
+        _terminate_process_group(process)
+        stdout, stderr = process.communicate()
+        raise RunnerExecutionError(
+            RunnerErrorDetails(
+                error_type="ExecutionTimeout",
+                message=f"Tool call {tool_name!r} exceeded the remaining execution budget",
+                timed_out=True,
+                exit_code=process.returncode,
+                logs=(stderr or stdout).strip(),
+            )
+        ) from exc
+
+    if process.returncode not in {0, None}:
+        raise RunnerExecutionError(
+            RunnerErrorDetails(
+                error_type="ToolProcessError",
+                message=f"Tool call {tool_name!r} exited unexpectedly",
+                exit_code=process.returncode,
+                logs=(stderr or stdout).strip(),
+            )
+        )
+
+    line = stdout.strip()
+    if not line:
+        raise RunnerExecutionError(
+            RunnerErrorDetails(
+                error_type="ToolProcessError",
+                message=f"Tool call {tool_name!r} returned no result payload",
+                logs=stderr.strip(),
+            )
+        )
+    try:
+        response = json.loads(line)
+    except json.JSONDecodeError as exc:
+        raise RunnerExecutionError(
+            RunnerErrorDetails(
+                error_type="ToolProcessError",
+                message=f"Tool call {tool_name!r} returned invalid JSON",
+                logs=line,
+            )
+        ) from exc
+
+    if response.get("success"):
+        return response.get("result")
+    error = response.get("error") or {}
+    raise RunnerExecutionError(
+        RunnerErrorDetails(
+            error_type=str(error.get("type", "RuntimeError")),
+            message=str(error.get("message", f"Tool call {tool_name!r} failed")),
+            traceback_text=str(error.get("traceback", "")),
+            timed_out=bool(error.get("timedOut", False)),
+            exit_code=error.get("exitCode"),
+            logs=str(error.get("logs", stderr.strip())),
+        )
+    )
 
 
 def _catalog_to_payload(catalog: Mapping[str, ToolSpec]) -> list[Dict[str, Any]]:
@@ -359,6 +536,8 @@ def execute_user_code_in_process(
     limits = limits or RunnerLimits.from_env()
     prepared_code = textwrap.dedent(code)
     policy = policy or get_active_tool_policy()
+    if policy.is_restricted:
+        _validate_restricted_code(prepared_code)
     exec_globals = build_execution_globals(
         additional_globals=globals_override,
         policy=policy,
@@ -370,6 +549,8 @@ def execute_user_code_in_process(
     try:
         with contextlib.redirect_stdout(stdout_buffer):
             exec(prepared_code, exec_globals, exec_globals)  # noqa: S102
+    except RunnerExecutionError:
+        raise
     except Exception as exc:
         raise RunnerExecutionError(
             RunnerErrorDetails(
@@ -413,19 +594,48 @@ def _send_worker_message(process: subprocess.Popen[str], payload: Mapping[str, A
     process.stdin.flush()
 
 
-def _handle_worker_tool_call(message: Mapping[str, Any], *, policy: ToolPolicy) -> Dict[str, Any]:
+def _handle_worker_tool_call(
+    message: Mapping[str, Any],
+    *,
+    policy: ToolPolicy,
+    catalog: Mapping[str, ToolSpec],
+    deadline_monotonic: float | None = None,
+) -> Dict[str, Any]:
     tool_name = str(message.get("name", ""))
     args = tuple(message.get("args", []))
     kwargs = dict(message.get("kwargs", {}))
     request_id = str(message.get("requestId", ""))
     try:
-        info = ensure_tool_loaded(tool_name, policy=policy)
-        result = info.function(*args, **kwargs)
+        spec = resolve_tool_request(
+            tool_name,
+            catalog=dict(catalog),
+            policy=policy,
+            allow_aliases=not policy.is_restricted,
+        )
+        remaining = (
+            None
+            if deadline_monotonic is None
+            else max(0.0, deadline_monotonic - time.monotonic())
+        )
+        result = _invoke_tool_with_deadline(
+            spec.alias_of or spec.name,
+            spec.module,
+            args,
+            kwargs,
+            timeout_seconds=remaining,
+        )
         return {
             "type": "tool_result",
             "requestId": request_id,
             "ok": True,
             "result": _serialize_tool_result(result),
+        }
+    except RunnerExecutionError as exc:
+        return {
+            "type": "tool_result",
+            "requestId": request_id,
+            "ok": False,
+            "error": exc.details.to_dict(),
         }
     except Exception as exc:  # pragma: no cover - exercised via worker protocol tests
         return {
@@ -506,7 +716,7 @@ class PersistentWorkerSession:
             try:
                 _send_worker_message(process, worker_payload)
                 final_payload = self._read_worker_result_locked(
-                    process, selector, limits=limits, policy=policy
+                    process, selector, limits=limits, policy=policy, catalog=catalog
                 )
             except subprocess.TimeoutExpired as exc:
                 self._close_locked(kill=True)
@@ -545,10 +755,7 @@ class PersistentWorkerSession:
 
     def _start_locked(self) -> None:
         worker_env = os.environ.copy()
-        pythonpath = worker_env.get("PYTHONPATH")
-        worker_env["PYTHONPATH"] = (
-            self._repo_root if not pythonpath else f"{self._repo_root}{os.pathsep}{pythonpath}"
-        )
+        worker_env["PYTHONPATH"] = _worker_pythonpath(self._repo_root)
         command = [sys.executable, "-m", "nexus.execution_worker"]
         process = subprocess.Popen(
             command,
@@ -613,8 +820,10 @@ class PersistentWorkerSession:
         *,
         limits: RunnerLimits,
         policy: ToolPolicy,
+        catalog: Mapping[str, ToolSpec],
     ) -> Dict[str, Any]:
-        deadline = time.monotonic() + limits.timeout_seconds + 1.0
+        execution_deadline = time.monotonic() + limits.timeout_seconds
+        deadline = execution_deadline + 1.0
         while True:
             remaining = deadline - time.monotonic()
             if remaining <= 0:
@@ -644,7 +853,15 @@ class PersistentWorkerSession:
                 ) from exc
             message_type = message.get("type")
             if message_type == "tool_call":
-                _send_worker_message(process, _handle_worker_tool_call(message, policy=policy))
+                _send_worker_message(
+                    process,
+                    _handle_worker_tool_call(
+                        message,
+                        policy=policy,
+                        catalog=catalog,
+                        deadline_monotonic=execution_deadline,
+                    ),
+                )
                 continue
             if message_type == "result":
                 return dict(message)
@@ -679,9 +896,39 @@ class PersistentWorkerPool:
         policy: ToolPolicy,
         catalog: Mapping[str, ToolSpec],
     ) -> RunnerResult:
-        session = self._available.get()
+        deadline_monotonic = time.monotonic() + limits.timeout_seconds
         try:
-            result = session.execute(code=code, limits=limits, policy=policy, catalog=catalog)
+            session = self._available.get(timeout=limits.timeout_seconds)
+        except queue.Empty as exc:
+            raise RunnerExecutionError(
+                RunnerErrorDetails(
+                    error_type="ExecutionTimeout",
+                    message=(
+                        f"Code execution exceeded {limits.timeout_seconds:.1f} seconds "
+                        "while waiting for an available persistent worker"
+                    ),
+                    timed_out=True,
+                )
+            ) from exc
+        try:
+            remaining = deadline_monotonic - time.monotonic()
+            if remaining <= 0:
+                raise RunnerExecutionError(
+                    RunnerErrorDetails(
+                        error_type="ExecutionTimeout",
+                        message=(
+                            f"Code execution exceeded {limits.timeout_seconds:.1f} seconds "
+                            "while waiting for an available persistent worker"
+                        ),
+                        timed_out=True,
+                    )
+                )
+            result = session.execute(
+                code=code,
+                limits=replace(limits, timeout_seconds=remaining),
+                policy=policy,
+                catalog=catalog,
+            )
             result.metadata["workerLifecycle"] = RUN_CODE_MODE_PERSISTENT_POOL
             return result
         finally:
@@ -766,10 +1013,7 @@ def _execute_user_code_oneshot(
     }
     worker_env = os.environ.copy()
     repo_root = str(Path(__file__).resolve().parent.parent)
-    pythonpath = worker_env.get("PYTHONPATH")
-    worker_env["PYTHONPATH"] = (
-        repo_root if not pythonpath else f"{repo_root}{os.pathsep}{pythonpath}"
-    )
+    worker_env["PYTHONPATH"] = _worker_pythonpath(repo_root)
     command = [sys.executable, "-m", "nexus.execution_worker"]
     process = subprocess.Popen(
         command,
@@ -794,7 +1038,8 @@ def _execute_user_code_oneshot(
 
     try:
         _send_worker_message(process, worker_payload)
-        deadline = time.monotonic() + limits.timeout_seconds + 1.0
+        execution_deadline = time.monotonic() + limits.timeout_seconds
+        deadline = execution_deadline + 1.0
         final_payload: Optional[Dict[str, Any]] = None
 
         while final_payload is None:
@@ -820,7 +1065,15 @@ def _execute_user_code_oneshot(
 
             message_type = message.get("type")
             if message_type == "tool_call":
-                _send_worker_message(process, _handle_worker_tool_call(message, policy=policy))
+                _send_worker_message(
+                    process,
+                    _handle_worker_tool_call(
+                        message,
+                        policy=policy,
+                        catalog=catalog,
+                        deadline_monotonic=execution_deadline,
+                    ),
+                )
                 continue
             if message_type == "result":
                 final_payload = dict(message)
@@ -959,6 +1212,7 @@ __all__ = [
     "PersistentWorkerSession",
     "PersistentWorkerPool",
     "RestrictedToolCallable",
+    "RestrictedCodeError",
     "build_execution_globals",
     "execute_user_code_in_process",
     "get_run_code_mode",

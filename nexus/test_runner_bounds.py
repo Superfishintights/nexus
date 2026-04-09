@@ -1,5 +1,6 @@
 import sys
 import textwrap
+import time
 from pathlib import Path
 
 import pytest
@@ -106,6 +107,38 @@ def dummy_runner_tools(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
         ).lstrip(),
         encoding="utf-8",
     )
+    (package_path / "sleepy.py").write_text(
+        textwrap.dedent(
+            """
+            import time
+
+            from nexus.tool_registry import register_tool
+
+            @register_tool(name="sleepy")
+            def sleepy(seconds: float = 1.0) -> str:
+                time.sleep(seconds)
+                return "done"
+            """
+        ).lstrip(),
+        encoding="utf-8",
+    )
+    (package_path / "sleepy_touch.py").write_text(
+        textwrap.dedent(
+            """
+            import time
+            from pathlib import Path
+
+            from nexus.tool_registry import register_tool
+
+            @register_tool(name="sleepy_touch")
+            def sleepy_touch(path: str, seconds: float = 1.0) -> str:
+                time.sleep(seconds)
+                Path(path).write_text("done", encoding="utf-8")
+                return "done"
+            """
+        ).lstrip(),
+        encoding="utf-8",
+    )
     monkeypatch.syspath_prepend(str(tmp_path))
     monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, "dummy_runner_tools")
     clear_registry()
@@ -179,8 +212,31 @@ RESULT = tool.__globals__
             policy=ToolPolicy(mode="restricted", allowed_tools=frozenset({"alpha"})),
         )
 
-    assert exc_info.value.details.error_type == "AttributeError"
+    assert exc_info.value.details.error_type == "RestrictedCodeError"
     assert "__globals__" in exc_info.value.details.message
+
+
+@pytest.mark.parametrize(
+    ("snippet", "message_fragment"),
+    [
+        ("RESULT = ().__class__.__mro__[1].__subclasses__()[:1]", "__subclasses__"),
+        ("g = (item for item in [1])\nRESULT = g.gi_frame.f_globals", "f_globals"),
+    ],
+)
+def test_run_user_code_restricted_mode_blocks_introspection_escapes(
+    dummy_runner_tools: str,
+    snippet: str,
+    message_fragment: str,
+) -> None:
+    del dummy_runner_tools
+    with pytest.raises(RunnerExecutionError) as exc_info:
+        run_user_code(
+            snippet,
+            policy=ToolPolicy(mode="restricted", allowed_tools=frozenset({"alpha"})),
+        )
+
+    assert exc_info.value.details.error_type == "RestrictedCodeError"
+    assert message_fragment in exc_info.value.details.message
 
 
 @pytest.mark.parametrize(
@@ -250,6 +306,106 @@ def test_run_user_code_oneshot_override_still_works(monkeypatch: pytest.MonkeyPa
     assert first.metadata['workerLifecycle'] == RUN_CODE_MODE_ONESHOT
     assert second.metadata['workerLifecycle'] == RUN_CODE_MODE_ONESHOT
     assert first.metadata['workerPid'] != second.metadata['workerPid']
+
+
+@pytest.mark.parametrize(
+    "mode",
+    [
+        RUN_CODE_MODE_ONESHOT,
+        RUN_CODE_MODE_PERSISTENT,
+        RUN_CODE_MODE_PERSISTENT_POOL,
+    ],
+)
+def test_run_user_code_times_out_host_side_tool_calls(
+    dummy_runner_tools: str,
+    monkeypatch: pytest.MonkeyPatch,
+    mode: str,
+) -> None:
+    del dummy_runner_tools
+    monkeypatch.setenv(RUN_CODE_MODE_ENV, mode)
+    with pytest.raises(RunnerExecutionError) as exc_info:
+        run_user_code(
+            "tool = load_tool('sleepy')\nRESULT = tool(1.0)",
+            limits=RunnerLimits(timeout_seconds=0.2, max_stdout_chars=1024, max_result_chars=2048),
+        )
+
+    assert exc_info.value.details.error_type == "ExecutionTimeout"
+    assert exc_info.value.details.timed_out is True
+    assert "sleepy" in exc_info.value.details.message
+
+
+def test_run_user_code_persistent_mode_recovers_after_host_tool_timeout(
+    dummy_runner_tools: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    del dummy_runner_tools
+    monkeypatch.setenv(RUN_CODE_MODE_ENV, RUN_CODE_MODE_PERSISTENT)
+    with pytest.raises(RunnerExecutionError):
+        run_user_code(
+            "tool = load_tool('sleepy')\nRESULT = tool(1.0)",
+            limits=RunnerLimits(timeout_seconds=0.2, max_stdout_chars=1024, max_result_chars=2048),
+        )
+
+    result = run_user_code("RESULT = 9")
+
+    assert result.result == 9
+    assert result.metadata["workerLifecycle"] == RUN_CODE_MODE_PERSISTENT
+
+
+def test_run_user_code_host_tool_timeout_does_not_leave_lingering_side_effects(
+    dummy_runner_tools: str,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    del dummy_runner_tools
+    marker = tmp_path / "marker.txt"
+    monkeypatch.setenv(RUN_CODE_MODE_ENV, RUN_CODE_MODE_PERSISTENT)
+
+    with pytest.raises(RunnerExecutionError) as exc_info:
+        run_user_code(
+            f"tool = load_tool('sleepy_touch')\nRESULT = tool({marker.as_posix()!r}, 1.0)",
+            limits=RunnerLimits(timeout_seconds=0.2, max_stdout_chars=1024, max_result_chars=2048),
+        )
+
+    assert exc_info.value.details.error_type == "ExecutionTimeout"
+    assert not marker.exists()
+    time.sleep(0.6)
+    assert not marker.exists()
+
+
+def test_run_user_code_pool_mode_times_out_while_waiting_for_worker(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from concurrent.futures import ThreadPoolExecutor
+    from nexus.runner import _get_persistent_pool
+
+    monkeypatch.setenv(RUN_CODE_MODE_ENV, RUN_CODE_MODE_PERSISTENT_POOL)
+    monkeypatch.setenv(PERSISTENT_POOL_SIZE_ENV, "1")
+
+    def long_running() -> object:
+        return run_user_code(
+            "import time\ntime.sleep(0.4)\nRESULT = 'done'",
+            limits=RunnerLimits(timeout_seconds=1.0, max_stdout_chars=1024, max_result_chars=2048),
+        )
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        first = executor.submit(long_running)
+        repo_root = str(Path(__file__).resolve().parent.parent)
+        pool = _get_persistent_pool(repo_root)
+        deadline = time.monotonic() + 1.0
+        while pool._available.qsize() != 0:
+            if time.monotonic() >= deadline:
+                raise AssertionError("timed out waiting for the first request to acquire the only pooled worker")
+            time.sleep(0.01)
+        with pytest.raises(RunnerExecutionError) as exc_info:
+            run_user_code(
+                "RESULT = 'queued'",
+                limits=RunnerLimits(timeout_seconds=0.1, max_stdout_chars=1024, max_result_chars=2048),
+            )
+        assert first.result().result == "done"
+
+    assert exc_info.value.details.error_type == "ExecutionTimeout"
+    assert "waiting for an available persistent worker" in exc_info.value.details.message
 
 
 def test_run_user_code_pool_mode_uses_multiple_workers_under_parallel_load(monkeypatch: pytest.MonkeyPatch) -> None:
