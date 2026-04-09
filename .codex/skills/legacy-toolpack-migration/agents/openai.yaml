@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legacy Toolpack Migration"
+  short_description: "Migrate legacy Nexus tools"
+  default_prompt: "Use this skill to update an older Nexus checkout with the latest core bundle and migrate legacy tools/ content into tool_packs packages."
