@@ -59,6 +59,15 @@ Nexus keeps a small host/runner boundary:
 - Tool policy and tool loading stay on the Nexus side of the boundary so
   restricted mode can block arbitrary imports while still allowing approved
   canonical tool calls.
+- Approved tool calls still consume the snippet's overall execution timeout budget.
+- Approved tool calls execute in short-lived subprocesses, so timed-out tool calls
+  are killed instead of continuing in detached host threads.
+- In pooled mode, waiting for an available worker now counts against the same
+  request timeout budget.
+
+Restricted mode is a hardened convenience surface, not a hostile-code sandbox.
+It blocks direct imports plus common introspection/frame escapes, but a real
+security boundary still requires OS/container isolation.
 
 Set `NEXUS_RUN_CODE_MODE=oneshot` to force the previous spawn-per-call behavior for comparison or debugging.
 

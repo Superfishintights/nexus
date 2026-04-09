@@ -11,6 +11,7 @@ from typing import Any, Mapping
 from .tool_policy import ToolAccessError, ToolPolicy
 from .runner import (
     RunnerExecutionError,
+    RunnerErrorDetails,
     RunnerLimits,
     _catalog_from_payload,
     execute_user_code_in_process,
@@ -43,6 +44,17 @@ def _send_message(payload: Mapping[str, Any]) -> None:
 def _raise_remote_tool_error(error: Mapping[str, Any]) -> None:
     error_type = str(error.get("type", "RuntimeError"))
     message = str(error.get("message", "Tool call failed"))
+    if bool(error.get("timedOut")) or error_type == "ExecutionTimeout":
+        raise RunnerExecutionError(
+            RunnerErrorDetails(
+                error_type=error_type,
+                message=message,
+                traceback_text=str(error.get("traceback", "")),
+                timed_out=bool(error.get("timedOut", True)),
+                exit_code=error.get("exitCode"),
+                logs=str(error.get("logs", "")),
+            )
+        )
     exc_type = _REMOTE_EXCEPTION_TYPES.get(error_type, RuntimeError)
     raise exc_type(message)
 
