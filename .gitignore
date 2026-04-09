@@ -12,4 +12,10 @@ venv/
 !.env.example
 AGENTS.md
 .codex
+!.codex/
+.codex/*
+!.codex/skills/
+.codex/skills/*
+!.codex/skills/legacy-toolpack-migration/
+!.codex/skills/legacy-toolpack-migration/**
 .omx/
