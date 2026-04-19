@@ -11,6 +11,7 @@ from .client import get_client
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["health", "check_health"],
     description="Check whether the agent-memory API health endpoint is responding.",
     examples=['load_tool("agent_memory.get_health")()'],
 )
@@ -21,6 +22,7 @@ def get_health() -> Dict[str, Any]:
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["ready", "check_ready"],
     description="Check whether the agent-memory API is ready and its database is available.",
     examples=['load_tool("agent_memory.get_ready")()'],
 )
@@ -31,6 +33,7 @@ def get_ready() -> Dict[str, Any]:
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["add_memory", "store_memory", "save_memory", "memorize"],
     description="Store a memory item in the agent-memory service.",
     examples=[
         'load_tool("agent_memory.remember")("Remember that the deploy host is hermes-agent")',
@@ -72,6 +75,7 @@ def remember(
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["get_memories", "search_memories", "retrieve_memory", "retrieve_memories"],
     description="Recall memories from the agent-memory service in evidence or summary mode.",
     examples=[
         'load_tool("agent_memory.recall")("hermes-agent", mode="evidence")',
@@ -101,6 +105,7 @@ def recall(
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["list_memory", "browse_memories"],
     description="List stored memories for a profile, optionally filtered by scope.",
     examples=[
         'load_tool("agent_memory.list_memories")(scope="remote:test-agent", limit=10)',
@@ -129,6 +134,7 @@ def list_memories(
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["delete_memory", "remove_memory"],
     description="Forget a specific memory item by memory ID.",
     examples=[
         'load_tool("agent_memory.forget")("mem_123", reason="no longer relevant")',
@@ -153,6 +159,7 @@ def forget(
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["update_memory", "replace_memory"],
     description="Correct an existing memory by superseding it with a replacement value.",
     examples=[
         'load_tool("agent_memory.correct")("mem_123", "Updated deploy host is hermes-agent")',
@@ -203,6 +210,7 @@ def correct(
 
 @register_tool(
     namespace="agent_memory",
+    aliases=["ingest_memory", "ingest_notes", "store_document"],
     description="Ingest a larger block of content into the agent-memory service for worker-backed processing.",
     examples=[
         'load_tool("agent_memory.ingest")("deployment notes", content_type="text/plain")',
