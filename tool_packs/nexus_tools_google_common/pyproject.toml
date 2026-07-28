@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-tools-google-common"
+version = "0.1.0"
+description = "Shared Google OAuth and API client support for Nexus tool packs"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "nexus-core>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus_tools_google_common*"]

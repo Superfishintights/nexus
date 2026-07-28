@@ -19,6 +19,20 @@ CORE_PACKAGES: Tuple[str, ...] = (
     "nexus_tools_tautulli",
 )
 STARLING_PACKAGE = "nexus_tools_starling"
+GOOGLE_COMMON_PACKAGE = "nexus_tools_google_common"
+GOOGLE_APP_PACKAGES: Tuple[str, ...] = (
+    "nexus_tools_google_calendar",
+    "nexus_tools_google_docs",
+    "nexus_tools_google_drive",
+    "nexus_tools_google_forms",
+    "nexus_tools_google_gmail",
+    "nexus_tools_google_people",
+    "nexus_tools_google_script",
+    "nexus_tools_google_sheets",
+    "nexus_tools_google_slides",
+    "nexus_tools_google_tasks",
+)
+AGENT_MEMORY_PACKAGE = "nexus_tools_agent_memory"
 
 
 def add_tool_pack_paths(packages: Iterable[str]) -> None:
@@ -32,9 +46,15 @@ def add_tool_pack_paths(packages: Iterable[str]) -> None:
 
 
 def builtin_tool_packages(*, include_starling: bool = False) -> Tuple[str, ...]:
+    packages = CORE_PACKAGES
     if include_starling:
-        return CORE_PACKAGES + (STARLING_PACKAGE,)
-    return CORE_PACKAGES
+        packages = packages + (STARLING_PACKAGE,)
+    return (
+        packages
+        + (GOOGLE_COMMON_PACKAGE,)
+        + GOOGLE_APP_PACKAGES
+        + (AGENT_MEMORY_PACKAGE,)
+    )
 
 
 def configure_tool_packages(monkeypatch, package_names: Iterable[str]) -> Tuple[str, ...]:

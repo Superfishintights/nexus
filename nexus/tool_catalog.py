@@ -38,6 +38,18 @@ FIRST_PARTY_TOOL_PACK_ORDER: Tuple[str, ...] = (
     "nexus_tools_sonarr",
     "nexus_tools_tautulli",
     "nexus_tools_starling",
+    "nexus_tools_google_common",
+    "nexus_tools_google_calendar",
+    "nexus_tools_google_docs",
+    "nexus_tools_google_drive",
+    "nexus_tools_google_forms",
+    "nexus_tools_google_gmail",
+    "nexus_tools_google_people",
+    "nexus_tools_google_script",
+    "nexus_tools_google_sheets",
+    "nexus_tools_google_slides",
+    "nexus_tools_google_tasks",
+    "nexus_tools_agent_memory",
 )
 
 
@@ -140,6 +152,16 @@ _SERVICE_ALIASES = {
     "radarr": {"radarr", "movie", "movies"},
     "sonarr": {"sonarr", "series", "episode", "episodes", "show", "shows"},
     "tautulli": {"tautulli", "plex", "stream", "streams"},
+    "google_calendar": {"calendar", "calendar-list", "google_calendar", "gcal"},
+    "google_gmail": {"gmail", "mail", "email", "google_gmail"},
+    "google_drive": {"drive", "google_drive", "gdrive", "files"},
+    "google_docs": {"docs", "document", "google_docs", "doc"},
+    "google_sheets": {"sheets", "spreadsheet", "google_sheets"},
+    "google_slides": {"slides", "presentation", "google_slides"},
+    "google_people": {"people", "contacts", "contact", "google_people"},
+    "google_forms": {"forms", "form", "survey", "google_forms"},
+    "google_script": {"script", "apps-script", "google_script"},
+    "google_tasks": {"tasks", "todo", "reminders", "google_tasks"},
 }
 _QUERY_INTENTS = (
     ({"current", "watch"}, {"activity", "stream", "session"}, {"recently", "added"}),
@@ -298,6 +320,17 @@ def _expand_tool_package_names(names: Sequence[str]) -> List[str]:
                 continue
             expanded.append(normalized)
             seen.add(normalized)
+
+    google_common = "nexus_tools_google_common"
+    has_google_app = any(
+        name.startswith("nexus_tools_google_") and name != google_common
+        for name in expanded
+    )
+    if has_google_app and google_common not in seen:
+        first_google = next(
+            index for index, name in enumerate(expanded) if name.startswith("nexus_tools_google_")
+        )
+        expanded.insert(first_google, google_common)
 
     return expanded
 

@@ -9,6 +9,17 @@ Nexus now distributes as multiple packages:
 - `nexus-tools-radarr`
 - `nexus-tools-tautulli`
 - `nexus-tools-starling`
+- `nexus-tools-google-common`
+- `nexus-tools-google-calendar`
+- `nexus-tools-google-docs`
+- `nexus-tools-google-drive`
+- `nexus-tools-google-forms`
+- `nexus-tools-google-gmail`
+- `nexus-tools-google-people`
+- `nexus-tools-google-script`
+- `nexus-tools-google-sheets`
+- `nexus-tools-google-slides`
+- `nexus-tools-google-tasks`
 
 ## Monorepo Layout
 
@@ -22,6 +33,17 @@ nexus/
     nexus_tools_radarr/
     nexus_tools_tautulli/
     nexus_tools_starling/
+    nexus_tools_google_common/
+    nexus_tools_google_calendar/
+    nexus_tools_google_docs/
+    nexus_tools_google_drive/
+    nexus_tools_google_forms/
+    nexus_tools_google_gmail/
+    nexus_tools_google_people/
+    nexus_tools_google_script/
+    nexus_tools_google_sheets/
+    nexus_tools_google_slides/
+    nexus_tools_google_tasks/
 ```
 
 ## Runtime Discovery
