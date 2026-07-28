@@ -11,6 +11,17 @@ Use the pack import roots in `NEXUS_TOOL_PACKAGES`.
 - `nexus_tools_radarr`
 - `nexus_tools_tautulli`
 - `nexus_tools_starling`
+- `nexus_tools_google_common` (shared OAuth/HTTP support; no tools)
+- `nexus_tools_google_calendar`
+- `nexus_tools_google_docs`
+- `nexus_tools_google_drive`
+- `nexus_tools_google_forms`
+- `nexus_tools_google_gmail`
+- `nexus_tools_google_people`
+- `nexus_tools_google_script`
+- `nexus_tools_google_sheets`
+- `nexus_tools_google_slides`
+- `nexus_tools_google_tasks`
 
 ## Install Pattern
 
@@ -25,6 +36,12 @@ Configure discovery:
 
 ```bash
 export NEXUS_TOOL_PACKAGES="nexus_tools_n8n"
+```
+
+Google Workspace suite example:
+
+```bash
+export NEXUS_TOOL_PACKAGES="nexus_tools_google_calendar,nexus_tools_google_docs,nexus_tools_google_drive,nexus_tools_google_forms,nexus_tools_google_gmail,nexus_tools_google_people,nexus_tools_google_script,nexus_tools_google_sheets,nexus_tools_google_slides,nexus_tools_google_tasks"
 ```
 
 Or in `.env`:

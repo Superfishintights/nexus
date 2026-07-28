@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-tools-google-calendar"
+version = "0.1.0"
+description = "Nexus tool pack: Google Calendar"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "nexus-core>=0.1.0",
+    "nexus-tools-google-common>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus_tools_google_calendar*"]

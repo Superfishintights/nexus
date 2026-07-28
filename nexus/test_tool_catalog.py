@@ -7,7 +7,7 @@ import pytest
 from nexus import tool_catalog
 from nexus.runner import build_execution_globals
 from nexus.test_helpers import builtin_tool_packages, configure_tool_packages
-from nexus.tool_policy import ToolPolicy
+from nexus.tool_policy import ToolPolicy, policy_from_preset
 from nexus.tool_registry import clear_registry, ensure_tool_loaded, is_tool_loaded
 
 
@@ -104,6 +104,17 @@ def test_legacy_tools_alias_expands_to_local_tool_packs(
     assert package_names == builtin_tool_packages(include_starling=True)
 
 
+def test_google_app_pack_auto_includes_shared_common(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, "nexus_tools_google_calendar")
+
+    assert tool_catalog.get_tool_package_names() == (
+        "nexus_tools_google_common",
+        "nexus_tools_google_calendar",
+    )
+
+
 def test_catalog_scans_without_import(dummy_tools: str) -> None:
     clear_registry()
 
@@ -180,6 +191,26 @@ def test_policy_filters_search_and_resolution(dummy_tools: str) -> None:
             policy=policy,
             allow_aliases=False,
         )
+
+
+def test_restricted_preset_requires_namespace_and_class() -> None:
+    policy = policy_from_preset("plex-readonly")
+
+    assert policy.check_canonical(
+        "tautulli.get_activity",
+        namespace="tautulli",
+        tool_class="read",
+    )
+    assert not policy.check_canonical(
+        "google_gmail.list_messages",
+        namespace="google_gmail",
+        tool_class="read",
+    )
+    assert not policy.check_canonical(
+        "sonarr.add_series",
+        namespace="sonarr",
+        tool_class="write",
+    )
 
 
 def test_catalog_reports_nonfatal_problems(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

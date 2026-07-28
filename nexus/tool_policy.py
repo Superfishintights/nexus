@@ -109,11 +109,14 @@ class ToolPolicy:
             return False
         if canonical_name in self.allowed_tools:
             return True
-        if self.allowed_classes and tool_class in self.allowed_classes:
-            return True
-        if self.allowed_namespaces and namespace in self.allowed_namespaces:
-            return True
-        return False
+        has_allow_constraints = bool(self.allowed_namespaces or self.allowed_classes)
+        if not has_allow_constraints:
+            return False
+        namespace_allowed = (
+            not self.allowed_namespaces or namespace in self.allowed_namespaces
+        )
+        class_allowed = not self.allowed_classes or tool_class in self.allowed_classes
+        return namespace_allowed and class_allowed
 
     def assert_canonical_allowed(
         self,
