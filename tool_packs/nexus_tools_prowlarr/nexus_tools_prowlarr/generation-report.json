@@ -1698,7 +1698,7 @@
   "skipped_count": 0,
   "skipped_out_of_scope_count": 0,
   "skipped_unsupported_count": 0,
-  "spec": "/tmp/prowlarr-openapi.json",
+  "spec": "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/openapi.json",
   "tools_root": "tool_packs/nexus_tools_prowlarr",
   "write_mode": true,
   "written_files": [
