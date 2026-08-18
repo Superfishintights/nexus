@@ -32,12 +32,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 LOCAL_TOOL_PACKS_ROOT = REPO_ROOT / "tool_packs"
 LEGACY_ALL_PACKAGES_ALIASES = frozenset({"tools"})
 FIRST_PARTY_TOOL_PACK_ORDER: Tuple[str, ...] = (
-    "nexus_tools_jira",
-    "nexus_tools_n8n",
-    "nexus_tools_radarr",
-    "nexus_tools_sonarr",
-    "nexus_tools_tautulli",
-    "nexus_tools_starling",
+    "nexus_tools_agent_memory",
+    "nexus_tools_audiobookshelf",
+    "nexus_tools_bazarr",
     "nexus_tools_google_common",
     "nexus_tools_google_calendar",
     "nexus_tools_google_docs",
@@ -49,7 +46,20 @@ FIRST_PARTY_TOOL_PACK_ORDER: Tuple[str, ...] = (
     "nexus_tools_google_sheets",
     "nexus_tools_google_slides",
     "nexus_tools_google_tasks",
-    "nexus_tools_agent_memory",
+    "nexus_tools_jira",
+    "nexus_tools_n8n",
+    "nexus_tools_nzbget",
+    "nexus_tools_playtomic",
+    "nexus_tools_portainer",
+    "nexus_tools_prowlarr",
+    "nexus_tools_qbittorrent",
+    "nexus_tools_radarr",
+    "nexus_tools_sabnzbd",
+    "nexus_tools_sonarr",
+    "nexus_tools_starling",
+    "nexus_tools_tautulli",
+    "nexus_tools_vaultwarden",
+    "nexus_tools_waha",
 )
 
 

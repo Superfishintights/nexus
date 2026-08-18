@@ -36,6 +36,9 @@ export NEXUS_TOOL_PACKAGES="nexus_tools_jira,nexus_tools_n8n"
 export NEXUS_TOOL_PACKAGES="nexus_tools_google_calendar,nexus_tools_google_docs,nexus_tools_google_drive,nexus_tools_google_forms,nexus_tools_google_gmail,nexus_tools_google_people,nexus_tools_google_script,nexus_tools_google_sheets,nexus_tools_google_slides,nexus_tools_google_tasks"
 ```
 
+The full source inventory currently used by the local Nexus deployment is
+recorded in [`docs/active-tool-inventory.md`](docs/active-tool-inventory.md).
+
 When running from this monorepo, Nexus also bootstraps local `tool_packs/<name>`
 directories onto `sys.path`, so you can point `NEXUS_TOOL_PACKAGES` at the local
 pack roots without separately installing each one.

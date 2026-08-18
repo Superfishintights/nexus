@@ -19,3 +19,7 @@ AGENTS.md
 !.codex/skills/legacy-toolpack-migration/
 !.codex/skills/legacy-toolpack-migration/**
 .omx/
+.agents
+.pi/
+node_modules/
+work/

@@ -184,8 +184,23 @@ class SonarrClient:
             raise Exception(f"Request failed: {str(exc)}") from exc
 
 
+def _get_timeout_s() -> float:
+    raw_timeout = get_setting("SONARR_TIMEOUT_S")
+    if raw_timeout is None:
+        return 30.0
+
+    try:
+        timeout_s = float(raw_timeout)
+    except ValueError as exc:
+        raise ValueError("SONARR_TIMEOUT_S must be a number of seconds") from exc
+
+    if timeout_s <= 0:
+        raise ValueError("SONARR_TIMEOUT_S must be greater than zero")
+    return timeout_s
+
+
 _default_client: Optional[SonarrClient] = None
-_default_client_key: Optional[tuple[str, str]] = None
+_default_client_key: Optional[tuple[str, str, float]] = None
 
 
 def get_client() -> SonarrClient:
@@ -193,13 +208,18 @@ def get_client() -> SonarrClient:
     global _default_client, _default_client_key
     base_url = get_setting("SONARR_URL")
     api_key = get_setting("SONARR_API_KEY")
+    timeout_s = _get_timeout_s()
     if not base_url or not api_key:
         _default_client = None
         _default_client_key = None
-        return SonarrClient(base_url=base_url, api_key=api_key)
+        return SonarrClient(base_url=base_url, api_key=api_key, timeout_s=timeout_s)
 
-    new_key = (base_url, api_key)
+    new_key = (base_url, api_key, timeout_s)
     if _default_client is None or _default_client_key != new_key:
-        _default_client = SonarrClient(base_url=base_url, api_key=api_key)
+        _default_client = SonarrClient(
+            base_url=base_url,
+            api_key=api_key,
+            timeout_s=timeout_s,
+        )
         _default_client_key = new_key
     return _default_client

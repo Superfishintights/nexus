@@ -1,0 +1,1835 @@
+{
+  "api_prefix": "/api/v1",
+  "canonical": [
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "",
+      "filename": "get.py",
+      "method": "GET",
+      "name": "get",
+      "path": "/",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "api",
+      "filename": "get_api.py",
+      "method": "GET",
+      "name": "get_api",
+      "path": "/api",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications",
+      "filename": "get_applications.py",
+      "method": "GET",
+      "name": "get_applications",
+      "path": "/api/v1/applications",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications",
+      "filename": "create_applications.py",
+      "method": "POST",
+      "name": "create_applications",
+      "path": "/api/v1/applications",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/action/{name}",
+      "filename": "create_applications_action_by_name.py",
+      "method": "POST",
+      "name": "create_applications_action_by_name",
+      "path": "/api/v1/applications/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/bulk",
+      "filename": "update_applications_bulk.py",
+      "method": "PUT",
+      "name": "update_applications_bulk",
+      "path": "/api/v1/applications/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/bulk",
+      "filename": "delete_applications_bulk.py",
+      "method": "DELETE",
+      "name": "delete_applications_bulk",
+      "path": "/api/v1/applications/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/schema",
+      "filename": "get_applications_schema.py",
+      "method": "GET",
+      "name": "get_applications_schema",
+      "path": "/api/v1/applications/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/test",
+      "filename": "create_applications_test_tool.py",
+      "method": "POST",
+      "name": "create_applications_test",
+      "path": "/api/v1/applications/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/testall",
+      "filename": "create_applications_testall.py",
+      "method": "POST",
+      "name": "create_applications_testall",
+      "path": "/api/v1/applications/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/{id}",
+      "filename": "get_applications_by_id.py",
+      "method": "GET",
+      "name": "get_applications_by_id",
+      "path": "/api/v1/applications/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/{id}",
+      "filename": "update_applications_by_id.py",
+      "method": "PUT",
+      "name": "update_applications_by_id",
+      "path": "/api/v1/applications/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "applications/{id}",
+      "filename": "delete_applications_by_id.py",
+      "method": "DELETE",
+      "name": "delete_applications_by_id",
+      "path": "/api/v1/applications/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "appprofile",
+      "filename": "get_appprofile.py",
+      "method": "GET",
+      "name": "get_appprofile",
+      "path": "/api/v1/appprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "appprofile",
+      "filename": "create_appprofile.py",
+      "method": "POST",
+      "name": "create_appprofile",
+      "path": "/api/v1/appprofile",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "appprofile/schema",
+      "filename": "get_appprofile_schema.py",
+      "method": "GET",
+      "name": "get_appprofile_schema",
+      "path": "/api/v1/appprofile/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "appprofile/{id}",
+      "filename": "get_appprofile_by_id.py",
+      "method": "GET",
+      "name": "get_appprofile_by_id",
+      "path": "/api/v1/appprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "appprofile/{id}",
+      "filename": "update_appprofile_by_id.py",
+      "method": "PUT",
+      "name": "update_appprofile_by_id",
+      "path": "/api/v1/appprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "appprofile/{id}",
+      "filename": "delete_appprofile_by_id.py",
+      "method": "DELETE",
+      "name": "delete_appprofile_by_id",
+      "path": "/api/v1/appprofile/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command",
+      "filename": "get_command.py",
+      "method": "GET",
+      "name": "get_command",
+      "path": "/api/v1/command",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command",
+      "filename": "create_command.py",
+      "method": "POST",
+      "name": "create_command",
+      "path": "/api/v1/command",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command/{id}",
+      "filename": "get_command_by_id.py",
+      "method": "GET",
+      "name": "get_command_by_id",
+      "path": "/api/v1/command/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "command/{id}",
+      "filename": "delete_command_by_id.py",
+      "method": "DELETE",
+      "name": "delete_command_by_id",
+      "path": "/api/v1/command/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/development",
+      "filename": "get_config_development.py",
+      "method": "GET",
+      "name": "get_config_development",
+      "path": "/api/v1/config/development",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/development/{id}",
+      "filename": "get_config_development_by_id.py",
+      "method": "GET",
+      "name": "get_config_development_by_id",
+      "path": "/api/v1/config/development/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/development/{id}",
+      "filename": "update_config_development_by_id.py",
+      "method": "PUT",
+      "name": "update_config_development_by_id",
+      "path": "/api/v1/config/development/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/downloadclient",
+      "filename": "get_config_downloadclient.py",
+      "method": "GET",
+      "name": "get_config_downloadclient",
+      "path": "/api/v1/config/downloadclient",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/downloadclient/{id}",
+      "filename": "get_config_downloadclient_by_id.py",
+      "method": "GET",
+      "name": "get_config_downloadclient_by_id",
+      "path": "/api/v1/config/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/downloadclient/{id}",
+      "filename": "update_config_downloadclient_by_id.py",
+      "method": "PUT",
+      "name": "update_config_downloadclient_by_id",
+      "path": "/api/v1/config/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/host",
+      "filename": "get_config_host.py",
+      "method": "GET",
+      "name": "get_config_host",
+      "path": "/api/v1/config/host",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/host/{id}",
+      "filename": "get_config_host_by_id.py",
+      "method": "GET",
+      "name": "get_config_host_by_id",
+      "path": "/api/v1/config/host/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/host/{id}",
+      "filename": "update_config_host_by_id.py",
+      "method": "PUT",
+      "name": "update_config_host_by_id",
+      "path": "/api/v1/config/host/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/ui",
+      "filename": "get_config_ui.py",
+      "method": "GET",
+      "name": "get_config_ui",
+      "path": "/api/v1/config/ui",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/ui/{id}",
+      "filename": "get_config_ui_by_id.py",
+      "method": "GET",
+      "name": "get_config_ui_by_id",
+      "path": "/api/v1/config/ui/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "config/ui/{id}",
+      "filename": "update_config_ui_by_id.py",
+      "method": "PUT",
+      "name": "update_config_ui_by_id",
+      "path": "/api/v1/config/ui/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter",
+      "filename": "get_customfilter.py",
+      "method": "GET",
+      "name": "get_customfilter",
+      "path": "/api/v1/customfilter",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter",
+      "filename": "create_customfilter.py",
+      "method": "POST",
+      "name": "create_customfilter",
+      "path": "/api/v1/customfilter",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter/{id}",
+      "filename": "get_customfilter_by_id.py",
+      "method": "GET",
+      "name": "get_customfilter_by_id",
+      "path": "/api/v1/customfilter/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter/{id}",
+      "filename": "update_customfilter_by_id.py",
+      "method": "PUT",
+      "name": "update_customfilter_by_id",
+      "path": "/api/v1/customfilter/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "customfilter/{id}",
+      "filename": "delete_customfilter_by_id.py",
+      "method": "DELETE",
+      "name": "delete_customfilter_by_id",
+      "path": "/api/v1/customfilter/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient",
+      "filename": "get_downloadclient.py",
+      "method": "GET",
+      "name": "get_downloadclient",
+      "path": "/api/v1/downloadclient",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient",
+      "filename": "create_downloadclient.py",
+      "method": "POST",
+      "name": "create_downloadclient",
+      "path": "/api/v1/downloadclient",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/action/{name}",
+      "filename": "create_downloadclient_action_by_name.py",
+      "method": "POST",
+      "name": "create_downloadclient_action_by_name",
+      "path": "/api/v1/downloadclient/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/bulk",
+      "filename": "update_downloadclient_bulk.py",
+      "method": "PUT",
+      "name": "update_downloadclient_bulk",
+      "path": "/api/v1/downloadclient/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/bulk",
+      "filename": "delete_downloadclient_bulk.py",
+      "method": "DELETE",
+      "name": "delete_downloadclient_bulk",
+      "path": "/api/v1/downloadclient/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/schema",
+      "filename": "get_downloadclient_schema.py",
+      "method": "GET",
+      "name": "get_downloadclient_schema",
+      "path": "/api/v1/downloadclient/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/test",
+      "filename": "create_downloadclient_test_tool.py",
+      "method": "POST",
+      "name": "create_downloadclient_test",
+      "path": "/api/v1/downloadclient/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/testall",
+      "filename": "create_downloadclient_testall.py",
+      "method": "POST",
+      "name": "create_downloadclient_testall",
+      "path": "/api/v1/downloadclient/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/{id}",
+      "filename": "get_downloadclient_by_id.py",
+      "method": "GET",
+      "name": "get_downloadclient_by_id",
+      "path": "/api/v1/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/{id}",
+      "filename": "update_downloadclient_by_id.py",
+      "method": "PUT",
+      "name": "update_downloadclient_by_id",
+      "path": "/api/v1/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "downloadclient/{id}",
+      "filename": "delete_downloadclient_by_id.py",
+      "method": "DELETE",
+      "name": "delete_downloadclient_by_id",
+      "path": "/api/v1/downloadclient/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filesystem",
+      "filename": "get_filesystem.py",
+      "method": "GET",
+      "name": "get_filesystem",
+      "path": "/api/v1/filesystem",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filesystem/type",
+      "filename": "get_filesystem_type.py",
+      "method": "GET",
+      "name": "get_filesystem_type",
+      "path": "/api/v1/filesystem/type",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "health",
+      "filename": "get_health.py",
+      "method": "GET",
+      "name": "get_health",
+      "path": "/api/v1/health",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history",
+      "filename": "get_history.py",
+      "method": "GET",
+      "name": "get_history",
+      "path": "/api/v1/history",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history/indexer",
+      "filename": "get_history_indexer.py",
+      "method": "GET",
+      "name": "get_history_indexer",
+      "path": "/api/v1/history/indexer",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "history/since",
+      "filename": "get_history_since.py",
+      "method": "GET",
+      "name": "get_history_since",
+      "path": "/api/v1/history/since",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer",
+      "filename": "get_indexer.py",
+      "method": "GET",
+      "name": "get_indexer",
+      "path": "/api/v1/indexer",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer",
+      "filename": "create_indexer.py",
+      "method": "POST",
+      "name": "create_indexer",
+      "path": "/api/v1/indexer",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/action/{name}",
+      "filename": "create_indexer_action_by_name.py",
+      "method": "POST",
+      "name": "create_indexer_action_by_name",
+      "path": "/api/v1/indexer/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/bulk",
+      "filename": "update_indexer_bulk.py",
+      "method": "PUT",
+      "name": "update_indexer_bulk",
+      "path": "/api/v1/indexer/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/bulk",
+      "filename": "delete_indexer_bulk.py",
+      "method": "DELETE",
+      "name": "delete_indexer_bulk",
+      "path": "/api/v1/indexer/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/categories",
+      "filename": "get_indexer_categories.py",
+      "method": "GET",
+      "name": "get_indexer_categories",
+      "path": "/api/v1/indexer/categories",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/schema",
+      "filename": "get_indexer_schema.py",
+      "method": "GET",
+      "name": "get_indexer_schema",
+      "path": "/api/v1/indexer/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/test",
+      "filename": "create_indexer_test_tool.py",
+      "method": "POST",
+      "name": "create_indexer_test",
+      "path": "/api/v1/indexer/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/testall",
+      "filename": "create_indexer_testall.py",
+      "method": "POST",
+      "name": "create_indexer_testall",
+      "path": "/api/v1/indexer/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}",
+      "filename": "get_indexer_by_id.py",
+      "method": "GET",
+      "name": "get_indexer_by_id",
+      "path": "/api/v1/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}",
+      "filename": "update_indexer_by_id.py",
+      "method": "PUT",
+      "name": "update_indexer_by_id",
+      "path": "/api/v1/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}",
+      "filename": "delete_indexer_by_id.py",
+      "method": "DELETE",
+      "name": "delete_indexer_by_id",
+      "path": "/api/v1/indexer/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}/download",
+      "filename": "get_indexer_by_id_download.py",
+      "method": "GET",
+      "name": "get_indexer_by_id_download",
+      "path": "/api/v1/indexer/{id}/download",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexer/{id}/newznab",
+      "filename": "get_indexer_by_id_newznab.py",
+      "method": "GET",
+      "name": "get_indexer_by_id_newznab",
+      "path": "/api/v1/indexer/{id}/newznab",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy",
+      "filename": "get_indexerproxy.py",
+      "method": "GET",
+      "name": "get_indexerproxy",
+      "path": "/api/v1/indexerproxy",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy",
+      "filename": "create_indexerproxy.py",
+      "method": "POST",
+      "name": "create_indexerproxy",
+      "path": "/api/v1/indexerproxy",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/action/{name}",
+      "filename": "create_indexerproxy_action_by_name.py",
+      "method": "POST",
+      "name": "create_indexerproxy_action_by_name",
+      "path": "/api/v1/indexerproxy/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/schema",
+      "filename": "get_indexerproxy_schema.py",
+      "method": "GET",
+      "name": "get_indexerproxy_schema",
+      "path": "/api/v1/indexerproxy/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/test",
+      "filename": "create_indexerproxy_test_tool.py",
+      "method": "POST",
+      "name": "create_indexerproxy_test",
+      "path": "/api/v1/indexerproxy/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/testall",
+      "filename": "create_indexerproxy_testall.py",
+      "method": "POST",
+      "name": "create_indexerproxy_testall",
+      "path": "/api/v1/indexerproxy/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/{id}",
+      "filename": "get_indexerproxy_by_id.py",
+      "method": "GET",
+      "name": "get_indexerproxy_by_id",
+      "path": "/api/v1/indexerproxy/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/{id}",
+      "filename": "update_indexerproxy_by_id.py",
+      "method": "PUT",
+      "name": "update_indexerproxy_by_id",
+      "path": "/api/v1/indexerproxy/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerproxy/{id}",
+      "filename": "delete_indexerproxy_by_id.py",
+      "method": "DELETE",
+      "name": "delete_indexerproxy_by_id",
+      "path": "/api/v1/indexerproxy/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerstats",
+      "filename": "get_indexerstats.py",
+      "method": "GET",
+      "name": "get_indexerstats",
+      "path": "/api/v1/indexerstats",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "indexerstatus",
+      "filename": "get_indexerstatus.py",
+      "method": "GET",
+      "name": "get_indexerstatus",
+      "path": "/api/v1/indexerstatus",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "localization",
+      "filename": "get_localization.py",
+      "method": "GET",
+      "name": "get_localization",
+      "path": "/api/v1/localization",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "localization/options",
+      "filename": "get_localization_options.py",
+      "method": "GET",
+      "name": "get_localization_options",
+      "path": "/api/v1/localization/options",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log",
+      "filename": "get_log.py",
+      "method": "GET",
+      "name": "get_log",
+      "path": "/api/v1/log",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file",
+      "filename": "get_log_file.py",
+      "method": "GET",
+      "name": "get_log_file",
+      "path": "/api/v1/log/file",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file/update",
+      "filename": "get_log_file_update.py",
+      "method": "GET",
+      "name": "get_log_file_update",
+      "path": "/api/v1/log/file/update",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file/update/{filename}",
+      "filename": "get_log_file_update_by_filename.py",
+      "method": "GET",
+      "name": "get_log_file_update_by_filename",
+      "path": "/api/v1/log/file/update/{filename}",
+      "path_params": [
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "log/file/{filename}",
+      "filename": "get_log_file_by_filename.py",
+      "method": "GET",
+      "name": "get_log_file_by_filename",
+      "path": "/api/v1/log/file/{filename}",
+      "path_params": [
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification",
+      "filename": "get_notification.py",
+      "method": "GET",
+      "name": "get_notification",
+      "path": "/api/v1/notification",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification",
+      "filename": "create_notification.py",
+      "method": "POST",
+      "name": "create_notification",
+      "path": "/api/v1/notification",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/action/{name}",
+      "filename": "create_notification_action_by_name.py",
+      "method": "POST",
+      "name": "create_notification_action_by_name",
+      "path": "/api/v1/notification/action/{name}",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/schema",
+      "filename": "get_notification_schema.py",
+      "method": "GET",
+      "name": "get_notification_schema",
+      "path": "/api/v1/notification/schema",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/test",
+      "filename": "create_notification_test_tool.py",
+      "method": "POST",
+      "name": "create_notification_test",
+      "path": "/api/v1/notification/test",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/testall",
+      "filename": "create_notification_testall.py",
+      "method": "POST",
+      "name": "create_notification_testall",
+      "path": "/api/v1/notification/testall",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/{id}",
+      "filename": "get_notification_by_id.py",
+      "method": "GET",
+      "name": "get_notification_by_id",
+      "path": "/api/v1/notification/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/{id}",
+      "filename": "update_notification_by_id.py",
+      "method": "PUT",
+      "name": "update_notification_by_id",
+      "path": "/api/v1/notification/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notification/{id}",
+      "filename": "delete_notification_by_id.py",
+      "method": "DELETE",
+      "name": "delete_notification_by_id",
+      "path": "/api/v1/notification/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "search",
+      "filename": "get_search.py",
+      "method": "GET",
+      "name": "get_search",
+      "path": "/api/v1/search",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "search",
+      "filename": "create_search.py",
+      "method": "POST",
+      "name": "create_search",
+      "path": "/api/v1/search",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "search/bulk",
+      "filename": "create_search_bulk.py",
+      "method": "POST",
+      "name": "create_search_bulk",
+      "path": "/api/v1/search/bulk",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup",
+      "filename": "get_system_backup.py",
+      "method": "GET",
+      "name": "get_system_backup",
+      "path": "/api/v1/system/backup",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup/restore/upload",
+      "filename": "create_system_backup_restore_upload.py",
+      "method": "POST",
+      "name": "create_system_backup_restore_upload",
+      "path": "/api/v1/system/backup/restore/upload",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup/restore/{id}",
+      "filename": "create_system_backup_restore_by_id.py",
+      "method": "POST",
+      "name": "create_system_backup_restore_by_id",
+      "path": "/api/v1/system/backup/restore/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/backup/{id}",
+      "filename": "delete_system_backup_by_id.py",
+      "method": "DELETE",
+      "name": "delete_system_backup_by_id",
+      "path": "/api/v1/system/backup/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/restart",
+      "filename": "create_system_restart.py",
+      "method": "POST",
+      "name": "create_system_restart",
+      "path": "/api/v1/system/restart",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/routes",
+      "filename": "get_system_routes.py",
+      "method": "GET",
+      "name": "get_system_routes",
+      "path": "/api/v1/system/routes",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/routes/duplicate",
+      "filename": "get_system_routes_duplicate.py",
+      "method": "GET",
+      "name": "get_system_routes_duplicate",
+      "path": "/api/v1/system/routes/duplicate",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/shutdown",
+      "filename": "create_system_shutdown.py",
+      "method": "POST",
+      "name": "create_system_shutdown",
+      "path": "/api/v1/system/shutdown",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/status",
+      "filename": "get_system_status.py",
+      "method": "GET",
+      "name": "get_system_status",
+      "path": "/api/v1/system/status",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/task",
+      "filename": "get_system_task.py",
+      "method": "GET",
+      "name": "get_system_task",
+      "path": "/api/v1/system/task",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "system/task/{id}",
+      "filename": "get_system_task_by_id.py",
+      "method": "GET",
+      "name": "get_system_task_by_id",
+      "path": "/api/v1/system/task/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag",
+      "filename": "get_tag.py",
+      "method": "GET",
+      "name": "get_tag",
+      "path": "/api/v1/tag",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag",
+      "filename": "create_tag.py",
+      "method": "POST",
+      "name": "create_tag",
+      "path": "/api/v1/tag",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/detail",
+      "filename": "get_tag_detail.py",
+      "method": "GET",
+      "name": "get_tag_detail",
+      "path": "/api/v1/tag/detail",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/detail/{id}",
+      "filename": "get_tag_detail_by_id.py",
+      "method": "GET",
+      "name": "get_tag_detail_by_id",
+      "path": "/api/v1/tag/detail/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/{id}",
+      "filename": "get_tag_by_id.py",
+      "method": "GET",
+      "name": "get_tag_by_id",
+      "path": "/api/v1/tag/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/{id}",
+      "filename": "update_tag_by_id.py",
+      "method": "PUT",
+      "name": "update_tag_by_id",
+      "path": "/api/v1/tag/{id}",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag/{id}",
+      "filename": "delete_tag_by_id.py",
+      "method": "DELETE",
+      "name": "delete_tag_by_id",
+      "path": "/api/v1/tag/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "update",
+      "filename": "get_update.py",
+      "method": "GET",
+      "name": "get_update",
+      "path": "/api/v1/update",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "content/{path}",
+      "filename": "get_content_by_path.py",
+      "method": "GET",
+      "name": "get_content_by_path",
+      "path": "/content/{path}",
+      "path_params": [
+        [
+          "path",
+          "str"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "login",
+      "filename": "get_login.py",
+      "method": "GET",
+      "name": "get_login",
+      "path": "/login",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "login",
+      "filename": "create_login.py",
+      "method": "POST",
+      "name": "create_login",
+      "path": "/login",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "logout",
+      "filename": "get_logout.py",
+      "method": "GET",
+      "name": "get_logout",
+      "path": "/logout",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "ping",
+      "filename": "get_ping.py",
+      "method": "GET",
+      "name": "get_ping",
+      "path": "/ping",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "ping",
+      "filename": "head_ping.py",
+      "method": "HEAD",
+      "name": "head_ping",
+      "path": "/ping",
+      "path_params": [],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "{id}/api",
+      "filename": "get_by_id_api.py",
+      "method": "GET",
+      "name": "get_by_id_api",
+      "path": "/{id}/api",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "{id}/download",
+      "filename": "get_by_id_download.py",
+      "method": "GET",
+      "name": "get_by_id_download",
+      "path": "/{id}/download",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": null
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "{path}",
+      "filename": "get_by_path.py",
+      "method": "GET",
+      "name": "get_by_path",
+      "path": "/{path}",
+      "path_params": [
+        [
+          "path",
+          "str"
+        ]
+      ],
+      "summary": null
+    }
+  ],
+  "canonical_count": 129,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": true,
+  "namespace": "prowlarr",
+  "package": "nexus_tools_prowlarr",
+  "post_processed": [
+    "package directory generated as nexus_tools_prowlarr",
+    "decorator namespace rewritten to prowlarr",
+    "client rewritten to PROWLARR_URL/PROWLARR_API_KEY"
+  ],
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr",
+  "skipped": [],
+  "skipped_count": 0,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 0,
+  "spec": "/tmp/prowlarr-openapi.json",
+  "tools_root": "tool_packs/nexus_tools_prowlarr",
+  "write_mode": true,
+  "written_files": [
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_api.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_applications.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_applications.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_applications_action_by_name.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_applications_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_applications_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_applications_schema.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_applications_test_tool.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_applications_testall.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_applications_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_applications_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_applications_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_appprofile.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_appprofile.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_appprofile_schema.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_appprofile_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_appprofile_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_appprofile_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_command.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_command.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_command_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_command_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_development.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_development_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_config_development_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_downloadclient.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_downloadclient_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_config_downloadclient_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_host.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_host_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_config_host_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_ui.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_config_ui_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_config_ui_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_customfilter.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_customfilter.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_customfilter_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_customfilter_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_customfilter_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_downloadclient.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_downloadclient.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_downloadclient_action_by_name.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_downloadclient_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_downloadclient_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_downloadclient_schema.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_downloadclient_test_tool.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_downloadclient_testall.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_downloadclient_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_downloadclient_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_downloadclient_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_filesystem.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_filesystem_type.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_health.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_history.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_history_indexer.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_history_since.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexer.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexer.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexer_action_by_name.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_indexer_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_indexer_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexer_categories.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexer_schema.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexer_test_tool.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexer_testall.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexer_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_indexer_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_indexer_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexer_by_id_download.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexer_by_id_newznab.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexerproxy.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexerproxy.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexerproxy_action_by_name.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexerproxy_schema.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexerproxy_test_tool.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_indexerproxy_testall.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexerproxy_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_indexerproxy_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_indexerproxy_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexerstats.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_indexerstatus.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_localization.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_localization_options.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_log.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_log_file.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_log_file_update.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_log_file_update_by_filename.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_log_file_by_filename.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_notification.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_notification.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_notification_action_by_name.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_notification_schema.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_notification_test_tool.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_notification_testall.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_notification_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_notification_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_notification_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_search.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_search.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_search_bulk.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_system_backup.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_system_backup_restore_upload.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_system_backup_restore_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_system_backup_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_system_restart.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_system_routes.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_system_routes_duplicate.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_system_shutdown.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_system_status.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_system_task.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_system_task_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_tag.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_tag.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_tag_detail.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_tag_detail_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_tag_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/update_tag_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/delete_tag_by_id.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_update.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_content_by_path.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_login.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/create_login.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_logout.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_ping.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/head_ping.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_by_id_api.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_by_id_download.py",
+    "tool_packs/nexus_tools_prowlarr/nexus_tools_prowlarr/get_by_path.py"
+  ]
+}

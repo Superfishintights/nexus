@@ -33,7 +33,7 @@ def get_ready() -> Dict[str, Any]:
 
 @register_tool(
     namespace="agent_memory",
-    aliases=["add_memory", "store_memory", "save_memory", "memorize"],
+    aliases=["add_memory", "store_memory", "save_memory", "memorize", "memorise"],
     description="Store a memory item in the agent-memory service.",
     examples=[
         'load_tool("agent_memory.remember")("Remember that the deploy host is hermes-agent")',

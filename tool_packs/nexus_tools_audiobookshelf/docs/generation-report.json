@@ -1,0 +1,758 @@
+{
+  "api_prefix": "/api",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "authorize",
+      "filename": "create_authorize.py",
+      "method": "POST",
+      "name": "create_authorize",
+      "path": "/api/authorize",
+      "path_params": [],
+      "summary": "Get authorized user and server information"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "authors/{author_id}",
+      "filename": "get_authors_by_author_id.py",
+      "method": "GET",
+      "name": "get_authors_by_author_id",
+      "path": "/api/authors/{author_id}",
+      "path_params": [
+        [
+          "author_id",
+          "str"
+        ]
+      ],
+      "summary": "Get author"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "authors/{author_id}/match",
+      "filename": "create_authors_by_author_id_match.py",
+      "method": "POST",
+      "name": "create_authors_by_author_id_match",
+      "path": "/api/authors/{author_id}/match",
+      "path_params": [
+        [
+          "author_id",
+          "str"
+        ]
+      ],
+      "summary": "Match author"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "backups",
+      "filename": "get_backups.py",
+      "method": "GET",
+      "name": "get_backups",
+      "path": "/api/backups",
+      "path_params": [],
+      "summary": "List backups"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "backups",
+      "filename": "create_backups.py",
+      "method": "POST",
+      "name": "create_backups",
+      "path": "/api/backups",
+      "path_params": [],
+      "summary": "Create backup"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "backups/upload",
+      "filename": "create_backups_upload.py",
+      "method": "POST",
+      "name": "create_backups_upload",
+      "path": "/api/backups/upload",
+      "path_params": [],
+      "summary": "Upload backup"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "backups/{backup_id}",
+      "filename": "delete_backups_by_backup_id.py",
+      "method": "DELETE",
+      "name": "delete_backups_by_backup_id",
+      "path": "/api/backups/{backup_id}",
+      "path_params": [
+        [
+          "backup_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete backup"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "backups/{backup_id}/apply",
+      "filename": "get_backups_by_backup_id_apply.py",
+      "method": "GET",
+      "name": "get_backups_by_backup_id_apply",
+      "path": "/api/backups/{backup_id}/apply",
+      "path_params": [
+        [
+          "backup_id",
+          "str"
+        ]
+      ],
+      "summary": "Apply backup"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filesystem",
+      "filename": "get_filesystem.py",
+      "method": "GET",
+      "name": "get_filesystem",
+      "path": "/api/filesystem",
+      "path_params": [],
+      "summary": "List filesystem paths"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/batch/delete",
+      "filename": "create_items_batch_delete.py",
+      "method": "POST",
+      "name": "create_items_batch_delete",
+      "path": "/api/items/batch/delete",
+      "path_params": [],
+      "summary": "Batch delete items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/batch/get",
+      "filename": "create_items_batch_get.py",
+      "method": "POST",
+      "name": "create_items_batch_get",
+      "path": "/api/items/batch/get",
+      "path_params": [],
+      "summary": "Batch get items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/batch/quickmatch",
+      "filename": "create_items_batch_quickmatch.py",
+      "method": "POST",
+      "name": "create_items_batch_quickmatch",
+      "path": "/api/items/batch/quickmatch",
+      "path_params": [],
+      "summary": "Batch quick match items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/batch/scan",
+      "filename": "create_items_batch_scan.py",
+      "method": "POST",
+      "name": "create_items_batch_scan",
+      "path": "/api/items/batch/scan",
+      "path_params": [],
+      "summary": "Batch scan items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/batch/update",
+      "filename": "create_items_batch_update.py",
+      "method": "POST",
+      "name": "create_items_batch_update",
+      "path": "/api/items/batch/update",
+      "path_params": [],
+      "summary": "Batch update items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}",
+      "filename": "get_items_by_item_id.py",
+      "method": "GET",
+      "name": "get_items_by_item_id",
+      "path": "/api/items/{item_id}",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Get library item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}",
+      "filename": "delete_items_by_item_id.py",
+      "method": "DELETE",
+      "name": "delete_items_by_item_id",
+      "path": "/api/items/{item_id}",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete library item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}/cover",
+      "filename": "create_items_by_item_id_cover.py",
+      "method": "POST",
+      "name": "create_items_by_item_id_cover",
+      "path": "/api/items/{item_id}/cover",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Upload item cover"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}/cover",
+      "filename": "delete_items_by_item_id_cover.py",
+      "method": "DELETE",
+      "name": "delete_items_by_item_id_cover",
+      "path": "/api/items/{item_id}/cover",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Remove item cover"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}/match",
+      "filename": "create_items_by_item_id_match.py",
+      "method": "POST",
+      "name": "create_items_by_item_id_match",
+      "path": "/api/items/{item_id}/match",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Match library item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}/play",
+      "filename": "create_items_by_item_id_play.py",
+      "method": "POST",
+      "name": "create_items_by_item_id_play",
+      "path": "/api/items/{item_id}/play",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Start playback session"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "items/{item_id}/scan",
+      "filename": "create_items_by_item_id_scan.py",
+      "method": "POST",
+      "name": "create_items_by_item_id_scan",
+      "path": "/api/items/{item_id}/scan",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Scan library item"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries",
+      "filename": "get_libraries.py",
+      "method": "GET",
+      "name": "get_libraries",
+      "path": "/api/libraries",
+      "path_params": [],
+      "summary": "List libraries"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries",
+      "filename": "create_libraries.py",
+      "method": "POST",
+      "name": "create_libraries",
+      "path": "/api/libraries",
+      "path_params": [],
+      "summary": "Create library"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}",
+      "filename": "get_libraries_by_library_id.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id",
+      "path": "/api/libraries/{library_id}",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Get library"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}",
+      "filename": "delete_libraries_by_library_id.py",
+      "method": "DELETE",
+      "name": "delete_libraries_by_library_id",
+      "path": "/api/libraries/{library_id}",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete library"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/authors",
+      "filename": "get_libraries_by_library_id_authors.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_authors",
+      "path": "/api/libraries/{library_id}/authors",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "List library authors"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/filterdata",
+      "filename": "get_libraries_by_library_id_filterdata.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_filterdata",
+      "path": "/api/libraries/{library_id}/filterdata",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Get library filter data"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/issues",
+      "filename": "delete_libraries_by_library_id_issues.py",
+      "method": "DELETE",
+      "name": "delete_libraries_by_library_id_issues",
+      "path": "/api/libraries/{library_id}/issues",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Remove library items with issues"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/items",
+      "filename": "get_libraries_by_library_id_items.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_items",
+      "path": "/api/libraries/{library_id}/items",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "List library items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/matchall",
+      "filename": "get_libraries_by_library_id_matchall.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_matchall",
+      "path": "/api/libraries/{library_id}/matchall",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Match all library items"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/scan",
+      "filename": "create_libraries_by_library_id_scan.py",
+      "method": "POST",
+      "name": "create_libraries_by_library_id_scan",
+      "path": "/api/libraries/{library_id}/scan",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Scan library"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/search",
+      "filename": "get_libraries_by_library_id_search.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_search",
+      "path": "/api/libraries/{library_id}/search",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Search a library"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/series",
+      "filename": "get_libraries_by_library_id_series.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_series",
+      "path": "/api/libraries/{library_id}/series",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "List library series"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "libraries/{library_id}/stats",
+      "filename": "get_libraries_by_library_id_stats.py",
+      "method": "GET",
+      "name": "get_libraries_by_library_id_stats",
+      "path": "/api/libraries/{library_id}/stats",
+      "path_params": [
+        [
+          "library_id",
+          "str"
+        ]
+      ],
+      "summary": "Get library stats"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "logger-data",
+      "filename": "get_logger_data.py",
+      "method": "GET",
+      "name": "get_logger_data",
+      "path": "/api/logger-data",
+      "path_params": [],
+      "summary": "Get logger data"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "me",
+      "filename": "get_me.py",
+      "method": "GET",
+      "name": "get_me",
+      "path": "/api/me",
+      "path_params": [],
+      "summary": "Get current user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "me/progress/{item_id}",
+      "filename": "get_me_progress_by_item_id.py",
+      "method": "GET",
+      "name": "get_me_progress_by_item_id",
+      "path": "/api/me/progress/{item_id}",
+      "path_params": [
+        [
+          "item_id",
+          "str"
+        ]
+      ],
+      "summary": "Get media progress"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "me/progress/{progress_id}",
+      "filename": "delete_me_progress_by_progress_id.py",
+      "method": "DELETE",
+      "name": "delete_me_progress_by_progress_id",
+      "path": "/api/me/progress/{progress_id}",
+      "path_params": [
+        [
+          "progress_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete media progress"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notifications",
+      "filename": "get_notifications.py",
+      "method": "GET",
+      "name": "get_notifications",
+      "path": "/api/notifications",
+      "path_params": [],
+      "summary": "Get notification settings"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notifications",
+      "filename": "create_notifications.py",
+      "method": "POST",
+      "name": "create_notifications",
+      "path": "/api/notifications",
+      "path_params": [],
+      "summary": "Create notification"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "search/authors",
+      "filename": "get_search_authors.py",
+      "method": "GET",
+      "name": "get_search_authors",
+      "path": "/api/search/authors",
+      "path_params": [],
+      "summary": "Search authors"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "search/books",
+      "filename": "get_search_books.py",
+      "method": "GET",
+      "name": "get_search_books",
+      "path": "/api/search/books",
+      "path_params": [],
+      "summary": "Search books"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "search/covers",
+      "filename": "get_search_covers.py",
+      "method": "GET",
+      "name": "get_search_covers",
+      "path": "/api/search/covers",
+      "path_params": [],
+      "summary": "Search covers"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "series/{series_id}",
+      "filename": "get_series_by_series_id.py",
+      "method": "GET",
+      "name": "get_series_by_series_id",
+      "path": "/api/series/{series_id}",
+      "path_params": [
+        [
+          "series_id",
+          "str"
+        ]
+      ],
+      "summary": "Get series"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "sessions",
+      "filename": "get_sessions.py",
+      "method": "GET",
+      "name": "get_sessions",
+      "path": "/api/sessions",
+      "path_params": [],
+      "summary": "List sessions"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks",
+      "filename": "get_tasks.py",
+      "method": "GET",
+      "name": "get_tasks",
+      "path": "/api/tasks",
+      "path_params": [],
+      "summary": "List tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "upload",
+      "filename": "create_upload.py",
+      "method": "POST",
+      "name": "create_upload",
+      "path": "/api/upload",
+      "path_params": [],
+      "summary": "Upload media"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "users",
+      "filename": "get_users.py",
+      "method": "GET",
+      "name": "get_users",
+      "path": "/api/users",
+      "path_params": [],
+      "summary": "List users"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "users",
+      "filename": "create_users.py",
+      "method": "POST",
+      "name": "create_users",
+      "path": "/api/users",
+      "path_params": [],
+      "summary": "Create user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "users/{user_id}",
+      "filename": "delete_users_by_user_id.py",
+      "method": "DELETE",
+      "name": "delete_users_by_user_id",
+      "path": "/api/users/{user_id}",
+      "path_params": [
+        [
+          "user_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete user"
+    },
+    {
+      "api_path_override": "",
+      "deprecated": false,
+      "endpoint": "status",
+      "filename": "get_status.py",
+      "method": "GET",
+      "name": "get_status",
+      "path": "/status",
+      "path_params": [],
+      "summary": "Get server status"
+    }
+  ],
+  "canonical_count": 51,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [
+    "/status"
+  ],
+  "guardrail_failures": [
+    "unsupported_operations_present (8)"
+  ],
+  "include_nonprefix_paths": false,
+  "namespace": "audiobookshelf",
+  "service_dir": "/tmp/audiobookshelf-preflight-tools/audiobookshelf",
+  "skipped": [
+    {
+      "method": "PATCH",
+      "path": "/api/authors/{author_id}",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/items/{item_id}/cover",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/items/{item_id}/media",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/libraries/{library_id}",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/me/progress/{item_id}",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/notifications",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/series/{series_id}",
+      "reason": "unsupported_method"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{user_id}",
+      "reason": "unsupported_method"
+    }
+  ],
+  "skipped_count": 8,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 8,
+  "spec": "tool_packs/nexus_tools_audiobookshelf/source.v1.json",
+  "tools_root": "/tmp/audiobookshelf-preflight-tools",
+  "write_mode": false
+}
