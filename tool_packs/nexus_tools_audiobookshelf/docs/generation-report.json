@@ -706,7 +706,7 @@
   ],
   "include_nonprefix_paths": false,
   "namespace": "audiobookshelf",
-  "service_dir": "/tmp/audiobookshelf-preflight-tools/audiobookshelf",
+  "service_dir": "tool_packs/nexus_tools_audiobookshelf/nexus_tools_audiobookshelf",
   "skipped": [
     {
       "method": "PATCH",
@@ -753,6 +753,6 @@
   "skipped_out_of_scope_count": 0,
   "skipped_unsupported_count": 8,
   "spec": "tool_packs/nexus_tools_audiobookshelf/source.v1.json",
-  "tools_root": "/tmp/audiobookshelf-preflight-tools",
+  "tools_root": "tool_packs/nexus_tools_audiobookshelf",
   "write_mode": false
 }
