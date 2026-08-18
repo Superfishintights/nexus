@@ -34,15 +34,24 @@ def create_workflow(
     """
     client = get_client()
     
+    # n8n API v1 treats `active` as read-only on workflow creation. Create the
+    # workflow first, then use the dedicated activation endpoint when asked.
     payload = {
         "name": name,
         "nodes": nodes or [],
         "connections": connections or {},
         "settings": settings or {},
-        "active": active,
     }
     
     if tags:
         payload["tags"] = tags
 
-    return client._make_request("workflows", method="POST", data=payload)
+    workflow = client._make_request("workflows", method="POST", data=payload)
+
+    if active and workflow.get("id"):
+        return client._make_request(
+            f"workflows/{workflow['id']}/activate",
+            method="POST",
+        )
+
+    return workflow
