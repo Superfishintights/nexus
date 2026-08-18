@@ -38,13 +38,33 @@ def update_workflow(
     
     current = client._make_request(f"workflows/{workflow_id}")
     
+    # n8n API v1 exposes activation and tag assignment through dedicated
+    # endpoints; both fields are read-only in the workflow update payload.
     payload = {
         "name": name if name is not None else current.get("name"),
         "nodes": nodes if nodes is not None else current.get("nodes", []),
         "connections": connections if connections is not None else current.get("connections", {}),
         "settings": settings if settings is not None else current.get("settings", {}),
-        "active": active if active is not None else current.get("active", False),
-        "tags": tags if tags is not None else current.get("tags", []),
     }
 
-    return client._make_request(f"workflows/{workflow_id}", method="PUT", data=payload)
+    workflow = client._make_request(
+        f"workflows/{workflow_id}",
+        method="PUT",
+        data=payload,
+    )
+
+    if tags is not None:
+        client._make_request(
+            f"workflows/{workflow_id}/tags",
+            method="PUT",
+            data=tags,
+        )
+
+    if active is not None and active != bool(current.get("active", False)):
+        action = "activate" if active else "deactivate"
+        workflow = client._make_request(
+            f"workflows/{workflow_id}/{action}",
+            method="POST",
+        )
+
+    return workflow

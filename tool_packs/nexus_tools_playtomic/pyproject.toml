@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-tools-playtomic"
+version = "0.1.0"
+description = "Nexus tool pack: read-only Playtomic padel tools"
+requires-python = ">=3.10"
+dependencies = ["nexus-core>=0.1.0", "requests>=2.31"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus_tools_playtomic*"]

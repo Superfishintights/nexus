@@ -21,7 +21,14 @@ from .errors import (
     StarlingScopeError,
     StarlingSigningError,
 )
-from .manifest import is_binary_response, is_text_response, requires_signature
+from .manifest import (
+    TOKEN_PROFILE_PAYMENT_INITIATION,
+    TOKEN_PROFILE_PAYEE_SAVINGS_CREATE,
+    is_binary_response,
+    is_text_response,
+    requires_signature,
+    resolve_token_profile,
+)
 
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
@@ -72,6 +79,14 @@ class StarlingClient:
             base_url or get_setting("STARLING_API_BASE_URL", "STARLING_URL") or default_base_url
         )
         self.token = token or get_setting("STARLING_ACCESS_TOKEN", "STARLING_TOKEN")
+        self.read_edit_token = get_setting("STARLING_TOKEN_READ_EDIT") or self.token
+        self.payee_savings_create_token = (
+            get_setting("STARLING_TOKEN_PAYEE_SAVINGS_CREATE", "STARLING_TOKEN_PAYEE_CREATE")
+            or self.read_edit_token
+        )
+        self.payment_initiation_token = (
+            get_setting("STARLING_TOKEN_PAYMENT_INITIATION") or self.read_edit_token
+        )
         self.timeout_s = timeout_s if timeout_s is not None else _float_setting("STARLING_TIMEOUT_S", 30.0)
         self.api_path = api_path
         self.signing_command = signing_command or get_setting("STARLING_SIGNING_COMMAND")
@@ -80,8 +95,10 @@ class StarlingClient:
 
         if not self.base_url:
             raise StarlingAuthError("STARLING_API_BASE_URL or STARLING_URL is required")
-        if not self.token:
-            raise StarlingAuthError("STARLING_ACCESS_TOKEN or STARLING_TOKEN is required")
+        if not self.read_edit_token:
+            raise StarlingAuthError(
+                "STARLING_TOKEN_READ_EDIT, STARLING_ACCESS_TOKEN, or STARLING_TOKEN is required"
+            )
 
     def get(
         self,
@@ -176,6 +193,14 @@ class StarlingClient:
         if endpoint:
             url = f"{url}/{endpoint}"
         return url
+
+    def _token_for_request(self, method: str, endpoint: str) -> str:
+        profile = resolve_token_profile(method, endpoint)
+        if profile == TOKEN_PROFILE_PAYEE_SAVINGS_CREATE:
+            return self.payee_savings_create_token or self.read_edit_token
+        if profile == TOKEN_PROFILE_PAYMENT_INITIATION:
+            return self.payment_initiation_token or self.read_edit_token
+        return self.read_edit_token
 
     def _encode_params(self, params: Optional[Dict[str, Any]]) -> str:
         if not params:
@@ -293,8 +318,9 @@ class StarlingClient:
             url = f"{url}?{query}"
 
         data, effective_content_type = self._prepare_body(body, content_type)
+        token = self._token_for_request(method, endpoint)
         request_headers: Dict[str, str] = {
-            "Authorization": f"Bearer {self.token}",
+            "Authorization": f"Bearer {token}",
             "Accept": "application/json",
             "User-Agent": DEFAULT_USER_AGENT,
         }
@@ -405,7 +431,7 @@ class StarlingClient:
 
 
 _default_client: Optional[StarlingClient] = None
-_default_client_key: Optional[tuple[str, str, str, str, str, str]] = None
+_default_client_key: Optional[tuple[str, str, str, str, str, str, str, str]] = None
 
 
 def get_client() -> StarlingClient:
@@ -413,13 +439,28 @@ def get_client() -> StarlingClient:
 
     base_url = _normalize_base_url(get_setting("STARLING_API_BASE_URL", "STARLING_URL"))
     token = get_setting("STARLING_ACCESS_TOKEN", "STARLING_TOKEN") or ""
+    read_edit_token = get_setting("STARLING_TOKEN_READ_EDIT") or token
+    payee_savings_create_token = (
+        get_setting("STARLING_TOKEN_PAYEE_SAVINGS_CREATE", "STARLING_TOKEN_PAYEE_CREATE")
+        or read_edit_token
+    )
+    payment_initiation_token = get_setting("STARLING_TOKEN_PAYMENT_INITIATION") or read_edit_token
     signing_command = get_setting("STARLING_SIGNING_COMMAND") or ""
     client_cert_path = get_setting("STARLING_CLIENT_CERT_PATH") or ""
     client_key_path = get_setting("STARLING_CLIENT_KEY_PATH") or ""
     ca_bundle_path = get_setting("STARLING_CA_BUNDLE_PATH") or ""
-    key = (base_url, token, signing_command, client_cert_path, client_key_path, ca_bundle_path)
+    key = (
+        base_url,
+        read_edit_token,
+        payee_savings_create_token,
+        payment_initiation_token,
+        signing_command,
+        client_cert_path,
+        client_key_path,
+        ca_bundle_path,
+    )
 
     if _default_client is None or _default_client_key != key:
-        _default_client = StarlingClient(base_url=base_url or None, token=token or None)
+        _default_client = StarlingClient(base_url=base_url or None, token=read_edit_token or token or None)
         _default_client_key = key
     return _default_client

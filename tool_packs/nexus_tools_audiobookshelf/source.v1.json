@@ -1,0 +1,149 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Curated Audiobookshelf 2.36.0 Nexus surface",
+    "version": "2.36.0",
+    "description": "Source-derived preflight inventory only; tool modules are implemented one-by-one by delegated workers."
+  },
+  "paths": {
+    "/status": {"get": {"summary": "Get server status"}},
+    "/api/authorize": {"post": {"summary": "Get authorized user and server information"}},
+    "/api/me": {"get": {"summary": "Get current user"}},
+    "/api/libraries": {
+      "get": {"summary": "List libraries"},
+      "post": {"summary": "Create library"}
+    },
+    "/api/libraries/{library_id}": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get library"},
+      "patch": {"summary": "Update library"},
+      "delete": {"summary": "Delete library"}
+    },
+    "/api/libraries/{library_id}/items": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "List library items"}
+    },
+    "/api/libraries/{library_id}/search": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Search a library"}
+    },
+    "/api/libraries/{library_id}/stats": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get library stats"}
+    },
+    "/api/libraries/{library_id}/filterdata": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get library filter data"}
+    },
+    "/api/libraries/{library_id}/series": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "List library series"}
+    },
+    "/api/libraries/{library_id}/authors": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "List library authors"}
+    },
+    "/api/libraries/{library_id}/scan": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "post": {"summary": "Scan library"}
+    },
+    "/api/libraries/{library_id}/issues": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "delete": {"summary": "Remove library items with issues"}
+    },
+    "/api/libraries/{library_id}/matchall": {
+      "parameters": [{"in": "path", "name": "library_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Match all library items"}
+    },
+    "/api/items/{item_id}": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get library item"},
+      "delete": {"summary": "Delete library item"}
+    },
+    "/api/items/{item_id}/media": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "patch": {"summary": "Update item media"}
+    },
+    "/api/items/{item_id}/cover": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "post": {"summary": "Upload item cover"},
+      "patch": {"summary": "Update item cover URL"},
+      "delete": {"summary": "Remove item cover"}
+    },
+    "/api/items/{item_id}/match": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "post": {"summary": "Match library item"}
+    },
+    "/api/items/{item_id}/scan": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "post": {"summary": "Scan library item"}
+    },
+    "/api/items/{item_id}/play": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "post": {"summary": "Start playback session"}
+    },
+    "/api/items/batch/get": {"post": {"summary": "Batch get items"}},
+    "/api/items/batch/update": {"post": {"summary": "Batch update items"}},
+    "/api/items/batch/delete": {"post": {"summary": "Batch delete items"}},
+    "/api/items/batch/quickmatch": {"post": {"summary": "Batch quick match items"}},
+    "/api/items/batch/scan": {"post": {"summary": "Batch scan items"}},
+    "/api/search/books": {"get": {"summary": "Search books"}},
+    "/api/search/covers": {"get": {"summary": "Search covers"}},
+    "/api/search/authors": {"get": {"summary": "Search authors"}},
+    "/api/series/{series_id}": {
+      "parameters": [{"in": "path", "name": "series_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get series"},
+      "patch": {"summary": "Update series"}
+    },
+    "/api/authors/{author_id}": {
+      "parameters": [{"in": "path", "name": "author_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get author"},
+      "patch": {"summary": "Update author"}
+    },
+    "/api/authors/{author_id}/match": {
+      "parameters": [{"in": "path", "name": "author_id", "required": true, "schema": {"type": "string"}}],
+      "post": {"summary": "Match author"}
+    },
+    "/api/filesystem": {"get": {"summary": "List filesystem paths"}},
+    "/api/tasks": {"get": {"summary": "List tasks"}},
+    "/api/upload": {"post": {"summary": "Upload media"}},
+    "/api/users": {
+      "get": {"summary": "List users"},
+      "post": {"summary": "Create user"}
+    },
+    "/api/users/{user_id}": {
+      "parameters": [{"in": "path", "name": "user_id", "required": true, "schema": {"type": "string"}}],
+      "patch": {"summary": "Update user"},
+      "delete": {"summary": "Delete user"}
+    },
+    "/api/backups": {
+      "get": {"summary": "List backups"},
+      "post": {"summary": "Create backup"}
+    },
+    "/api/backups/upload": {"post": {"summary": "Upload backup"}},
+    "/api/backups/{backup_id}/apply": {
+      "parameters": [{"in": "path", "name": "backup_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Apply backup"}
+    },
+    "/api/backups/{backup_id}": {
+      "parameters": [{"in": "path", "name": "backup_id", "required": true, "schema": {"type": "string"}}],
+      "delete": {"summary": "Delete backup"}
+    },
+    "/api/sessions": {"get": {"summary": "List sessions"}},
+    "/api/me/progress/{item_id}": {
+      "parameters": [{"in": "path", "name": "item_id", "required": true, "schema": {"type": "string"}}],
+      "get": {"summary": "Get media progress"},
+      "patch": {"summary": "Update media progress"}
+    },
+    "/api/me/progress/{progress_id}": {
+      "parameters": [{"in": "path", "name": "progress_id", "required": true, "schema": {"type": "string"}}],
+      "delete": {"summary": "Delete media progress"}
+    },
+    "/api/logger-data": {"get": {"summary": "Get logger data"}},
+    "/api/notifications": {
+      "get": {"summary": "Get notification settings"},
+      "post": {"summary": "Create notification"},
+      "patch": {"summary": "Update notification settings"}
+    }
+  }
+}

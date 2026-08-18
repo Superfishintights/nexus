@@ -5,6 +5,10 @@ from __future__ import annotations
 import re
 from typing import Pattern
 
+TOKEN_PROFILE_READ_EDIT = "read_edit"
+TOKEN_PROFILE_PAYEE_SAVINGS_CREATE = "payee_savings_create"
+TOKEN_PROFILE_PAYMENT_INITIATION = "payment_initiation"
+
 SIGNED_OPERATION_PATTERNS: tuple[tuple[str, Pattern[str]], ...] = (
     ("PUT", re.compile(r"^account-holder/individual/email$")),
     ("POST", re.compile(r"^addresses$")),
@@ -30,6 +34,48 @@ BINARY_RESPONSE_PATTERNS: tuple[Pattern[str], ...] = (
     re.compile(r"^feed/account/[^/]+/category/[^/]+/[^/]+/attachments/[^/]+$"),
 )
 
+TOKEN_PROFILE_PATTERNS: tuple[tuple[str, str, Pattern[str]], ...] = (
+    (TOKEN_PROFILE_PAYEE_SAVINGS_CREATE, "PUT", re.compile(r"^payees$")),
+    (TOKEN_PROFILE_PAYEE_SAVINGS_CREATE, "PUT", re.compile(r"^payees/[^/]+/account$")),
+    (TOKEN_PROFILE_PAYEE_SAVINGS_CREATE, "PUT", re.compile(r"^feed/account/[^/]+/round-up$")),
+    (TOKEN_PROFILE_PAYEE_SAVINGS_CREATE, "PUT", re.compile(r"^account/[^/]+/savings-goals$")),
+    (
+        TOKEN_PROFILE_PAYEE_SAVINGS_CREATE,
+        "PUT",
+        re.compile(r"^account/[^/]+/savings-goals/[^/]+$"),
+    ),
+    (
+        TOKEN_PROFILE_PAYEE_SAVINGS_CREATE,
+        "PUT",
+        re.compile(r"^account/[^/]+/savings-goals/[^/]+/(add-money|withdraw-money)/[^/]+$"),
+    ),
+    (
+        TOKEN_PROFILE_PAYEE_SAVINGS_CREATE,
+        "PUT",
+        re.compile(r"^account/[^/]+/savings-goals/[^/]+/recurring-transfer$"),
+    ),
+    (
+        TOKEN_PROFILE_PAYMENT_INITIATION,
+        "PUT",
+        re.compile(r"^payments/local/account/[^/]+/category/[^/]+$"),
+    ),
+    (
+        TOKEN_PROFILE_PAYMENT_INITIATION,
+        "PUT",
+        re.compile(r"^payments/local/account/[^/]+/category/[^/]+/standing-orders$"),
+    ),
+    (
+        TOKEN_PROFILE_PAYMENT_INITIATION,
+        "PUT",
+        re.compile(r"^payments/local/account/[^/]+/category/[^/]+/standing-orders/[^/]+$"),
+    ),
+    (
+        TOKEN_PROFILE_PAYMENT_INITIATION,
+        "DELETE",
+        re.compile(r"^payments/local/account/[^/]+/category/[^/]+/standing-orders/[^/]+$"),
+    ),
+)
+
 
 def requires_signature(method: str, endpoint: str) -> bool:
     normalized_method = method.upper()
@@ -38,6 +84,15 @@ def requires_signature(method: str, endpoint: str) -> bool:
         candidate_method == normalized_method and pattern.match(normalized_endpoint)
         for candidate_method, pattern in SIGNED_OPERATION_PATTERNS
     )
+
+
+def resolve_token_profile(method: str, endpoint: str) -> str:
+    normalized_method = method.upper()
+    normalized_endpoint = endpoint.strip("/")
+    for profile, candidate_method, pattern in TOKEN_PROFILE_PATTERNS:
+        if candidate_method == normalized_method and pattern.match(normalized_endpoint):
+            return profile
+    return TOKEN_PROFILE_READ_EDIT
 
 
 def is_text_response(endpoint: str, content_type: str) -> bool:
