@@ -1,0 +1,483 @@
+[
+  {
+    "tenant_id": "de9f694e-6db4-4b4d-8add-49fbfe4ed0a7",
+    "tenant_uid": "powerleague-stoke-trentham-lakes",
+    "tenant_name": "Powerleague Stoke Trentham Lakes",
+    "slug": "powerleague-stoke-trentham-lakes",
+    "address": {
+      "street": "Trentham Lakes, Dennis Violet Avenue",
+      "postal_code": "ST4 4TN",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Stoke-on-Trent",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 52.98585354,
+        "lon": -2.17199062
+      },
+      "timezone": "Europe/London"
+    },
+    "default_currency": "GBP",
+    "resources": [
+      {
+        "resourceId": "3475445c-d464-48e3-944a-b5c11c3aaf62",
+        "name": "Court 1",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "crystal"
+        ],
+        "resource_id": "3475445c-d464-48e3-944a-b5c11c3aaf62"
+      },
+      {
+        "resourceId": "3a6c22a2-4af9-4e70-8430-2f072fd4afd8",
+        "name": "Court 2",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "crystal"
+        ],
+        "resource_id": "3a6c22a2-4af9-4e70-8430-2f072fd4afd8"
+      },
+      {
+        "resourceId": "1e0a9541-cd5f-489d-a305-672c25e02271",
+        "name": "Court 3",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "crystal"
+        ],
+        "resource_id": "1e0a9541-cd5f-489d-a305-672c25e02271"
+      },
+      {
+        "resourceId": "112842d8-9a37-4513-be4d-2ff6afb7f195",
+        "name": "Court 4",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "crystal"
+        ],
+        "resource_id": "112842d8-9a37-4513-be4d-2ff6afb7f195"
+      }
+    ],
+    "aliases": [
+      "Trentham",
+      "Trentham Lakes",
+      "Powerleague"
+    ]
+  },
+  {
+    "tenant_id": "09009c91-0418-4ce8-9b41-42233523e286",
+    "tenant_uid": "ace-padel-stoke",
+    "tenant_name": "Ace Padel Stoke",
+    "slug": "ace-padel-stoke",
+    "address": {
+      "street": "Elder Road ",
+      "postal_code": "ST6 2JF",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Stoke-on-Trent",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 53.03470259,
+        "lon": -2.1854838
+      },
+      "timezone": "Europe/London"
+    },
+    "default_currency": "GBP",
+    "resources": [
+      {
+        "resourceId": "1daab45a-2dd5-4e40-bf13-366e9731e843",
+        "name": "AMB Insurance Show Court",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "1daab45a-2dd5-4e40-bf13-366e9731e843"
+      },
+      {
+        "resourceId": "340a98e3-e57f-4d04-ba92-682efb4955e2",
+        "name": "Heywoods Property Court 2",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "340a98e3-e57f-4d04-ba92-682efb4955e2"
+      },
+      {
+        "resourceId": "090566ba-8307-4587-a27f-93e480d72a47",
+        "name": "Court 3",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "090566ba-8307-4587-a27f-93e480d72a47"
+      },
+      {
+        "resourceId": "5c9c4b23-caa3-4805-b3f4-7d646b0ad527",
+        "name": "Blue Iris - Singles Court",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "single",
+          "panoramic"
+        ],
+        "resource_id": "5c9c4b23-caa3-4805-b3f4-7d646b0ad527"
+      }
+    ],
+    "aliases": [
+      "Ace Stoke",
+      "Ace Padel Stoke"
+    ]
+  },
+  {
+    "tenant_id": "85ce7924-87fe-4f18-9946-bccbdc8cc7fe",
+    "tenant_uid": "ace-padel-milton",
+    "tenant_name": "Ace Padel Milton",
+    "slug": "ace-padel-milton",
+    "address": {
+      "street": "Hardman centre, Millrise Rd, Milton, ST2 7DW",
+      "postal_code": "ST2 7DW",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Staffordshire",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 53.0470468,
+        "lon": -2.1471814
+      },
+      "timezone": "Europe/London"
+    },
+    "default_currency": "GBP",
+    "resources": [
+      {
+        "resourceId": "2e91e649-cd4f-4f6d-adba-c9c192d9cab2",
+        "name": "Court 1",
+        "sport": "PADEL",
+        "features": [
+          "outdoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "2e91e649-cd4f-4f6d-adba-c9c192d9cab2"
+      },
+      {
+        "resourceId": "bcb5577b-134a-4419-9371-358e519e499f",
+        "name": "Court 2",
+        "sport": "PADEL",
+        "features": [
+          "outdoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "bcb5577b-134a-4419-9371-358e519e499f"
+      },
+      {
+        "resourceId": "8aca4138-0e96-4a0c-acc9-09ee9435664c",
+        "name": "Court 3",
+        "sport": "PADEL",
+        "features": [
+          "outdoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "8aca4138-0e96-4a0c-acc9-09ee9435664c"
+      }
+    ],
+    "aliases": [
+      "Ace Milton",
+      "Milton"
+    ]
+  },
+  {
+    "tenant_id": "216b0acf-8736-4ca3-9da6-e91c3dc0157e",
+    "tenant_uid": "the-padel-barn-@-round-meadows-farm",
+    "tenant_name": "The Padel Barn ",
+    "slug": "the-padel-barn-round-meadows-farm",
+    "address": {
+      "street": "Rownall Road",
+      "postal_code": "ST9 0BP",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Staffordshire",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 53.03411253,
+        "lon": -2.0765691
+      },
+      "timezone": "Europe/London"
+    },
+    "default_currency": "GBP",
+    "resources": [
+      {
+        "resourceId": "b2ccbe4d-0748-4031-acaf-fa8e818a7a5d",
+        "name": "Court 1",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "b2ccbe4d-0748-4031-acaf-fa8e818a7a5d"
+      },
+      {
+        "resourceId": "522812be-54be-498e-9f2b-6843c157a30f",
+        "name": "Court 2",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "522812be-54be-498e-9f2b-6843c157a30f"
+      }
+    ],
+    "aliases": [
+      "Padel Barn",
+      "The Barn",
+      "Wetley Rocks"
+    ]
+  },
+  {
+    "tenant_id": "a8b6307a-181c-4478-9002-374eee97d860",
+    "tenant_uid": "padel-500",
+    "tenant_name": "Padel 500",
+    "slug": "padel-500",
+    "address": {
+      "street": "Off Atlantic place Whieldon road ",
+      "postal_code": "ST4 4HP",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Stoke-on-Trent",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 52.9989195,
+        "lon": -2.1782433
+      },
+      "timezone": "Europe/London"
+    },
+    "default_currency": "GBP",
+    "resources": [
+      {
+        "resourceId": "de27f812-8454-4334-848d-e824208db01e",
+        "name": "Padel 1",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "de27f812-8454-4334-848d-e824208db01e"
+      },
+      {
+        "resourceId": "18d90f7f-c707-4a06-83b4-7ef5b2c4f4ac",
+        "name": "Padel 2",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "18d90f7f-c707-4a06-83b4-7ef5b2c4f4ac"
+      },
+      {
+        "resourceId": "ad715930-72a3-44b4-a1ea-eccc6f10475a",
+        "name": "Padel 3",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "ad715930-72a3-44b4-a1ea-eccc6f10475a"
+      },
+      {
+        "resourceId": "542552f1-57a1-4f08-a55b-6267b2ccf944",
+        "name": "Padel 4",
+        "sport": "PADEL",
+        "features": [
+          "indoor",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "542552f1-57a1-4f08-a55b-6267b2ccf944"
+      }
+    ],
+    "aliases": [
+      "Padel500",
+      "Padel500 Fenton",
+      "Padel 500 Fenton"
+    ]
+  },
+  {
+    "tenant_id": "67669964-df08-4359-bd34-6eddaf89ea6f",
+    "tenant_uid": "m-club-spa-and-fitness",
+    "tenant_name": "M Club Spa and Fitness (Coming Soon!)",
+    "slug": "m-club-spa-and-fitness",
+    "address": {
+      "street": "Parklands, Newcastle Road",
+      "postal_code": "ST4 6NW",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Stoke-on-Trent",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 52.99822113,
+        "lon": -2.21364539
+      },
+      "timezone": "Europe/London"
+    },
+    "default_currency": "GBP",
+    "resources": [
+      {
+        "resourceId": "bd6e968e-1e63-49ed-9ae9-f42682e6de64",
+        "name": "Padel 1",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "bd6e968e-1e63-49ed-9ae9-f42682e6de64"
+      },
+      {
+        "resourceId": "b3e48a7e-b97e-45be-9a48-17aa941928b3",
+        "name": "Padel 2",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "b3e48a7e-b97e-45be-9a48-17aa941928b3"
+      },
+      {
+        "resourceId": "65eac7f6-88d8-4c94-a4b4-05faa7cdb378",
+        "name": "Padel 3",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "65eac7f6-88d8-4c94-a4b4-05faa7cdb378"
+      },
+      {
+        "resourceId": "f5100b01-7e71-4ecc-bcfb-b9321914a5fe",
+        "name": "Padel 4",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "f5100b01-7e71-4ecc-bcfb-b9321914a5fe"
+      },
+      {
+        "resourceId": "fe43350b-3bf5-47b0-9e16-162e5ca53b0f",
+        "name": "Padel 5",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "fe43350b-3bf5-47b0-9e16-162e5ca53b0f"
+      }
+    ],
+    "aliases": [
+      "MClub",
+      "MClub Newcastle",
+      "M Club Newcastle",
+      "M Padel",
+      "M Club"
+    ]
+  },
+  {
+    "tenant_id": "54d88339-ada6-4bd1-895f-d1b51e676316",
+    "tenant_name": "Ace Padel Fenton Coming Soon ",
+    "slug": "ace-padel-fenton",
+    "address": {
+      "street": "City Road Fenton, City Rd, Fenton, Stoke-on-Trent",
+      "postal_code": "ST4 2RR",
+      "city": "Stoke-on-Trent",
+      "sub_administrative_area": "Stoke-on-Trent",
+      "administrative_area": "England",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "coordinate": {
+        "lat": 53.0033369,
+        "lon": -2.1827408
+      },
+      "timezone": "Europe/London"
+    },
+    "resources": [
+      {
+        "resourceId": "460eb2da-96e4-48c7-a1b8-ebc2f4acf84c",
+        "name": "Court 1",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "460eb2da-96e4-48c7-a1b8-ebc2f4acf84c"
+      },
+      {
+        "resourceId": "8243869f-5adf-487f-9306-bed5fa37c683",
+        "name": "Court 2",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "8243869f-5adf-487f-9306-bed5fa37c683"
+      },
+      {
+        "resourceId": "ba92dc67-fbc8-4ffc-8323-f9850a4773e0",
+        "name": "Court 3",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "ba92dc67-fbc8-4ffc-8323-f9850a4773e0"
+      },
+      {
+        "resourceId": "df61287d-11d2-4817-8e50-b61f0cd15bb1",
+        "name": "Court 4 ",
+        "sport": "PADEL",
+        "features": [
+          "roofed",
+          "double",
+          "panoramic"
+        ],
+        "resource_id": "df61287d-11d2-4817-8e50-b61f0cd15bb1"
+      }
+    ],
+    "tenant_uid": "ace-padel-fenton",
+    "default_currency": "GBP",
+    "aliases": [
+      "Ace Fenton",
+      "Ace Padel Fenton"
+    ]
+  }
+]

@@ -19,3 +19,12 @@ AGENTS.md
 !.codex/skills/legacy-toolpack-migration/
 !.codex/skills/legacy-toolpack-migration/**
 .omx/
+
+# Runtime credentials and user state never belong in source control.
+secrets/
+state/
+uploads/
+staged-files/
+work/
+*.pem
+*.key

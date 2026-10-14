@@ -1,0 +1,1 @@
+NEXUS_NAMESPACES = [{"name": "chaptarr", "display_name": "Chaptarr", "description": "Manage ebook and audiobook authors, books, editions, files, searches, downloads, imports, profiles, providers, metadata, and Chaptarr system settings."}]

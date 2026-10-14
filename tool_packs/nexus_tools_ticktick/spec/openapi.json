@@ -1,0 +1,805 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TickTick documented Open API endpoint inventory",
+    "version": "2026-10-04",
+    "description": "Derived from https://developer.ticktick.com/docs/openapi.md. Request contract text retained; not a provider-issued OpenAPI specification."
+  },
+  "servers": [
+    {
+      "url": "https://api.ticktick.com"
+    }
+  ],
+  "paths": {
+    "/open/v1/preference": {
+      "post": {
+        "summary": "Get User Preferences",
+        "description": "Returns the current user's preferences.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/task/{taskId}": {
+      "get": {
+        "summary": "Get Task By Project ID And Task ID",
+        "description": "##### Parameters\n| Type     | Name                     | Description        | Schema | \n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Task",
+        "description": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task": {
+      "post": {
+        "summary": "Create Task",
+        "description": "##### Parameters\n| **Type** | **Name**             | **Description**                                                                                          | **Schema**   |\n| -------- |----------------------| -------------------------------------------------------------------------------------------------------- | ------- |\n| **Body** | title   *required*   | Task title                                                                                               | string  |\n| **Body** | projectId *required* | Project id                                                                                               | string  |\n| **Body** | content              | Task content                                                                                             | string  |\n| **Body** | desc                 | Description of checklist                                                                                 | string  |\n| **Body** | isAllDay             | All day                                                                                                  | boolean |\n| **Body** | startDate            | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"` | date    |\n| **Body** | dueDate              | Due date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`   | date    |\n| **Body** | timeZone             | The time zone in which the time is specified                                                             | String  |\n| **Body** | reminders            | Lists of reminders specific to the task                                                                  | list    |\n| **Body** | tags                 | Tags of the task                                                                                         | list    |\n| **Body** | repeatFlag           | Recurring rules of task                                                                                  | string  |\n| **Body** | priority             | The priority of task, default is \"0\"                                                                     | integer |\n| **Body** | sortOrder            | The order of task                                                                                        | integer |\n| **Body** | items                | The list of subtasks                                                                                     | list    |\n| **Body** | items.title          | Subtask title                                                                                            | string  |\n| **Body** | items.startDate      | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format                                                 | date    |\n| **Body** | items.isAllDay       | All day                                                                                                  | boolean |\n| **Body** | items.sortOrder      | The order of subtask                                                                                     | integer |\n| **Body** | items.timeZone       | The time zone in which the Start time is specified                                                       | string  |\n| **Body** | items.status         | The completion status of subtask                                                                         | integer |\n| **Body** | items.completedTime  | Completed time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`      | date    |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/{taskId}": {
+      "post": {
+        "summary": "Update Task",
+        "description": "##### Parameters\n| **Type** | **Name**            | **Description**                                                                                          | **Schema**   |\n| -------- | ------------------------ | -------------------------------------------------------------------------------------------------------- | ------- |\n| **Path** | **taskId** *required*    | Task identifier                                                                                          | string  |\n| **Body** | id     *required*        | Task id.                                                                                                 | string  |\n| **Body** | projectId     *required* | Project id.                                                                                              | string  |\n| **Body** | title                    | Task title                                                                                               | string  |\n| **Body** | content                  | Task content                                                                                             | string  |\n| **Body** | desc                     | Description of checklist                                                                                 | string  |\n| **Body** | isAllDay                 | All day                                                                                                  | boolean |\n| **Body** | startDate                | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"` | date    |\n| **Body** | dueDate                  | Due date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`   | date    |\n| **Body** | timeZone                 | The time zone in which the time is specified                                                             | String  |\n| **Body** | reminders                | Lists of reminders specific to the task                                                                  | list    |\n| **Body** | tags                     | Tags of the task                                                                                         | list    |\n| **Body** | repeatFlag               | Recurring rules of task                                                                                  | string  |\n| **Body** | priority                 | The priority of task, default is \"normal\"                                                                | integer |\n| **Body** | sortOrder                | The order of task                                                                                        | integer |\n| **Body** | items                    | The list of subtasks                                                                                     | list    |\n| **Body** | items.title              | Subtask title                                                                                            | string  |\n| **Body** | items.startDate          | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format                                                 | date    |\n| **Body** | items.isAllDay           | All day                                                                                                  | boolean |\n| **Body** | items.sortOrder          | The order of subtask                                                                                     | integer |\n| **Body** | items.timeZone           | The time zone in which the Start time is specified                                                       | string  |\n| **Body** | items.status             | The completion status of subtask                                                                         | integer |\n| **Body** | items.completedTime      | Completed time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`      | date    |",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/task/{taskId}/complete": {
+      "post": {
+        "summary": "Complete Task",
+        "description": "##### Parameters\n\n|Type|Name|Description|Schema|  \n|---|---|---|---|  \n|**Path**|**projectId** *required*|Project identifier|string|  \n|**Path**|**taskId** *required*|Task identifier|string|",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/completeTasks": {
+      "post": {
+        "summary": "Complete Multiple Tasks",
+        "description": "Completes up to 50 tasks in one project. If `projectId` is omitted or empty, the current user's inbox is used.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | projectId | Project identifier. Defaults to the current user's inbox when omitted or empty. | string |\n| **Body** | **taskIds** *required* | Task IDs to complete. Only the first 50 IDs are processed. | string array |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/move": {
+      "post": {
+        "summary": "Move Task",
+        "description": "Moves one or more tasks between projects.\n\n##### Request Body\nA JSON array containing task move operations.\n\n| Type     | Name                         | Description                       | Schema |\n|----------|------------------------------|-----------------------------------|--------|\n| **Body** | **fromProjectId** *required* | The ID of the source project      | string |\n| **Body** | **toProjectId** *required*   | The ID of the destination project | string |\n| **Body** | **taskId** *required*        | The ID of the task to move        | string |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/batch": {
+      "post": {
+        "summary": "Batch Create or Update Tasks",
+        "description": "Creates and updates tasks in a single request. Each `add` and `update` array supports up to 50 tasks.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | add | Tasks to create, up to 50 tasks | [Task](openapi.md#task) array |\n| **Body** | update | Tasks to update, up to 50 tasks | [Task](openapi.md#task) array |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/assign": {
+      "post": {
+        "summary": "Assign Task",
+        "description": "Assigns a task to a member of its project.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | **projectId** *required* | Project containing the task | string |\n| **Body** | **taskId** *required* | Task identifier | string |\n| **Body** | **assigneeUsername** *required* | Username of a project member | string |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/unassign": {
+      "post": {
+        "summary": "Unassign Task",
+        "description": "Removes the assignee from a task.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | **projectId** *required* | Project containing the task | string |\n| **Body** | **taskId** *required* | Task identifier | string |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/completed": {
+      "post": {
+        "summary": "List Completed Tasks",
+        "description": "Retrieves at most 200 tasks marked as completed within specific projects and a given time range.\n\n##### Request Body\nA JSON object containing filter criteria. All fields are optional, but at least one filter is recommended to narrow down results.\n\n| Type     | Name        | Description | Schema |\n|----------|-------------|--|--------|\n| **Body** | **projectIds** | List of project identifier | list   |\n| **Body** | **startDate** | The start of the time range (inclusive). Filters tasks where completedTime \u2265 startDate | date   |\n| **Body** | **endDate** | The end of the time range (inclusive). Filters tasks where completedTime \u2264 endDate | date   |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/filter": {
+      "post": {
+        "summary": "Filter Tasks",
+        "description": "Retrieves at most 200 tasks based on advanced filtering criteria, including project scope, date ranges, priority levels, tags, task kinds, and status.\n\n##### Parameters\n| Type     | Name           | Description                                           | Schema |\n|----------|----------------|-------------------------------------------------------|--------|\n| **Body** | **projectIds** | Filters tasks belonging to the specified project ID   | list   |\n| **Body** | **startDate**  | Filters tasks where the task's startDate \u2265 startDate  | date   |\n| **Body** | **endDate**    | Filters tasks where the task's startDate \u2264 endDate    | date   |\n| **Body** | **priority**   | Filters tasks by specific priority levels, Valid Values: None(0), Low(1), Medium(3), High(5) | list   |\n| **Body** | **tag**        | Filters tasks that contain all of the specified tags | list   |\n| **Body** | **kind**       | Filters tasks by task kind | list   |\n| **Body** | **status**     | Filters tasks by their current status codes (e.g., [0] for Open, [2] for Completed) | list   |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/undone": {
+      "post": {
+        "summary": "List Undone Tasks",
+        "description": "Retrieves undone tasks within a date range of up to 14 days. `startDate` and `endDate` are required; an invalid range returns an empty array.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | projectIds | Project IDs to search. Omit to search all accessible projects; use `inbox` for the inbox project. | string array |\n| **Body** | taskIds | Restrict results to task IDs. | string array |\n| **Body** | **startDate** *required* | Start of the date range. | string (date-time) |\n| **Body** | **endDate** *required* | End of the date range; must not precede `startDate`. | string (date-time) |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/task/search": {
+      "post": {
+        "summary": "Search Tasks",
+        "description": "Searches tasks by keywords and optional project, tag, status, and due-date filters. A supplied `keywords` value must not be blank; a blank value returns an empty array.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | keywords | Text to search for. | string |\n| **Body** | projectIds | Project IDs to search. | string array |\n| **Body** | tags | Tags to filter by. | string array |\n| **Body** | status | Task statuses to filter by. | integer array |\n| **Body** | dueFrom | Include tasks due on or after this time. | string (date-time) |\n| **Body** | dueTo | Include tasks due on or before this time. | string (date-time) |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/task/{taskId}/comments": {
+      "get": {
+        "summary": "Get Task Comments",
+        "description": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/task/{taskId}/comment": {
+      "post": {
+        "summary": "Add Task Comment",
+        "description": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |\n| **Body** | **title** *required*     | Comment text       | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/task/{taskId}/comment/{id}": {
+      "delete": {
+        "summary": "Delete Task Comment",
+        "description": "##### Parameters\n| Type     | Name                     | Description         | Schema |\n| -------- | ------------------------ | ------------------- | ------ |\n| **Path** | **projectId** *required* | Project identifier  | string |\n| **Path** | **taskId** *required*    | Task identifier     | string |\n| **Path** | **id** *required*        | Comment identifier  | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project": {
+      "get": {
+        "summary": "Get User Project",
+        "description": "##### Parameters\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Query** | offset | Zero-based result offset. When either pagination parameter is provided, omitted or negative values default to `0`. | integer |\n| **Query** | limit | Maximum number of projects to return. When either pagination parameter is provided, omitted or negative values default to `200`. | integer |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Project",
+        "description": "##### Parameters\n| **Type** | **Name**         | **Description**                         | **Schema**           |\n| -------- | ---------------- | --------------------------------------- | --------------- |\n| **Body** | name  *required* | name of the project                     | string          |\n| **Body** | color            | color of project, eg. \"#F18181\"         | string          |\n| **Body** | sortOrder        | sort order value of the project         | integer (int64) |\n| **Body** | viewMode         | view mode, \"list\", \"kanban\", \"timeline\" | string          |\n| **Body** | kind             | project kind, \"TASK\", \"NOTE\"            | string          |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}": {
+      "get": {
+        "summary": "Get Project By ID",
+        "description": "##### Parameters\n| Type     | Name                   | Description        | Schema |\n| -------- | ---------------------- | ------------------ | ------ |\n| **Path** | **project** *required* | Project identifier | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Update Project",
+        "description": "##### Parameters\n| **Type** | **Parameter**        | **Description**                         | Schema          |\n| -------- | -------------------- | --------------------------------------- | --------------- |\n| **Path** | projectId *required* | project identifier                      | string          | \n| **Body** | name                 | name of the project                     | string          |\n| **Body** | color                | color of the project                    | string          |\n| **Body** | sortOrder            | sort order value, default 0             | integer (int64) |\n| **Body** | viewMode             | view mode, \"list\", \"kanban\", \"timeline\" | string          |\n| **Body** | kind                 | project kind, \"TASK\", \"NOTE\"            | string          |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Project",
+        "description": "##### Parameters\n| Type | Name                     | Description        | Schema |\n| ---- | ------------------------ | ------------------ | ------ |\n| Path | **projectId** *required* | Project identifier | string       |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/data": {
+      "get": {
+        "summary": "Get Project With Data",
+        "description": "##### Parameters\n|Type|Name|Description|Schema|  \n|---|---|---|---|  \n|**Path**|**projectId** *required*|Project identifier|string|",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/members": {
+      "get": {
+        "summary": "Get Project Members",
+        "description": "Returns the members of a project.\n\n##### Parameters\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Path** | **projectId** *required* | Project identifier | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/group": {
+      "get": {
+        "summary": "Get Project Groups",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Project Group",
+        "description": "##### Parameters\n| Type     | Name                | Description                       | Schema |\n| -------- | ------------------- | --------------------------------- | ------ |\n| **Body** | **name** *required* | Project group name (max 64 chars) | string |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/group/{projectGroupId}": {
+      "post": {
+        "summary": "Update Project Group",
+        "description": "##### Parameters\n| Type     | Name                          | Description                       | Schema |\n| -------- | ----------------------------- | --------------------------------- | ------ |\n| **Path** | **projectGroupId** *required* | Project group identifier          | string |\n| **Body** | name                          | Project group name (max 64 chars) | string |",
+        "parameters": [
+          {
+            "name": "projectGroupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Project Group",
+        "description": "##### Parameters\n| Type     | Name                          | Description              | Schema |\n| -------- | ----------------------------- | ------------------------ | ------ |\n| **Path** | **projectGroupId** *required* | Project group identifier | string |",
+        "parameters": [
+          {
+            "name": "projectGroupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/column": {
+      "get": {
+        "summary": "Get Columns",
+        "description": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Column",
+        "description": "##### Parameters\n| Type     | Name                     | Description                   | Schema |\n| -------- | ------------------------ | ----------------------------- | ------ |\n| **Path** | **projectId** *required* | Project identifier            | string |\n| **Body** | **name** *required*      | Column name (max 1000 chars)  | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/project/{projectId}/column/{columnId}": {
+      "post": {
+        "summary": "Update Column",
+        "description": "##### Parameters\n| Type     | Name                     | Description                   | Schema |\n| -------- | ------------------------ | ----------------------------- | ------ |\n| **Path** | **projectId** *required* | Project identifier            | string |\n| **Path** | **columnId** *required*  | Column identifier             | string |\n| **Body** | name                     | Column name (max 1000 chars)  | string |",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "columnId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/tag": {
+      "get": {
+        "summary": "Get Tags",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Tag",
+        "description": "##### Parameters\n| Type     | Name                | Description                                                        | Schema |\n| -------- | ------------------- | ------------------------------------------------------------------ | ------ |\n| **Body** | **name** *required* | Tag name (max 64 chars, lowercase, trimmed)                        | string |\n| **Body** | **label** *required*| Tag label (max 64 chars, must match name when lowercased)          | string |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/focus/{focusId}": {
+      "get": {
+        "summary": "Get Focus By Focus ID",
+        "description": "##### Parameters\n| Type      | Name                   | Description                                                                                         | Schema          |\n| --------- | ---------------------- | --------------------------------------------------------------------------------------------------- | --------------- |\n| **Path**  | **focusId** *required* | Focus identifier                                                                                    | string          |\n| **Query** | **type** *required*    | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1`                                              | integer (int32) |",
+        "parameters": [
+          {
+            "name": "focusId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Focus",
+        "description": "##### Parameters\n| **Type**  | **Name**               | **Description**                                    | **Schema**      |\n| --------- | ---------------------- | -------------------------------------------------- | --------------- |\n| **Path**  | **focusId** *required* | Focus identifier                                   | string          |\n| **Query** | **type** *required*    | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1` | integer (int32) |",
+        "parameters": [
+          {
+            "name": "focusId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/focus": {
+      "get": {
+        "summary": "Get Focuses By Time Range",
+        "description": "##### Parameters\n| **Type**  | **Name**               | **Description**                                                                                                  | **Schema**        |\n| --------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------- |\n| **Query** | **from** *required*    | Range start time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-01T00:00:00+0800\"`           | string (date-time) |\n| **Query** | **to** *required*      | Range end time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-02T00:00:00+0800\"`             | string (date-time) |\n| **Query** | **type** *required*    | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1`                                                            | integer (int32)   |\n\nIf the time range exceeds 30 days, the server automatically adjusts the start time to 30 days before `to`.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Focus",
+        "description": "##### Parameters\n| Type     | Name                | Description                                                                                           | Schema             |\n| -------- | ------------------- | ----------------------------------------------------------------------------------------------------- | ------------------ |\n| **Body** | **type** *required* | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1`                                                | integer (int32)    |\n| **Body** | taskId              | Task id                                                                                               | string             |\n| **Body** | note                | Focus note (max 5000 chars)                                                                           | string             |\n| **Body** | startTime           | Focus start time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T09:00:00+0800\"` | string (date-time) |\n| **Body** | endTime             | Focus end time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T09:25:00+0800\"`   | string (date-time) |\n| **Body** | pauseDuration       | Pause duration in seconds                                                                             | integer (int32)    |\n| **Body** | duration            | Focus duration                                                                                        | integer (int64)    |\n| **Body** | relationType        | Relation types                                                                                        | < integer > array  |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/countdown": {
+      "get": {
+        "summary": "Get Countdowns",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/habit/{habitId}": {
+      "get": {
+        "summary": "Get Habit By Habit ID",
+        "description": "##### Parameters\n| Type     | Name                   | Description         | Schema |\n| -------- | ---------------------- | ------------------- | ------ |\n| **Path** | **habitId** *required* | Habit identifier    | string |",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Update Habit",
+        "description": "##### Parameters\n| **Type** | **Name**                 | **Description**                                                                                                 | **Schema**        |\n| -------- | ------------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------- |\n| **Path** | **habitId** *required*   | Habit identifier                                                                                                | string            |\n| **Body** | name                     | Habit name. If empty, it will be treated as null. Maximum length is 1000 characters                            | string            |\n| **Body** | iconRes                  | Habit icon resource                                                                                             | string            |\n| **Body** | color                    | Habit color                                                                                                     | string            |\n| **Body** | sortOrder                | Habit sort order                                                                                                | integer (int64)   |\n| **Body** | status                   | Habit status                                                                                                    | integer (int32)   |\n| **Body** | encouragement            | Habit encouragement message                                                                                     | string            |\n| **Body** | type                     | Habit type                                                                                                      | string            |\n| **Body** | goal                     | Habit goal                                                                                                      | number (double)   |\n| **Body** | step                     | Habit step                                                                                                      | number (double)   |\n| **Body** | unit                     | Habit unit                                                                                                      | string            |\n| **Body** | repeatRule               | Habit repeat rule <br> **Example** : `\"RRULE:FREQ=DAILY;INTERVAL=1\"`                                            | string            |\n| **Body** | reminders                | Habit reminders                                                                                                 | < string > array  |\n| **Body** | recordEnable             | Whether record is enabled                                                                                       | boolean           |\n| **Body** | sectionId                | Habit section identifier                                                                                        | string            |\n| **Body** | targetDays               | Target days                                                                                                     | integer (int32)   |\n| **Body** | targetStartDate          | Target start date in `YYYYMMDD` format <br> **Example** : `20240101`                                            | integer (int32)   |\n| **Body** | completedCycles          | Completed cycles                                                                                                | integer (int32)   |\n| **Body** | exDates                  | Excluded dates                                                                                                  | < string > array  |\n| **Body** | style                    | Habit style                                                                                                     | integer (int32)   |",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/habit/sections": {
+      "get": {
+        "summary": "Get Habit Sections",
+        "description": "Returns the current user's habit sections.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/habit": {
+      "get": {
+        "summary": "Get All Habits",
+        "description": "##### Parameters\nNo parameters.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Habit",
+        "description": "##### Parameters\n| **Type** | **Name**                 | **Description**                                                                                                 | **Schema**        |\n| -------- | ------------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------- |\n| **Body** | name *required*          | Habit name. Maximum length is 1000 characters                                                                   | string            |\n| **Body** | iconRes                  | Habit icon resource                                                                                             | string            |\n| **Body** | color                    | Habit color                                                                                                     | string            |\n| **Body** | sortOrder                | Habit sort order                                                                                                | integer (int64)   |\n| **Body** | status                   | Habit status                                                                                                    | integer (int32)   |\n| **Body** | encouragement            | Habit encouragement message                                                                                     | string            |\n| **Body** | type                     | Habit type                                                                                                      | string            |\n| **Body** | goal                     | Habit goal                                                                                                      | number (double)   |\n| **Body** | step                     | Habit step                                                                                                      | number (double)   |\n| **Body** | unit                     | Habit unit                                                                                                      | string            |\n| **Body** | repeatRule               | Habit repeat rule <br> **Example** : `\"RRULE:FREQ=DAILY;INTERVAL=1\"`                                            | string            |\n| **Body** | reminders                | Habit reminders                                                                                                 | < string > array  |\n| **Body** | recordEnable             | Whether record is enabled                                                                                       | boolean           |\n| **Body** | sectionId                | Habit section identifier                                                                                        | string            |\n| **Body** | targetDays               | Target days                                                                                                     | integer (int32)   |\n| **Body** | targetStartDate          | Target start date in `YYYYMMDD` format <br> **Example** : `20240101`                                            | integer (int32)   |\n| **Body** | completedCycles          | Completed cycles                                                                                                | integer (int32)   |\n| **Body** | exDates                  | Excluded dates                                                                                                  | < string > array  |\n| **Body** | style                    | Habit style                                                                                                     | integer (int32)   |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/habit/{habitId}/checkin": {
+      "post": {
+        "summary": "Create Or Update Habit Check-In",
+        "description": "##### Parameters\n| **Type** | **Name**               | **Description**                                                                                          | **Schema**      |\n| -------- | ---------------------- | -------------------------------------------------------------------------------------------------------- | --------------- |\n| **Path** | **habitId** *required* | Habit identifier                                                                                         | string          |\n| **Body** | stamp *required*       | Date stamp in `YYYYMMDD` format <br> **Example** : `20260407`                                            | integer (int32) |\n| **Body** | time                   | Check-in time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T08:00:00+0000\"`     | string (date-time) |\n| **Body** | opTime                 | Operation time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T08:00:00+0000\"`    | string (date-time) |\n| **Body** | value                  | Check-in value. Default is `1.0`                                                                         | number (double) |\n| **Body** | goal                   | Check-in goal. Default is `1.0`                                                                          | number (double) |\n| **Body** | status                 | Check-in status                                                                                          | integer (int32) |",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    },
+    "/open/v1/habit/checkins": {
+      "get": {
+        "summary": "Get Habit Check-Ins",
+        "description": "##### Parameters\n| **Type**  | **Name**                  | **Description**                                                        | **Schema**      |\n| --------- | ------------------------- | ---------------------------------------------------------------------- | --------------- |\n| **Query** | **habitIds** *required*   | Habit identifiers, separated by commas <br> **Example** : `habit-1,habit-2` | string          |\n| **Query** | **from** *required*       | Start date stamp in `YYYYMMDD` format <br> **Example** : `20260401`    | integer (int32) |\n| **Query** | **to** *required*         | End date stamp in `YYYYMMDD` format <br> **Example** : `20260407`      | integer (int32) |",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Official API response; see the live Markdown reference."
+          }
+        }
+      }
+    }
+  }
+}

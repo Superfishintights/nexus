@@ -1,0 +1,1 @@
+NEXUS_NAMESPACES = [{"name": "sonarr", "display_name": "Sonarr", "description": "Search, monitor, and manage TV series, episodes, seasons, releases, downloads, profiles, and automation settings in Sonarr."}]

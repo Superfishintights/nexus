@@ -1,0 +1,245 @@
+[
+  {
+    "tool": "vikunja.list_time_entries",
+    "method": "GET",
+    "path": "/api/v2/time-entries",
+    "signature": "(page: int = 1, per_page: int = 50, query: str | None = None, params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "List time entries. Returns the time entries the authenticated user can see, paginated. Filterable by date range, project, task and user. Query parameters: [{\"name\":\"page\",\"description\":\"1-based page number.\",\"schema\":{\"default\":1,\"description\":\"1-based page number.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"per_page\",\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"schema\":{\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"q\",\"description\":\"Search query; filters the list to items matching this string.\",\"schema\":{\"description\":\"Search query; filters the list to items matching this string.\",\"type\":\"string\"}},{\"name\":\"filter\",\"description\":\"Filter entries with the task filter syntax over user_id, task_id, project_id, start_time and end_time \\u2014 e.g. \\\"project_id = 5 && start_time > now-7d\\\". Use end_time = null to match running timers.\",\"schema\":{\"description\":\"Filter entries with the task filter syntax over user_id, task_id, project_id, start_time and end_time \\u2014 e.g. \\\"project_id = 5 && start_time > now-7d\\\". Use end_time = null to match running timers.\",\"type\":\"string\"}},{\"name\":\"filter_timezone\",\"description\":\"IANA timezone name used to resolve relative dates (now, now-7d) in the filter, e.g. Europe/Berlin.\",\"schema\":{\"description\":\"IANA timezone name used to resolve relative dates (now, now-7d) in the filter, e.g. Europe/Berlin.\",\"type\":\"string\"}}]"
+  },
+  {
+    "tool": "vikunja.create_time_entry",
+    "method": "POST",
+    "path": "/api/v2/time-entries",
+    "signature": "(fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "Create a time entry. Logs a manual time entry for the authenticated user. Exactly one of task_id / project_id must be set. fields requires exactly one positive task_id or project_id. Set start_time and end_time; end_time=null starts a running timer. Request body schema: {\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/TimeEntry\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.get_time_entry",
+    "method": "GET",
+    "path": "/api/v2/time-entries/{id}",
+    "signature": "(time_entry_id: int, params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "Get a time entry. Returns a single time entry. Sends an ETag; pass it as If-None-Match on a later read to get a 304 Not Modified."
+  },
+  {
+    "tool": "vikunja.update_time_entry",
+    "method": "PATCH",
+    "path": "/api/v2/time-entries/{id}",
+    "signature": "(time_entry_id: int, fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "Update a time entry (partial). Partial update operation supporting both JSON Merge Patch & JSON Patch updates. Uses JSON Merge Patch: send only changed fields, including explicit null when needed. Request body schema: {\"content\":{\"application/json-patch+json\":{\"schema\":{\"items\":{\"$ref\":\"#/components/schemas/JsonPatchOp\"},\"type\":[\"array\",\"null\"]}},\"application/merge-patch+json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"$schema\":{\"description\":\"A URL to the JSON Schema for this object.\",\"examples\":[\"/api/v2/schemas/TimeEntryReadBody.json\"],\"format\":\"uri\",\"readOnly\":true,\"type\":\"string\"},\"comment\":{\"description\":\"An optional comment describing the logged time.\",\"type\":\"string\"},\"created\":{\"description\":\"A timestamp when this time entry was created. You cannot change this value.\",\"format\":\"date-time\",\"readOnly\":true,\"type\":\"string\"},\"end_time\":{\"description\":\"When the tracked time ended. Null means a live timer is still running.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"The unique, numeric id of this time entry.\",\"format\":\"int64\",\"readOnly\":true,\"type\":\"integer\"},\"max_permission\":{\"description\":\"The maximum permission the requesting user has on this time entry (0=read, 1=read/write, 2=admin).\",\"format\":\"int64\",\"readOnly\":true,\"type\":\"integer\"},\"project_id\":{\"description\":\"The project this entry is attached to directly. Exactly one of task_id / project_id must be set.\",\"format\":\"int64\",\"type\":\"integer\"},\"start_time\":{\"description\":\"When the tracked time started.\",\"format\":\"date-time\",\"type\":\"string\"},\"task_id\":{\"description\":\"The task this entry is attached to. Exactly one of task_id / project_id must be set.\",\"format\":\"int64\",\"type\":\"integer\"},\"updated\":{\"description\":\"A timestamp when this time entry was last updated. You cannot change this value.\",\"format\":\"date-time\",\"readOnly\":true,\"type\":\"string\"},\"user_id\":{\"description\":\"The id of the user who logged this time entry. Set by the server.\",\"format\":\"int64\",\"readOnly\":true,\"type\":\"integer\"}},\"type\":\"object\"}},\"application/merge-patch+shorthand\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"$schema\":{\"description\":\"A URL to the JSON Schema for this object.\",\"examples\":[\"/api/v2/schemas/TimeEntryReadBody.json\"],\"format\":\"uri\",\"readOnly\":true,\"type\":\"string\"},\"comment\":{\"description\":\"An optional comment describing the logged time.\",\"type\":\"string\"},\"created\":{\"description\":\"A timestamp when this time entry was created. You cannot change this value.\",\"format\":\"date-time\",\"readOnly\":true,\"type\":\"string\"},\"end_time\":{\"description\":\"When the tracked time ended. Null means a live timer is still running.\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"The unique, numeric id of this time entry.\",\"format\":\"int64\",\"readOnly\":true,\"type\":\"integer\"},\"max_permission\":{\"description\":\"The maximum permission the requesting user has on this time entry (0=read, 1=read/write, 2=admin).\",\"format\":\"int64\",\"readOnly\":true,\"type\":\"integer\"},\"project_id\":{\"description\":\"The project this entry is attached to directly. Exactly one of task_id / project_id must be set.\",\"format\":\"int64\",\"type\":\"integer\"},\"start_time\":{\"description\":\"When the tracked time started.\",\"format\":\"date-time\",\"type\":\"string\"},\"task_id\":{\"description\":\"The task this entry is attached to. Exactly one of task_id / project_id must be set.\",\"format\":\"int64\",\"type\":\"integer\"},\"updated\":{\"description\":\"A timestamp when this time entry was last updated. You cannot change this value.\",\"format\":\"date-time\",\"readOnly\":true,\"type\":\"string\"},\"user_id\":{\"description\":\"The id of the user who logged this time entry. Set by the server.\",\"format\":\"int64\",\"readOnly\":true,\"type\":\"integer\"}},\"type\":\"object\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.replace_time_entry",
+    "method": "PUT",
+    "path": "/api/v2/time-entries/{id}",
+    "signature": "(time_entry_id: int, fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "Update a time entry. Updates a time entry. Only the author may update it. The entry can be moved between a task and a project \u2014 exactly one of task_id / project_id must be set, and you need read access to the new one. PUT replaces all editable fields; use PATCH for a partial update. Full replacement can reset omitted fields. Prefer the partial update tool for sparse changes. Request body schema: {\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/TimeEntryReadBody\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.delete_time_entry",
+    "method": "DELETE",
+    "path": "/api/v2/time-entries/{id}",
+    "signature": "(time_entry_id: int, params: dict[str, Any] | None = None)",
+    "class": "destructive",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "Delete a time entry. Deletes a time entry. Only the author may delete it. If it is the running timer, deleting it removes that timer."
+  },
+  {
+    "tool": "vikunja.stop_timer",
+    "method": "POST",
+    "path": "/api/v2/time-entries/timer/stop",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "Stop the running timer. Stops the authenticated user's running timer, setting its end time to the server's current time, and returns the stopped entry. Returns 404 when no timer is running. Starting a timer and editing entries go through the regular create/update endpoints."
+  },
+  {
+    "tool": "vikunja.list_task_time_entries",
+    "method": "GET",
+    "path": "/api/v2/tasks/{task_id}/time-entries",
+    "signature": "(task_id: int, page: int = 1, per_page: int = 50, query: str | None = None, params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "List a task's time entries. Returns the time entries logged against the given task, across all users, paginated. Scoped to what you can read: an inaccessible or unknown task yields an empty list, not an error. Query parameters: [{\"name\":\"page\",\"description\":\"1-based page number.\",\"schema\":{\"default\":1,\"description\":\"1-based page number.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"per_page\",\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"schema\":{\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"q\",\"description\":\"Search query; filters the list to items matching this string.\",\"schema\":{\"description\":\"Search query; filters the list to items matching this string.\",\"type\":\"string\"}}]"
+  },
+  {
+    "tool": "vikunja.list_project_time_entries",
+    "method": "GET",
+    "path": "/api/v2/projects/{project_id}/time-entries",
+    "signature": "(project_id: int, page: int = 1, per_page: int = 50, query: str | None = None, params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.time_entries",
+    "description": "List a project's time entries. Returns the time entries for the given project \u2014 both standalone project entries and entries on tasks currently in the project \u2014 paginated. Scoped to what you can read: an inaccessible or unknown project yields an empty list, not an error. Query parameters: [{\"name\":\"page\",\"description\":\"1-based page number.\",\"schema\":{\"default\":1,\"description\":\"1-based page number.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"per_page\",\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"schema\":{\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"q\",\"description\":\"Search query; filters the list to items matching this string.\",\"schema\":{\"description\":\"Search query; filters the list to items matching this string.\",\"type\":\"string\"}}]"
+  },
+  {
+    "tool": "vikunja.list_notifications",
+    "method": "GET",
+    "path": "/api/v2/notifications",
+    "signature": "(page: int = 1, per_page: int = 50, query: str | None = None, params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.notifications",
+    "description": "List notifications. Returns the authenticated user's own notifications, newest first. Notifications about a project the caller can no longer read are omitted; the filtering happens in the query, so pages come back full and total and total_pages count the visible notifications only. Link shares have no notifications and are refused. Query parameters: [{\"name\":\"page\",\"description\":\"1-based page number.\",\"schema\":{\"default\":1,\"description\":\"1-based page number.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"per_page\",\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"schema\":{\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"q\",\"description\":\"Search query; filters the list to items matching this string.\",\"schema\":{\"description\":\"Search query; filters the list to items matching this string.\",\"type\":\"string\"}}]"
+  },
+  {
+    "tool": "vikunja.mark_all_notifications_read",
+    "method": "POST",
+    "path": "/api/v2/notifications",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.notifications",
+    "description": "Mark all notifications as read. Marks every notification of the authenticated user as read. Link shares have no notifications and are refused."
+  },
+  {
+    "tool": "vikunja.delete_all_notifications",
+    "method": "DELETE",
+    "path": "/api/v2/notifications",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "destructive",
+    "module": "nexus_tools_vikunja.notifications",
+    "description": "Delete all notifications. Deletes every notification of the authenticated user. Only the caller's own notifications are affected; link shares have no notifications and are refused."
+  },
+  {
+    "tool": "vikunja.set_notification_read",
+    "method": "PUT",
+    "path": "/api/v2/notifications/{notificationid}",
+    "signature": "(notification_id: int, read: bool = True, params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.notifications",
+    "description": "Mark a notification as (un-)read. Marks one of the authenticated user's notifications as read or unread. A user can only mark their own notifications. read=True marks it read; read=False marks it unread. Request body schema: {\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/DatabaseNotifications\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.get_general_settings",
+    "method": "GET",
+    "path": "/api/v2/user/settings/general",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "Get the current user's general settings. Returns the same settings as the settings field of GET /user. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback."
+  },
+  {
+    "tool": "vikunja.update_general_settings",
+    "method": "PATCH",
+    "path": "/api/v2/user/settings/general",
+    "signature": "(fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "Update the current user's general settings (partial). Partial update operation supporting both JSON Merge Patch & JSON Patch updates. Uses JSON Merge Patch: send only changed fields, including explicit null when needed. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback. Request body schema: {\"content\":{\"application/json-patch+json\":{\"schema\":{\"items\":{\"$ref\":\"#/components/schemas/JsonPatchOp\"},\"type\":[\"array\",\"null\"]}},\"application/merge-patch+json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"$schema\":{\"description\":\"A URL to the JSON Schema for this object.\",\"examples\":[\"/api/v2/schemas/UserGeneralSettings.json\"],\"format\":\"uri\",\"readOnly\":true,\"type\":\"string\"},\"default_project_id\":{\"description\":\"Project a task is filed under when created without an explicit project.\",\"format\":\"int64\",\"type\":\"integer\"},\"discoverable_by_email\":{\"description\":\"If true, the user can be found when searching for their exact email.\",\"type\":\"boolean\"},\"discoverable_by_name\":{\"description\":\"If true, this user can be found by their name or parts of it when searching.\",\"type\":\"boolean\"},\"email_reminders_enabled\":{\"description\":\"If enabled, sends email reminders of tasks to the user.\",\"type\":\"boolean\"},\"extra_settings_links\":{\"additionalProperties\":{},\"description\":\"Additional settings links provided by the OpenID provider. Server-controlled.\",\"readOnly\":true,\"type\":\"object\"},\"frontend_settings\":{\"description\":\"Arbitrary settings used only by the frontend. Any JSON value; stored and returned verbatim.\"},\"language\":{\"description\":\"The user's language.\",\"type\":\"string\"},\"name\":{\"description\":\"The full name of the user.\",\"type\":\"string\"},\"overdue_tasks_reminders_enabled\":{\"description\":\"If enabled, the user gets an email for their overdue tasks each morning.\",\"type\":\"boolean\"},\"overdue_tasks_reminders_time\":{\"description\":\"The time the daily overdue-tasks summary is sent, as HH:MM.\",\"type\":\"string\"},\"timezone\":{\"description\":\"The user's time zone, used to send task reminders in their local time.\",\"type\":\"string\"},\"week_start\":{\"description\":\"The day the week starts on: 0=sunday, 1=monday, \\u2026 6=saturday.\",\"format\":\"int64\",\"maximum\":6,\"minimum\":0,\"type\":\"integer\"}},\"type\":\"object\"}},\"application/merge-patch+shorthand\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"$schema\":{\"description\":\"A URL to the JSON Schema for this object.\",\"examples\":[\"/api/v2/schemas/UserGeneralSettings.json\"],\"format\":\"uri\",\"readOnly\":true,\"type\":\"string\"},\"default_project_id\":{\"description\":\"Project a task is filed under when created without an explicit project.\",\"format\":\"int64\",\"type\":\"integer\"},\"discoverable_by_email\":{\"description\":\"If true, the user can be found when searching for their exact email.\",\"type\":\"boolean\"},\"discoverable_by_name\":{\"description\":\"If true, this user can be found by their name or parts of it when searching.\",\"type\":\"boolean\"},\"email_reminders_enabled\":{\"description\":\"If enabled, sends email reminders of tasks to the user.\",\"type\":\"boolean\"},\"extra_settings_links\":{\"additionalProperties\":{},\"description\":\"Additional settings links provided by the OpenID provider. Server-controlled.\",\"readOnly\":true,\"type\":\"object\"},\"frontend_settings\":{\"description\":\"Arbitrary settings used only by the frontend. Any JSON value; stored and returned verbatim.\"},\"language\":{\"description\":\"The user's language.\",\"type\":\"string\"},\"name\":{\"description\":\"The full name of the user.\",\"type\":\"string\"},\"overdue_tasks_reminders_enabled\":{\"description\":\"If enabled, the user gets an email for their overdue tasks each morning.\",\"type\":\"boolean\"},\"overdue_tasks_reminders_time\":{\"description\":\"The time the daily overdue-tasks summary is sent, as HH:MM.\",\"type\":\"string\"},\"timezone\":{\"description\":\"The user's time zone, used to send task reminders in their local time.\",\"type\":\"string\"},\"week_start\":{\"description\":\"The day the week starts on: 0=sunday, 1=monday, \\u2026 6=saturday.\",\"format\":\"int64\",\"maximum\":6,\"minimum\":0,\"type\":\"integer\"}},\"type\":\"object\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.replace_general_settings",
+    "method": "PUT",
+    "path": "/api/v2/user/settings/general",
+    "signature": "(fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "Update the current user's general settings. Replaces the authenticated user's general settings (name, reminders, discoverability, default project, week start, language, timezone, frontend settings). Use PATCH to change only some of them; it merges into frontend_settings key by key. Full replacement can reset omitted fields. Prefer the partial update tool for sparse changes. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback. Request body schema: {\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/UserGeneralSettings\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.get_avatar_provider",
+    "method": "GET",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "Get the current user's avatar provider. Returns the avatar provider configured for the authenticated user. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback."
+  },
+  {
+    "tool": "vikunja.update_avatar_provider",
+    "method": "PATCH",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "signature": "(fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "Set the current user's avatar provider (partial). Partial update operation supporting both JSON Merge Patch & JSON Patch updates. Uses JSON Merge Patch: send only changed fields, including explicit null when needed. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback. Request body schema: {\"content\":{\"application/json-patch+json\":{\"schema\":{\"items\":{\"$ref\":\"#/components/schemas/JsonPatchOp\"},\"type\":[\"array\",\"null\"]}},\"application/merge-patch+json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"$schema\":{\"description\":\"A URL to the JSON Schema for this object.\",\"examples\":[\"/api/v2/schemas/UserAvatarProviderBody.json\"],\"format\":\"uri\",\"readOnly\":true,\"type\":\"string\"},\"avatar_provider\":{\"description\":\"The avatar provider. One of: gravatar (uses the user email), upload, initials, marble (random per user), ldap (synced from LDAP), openid (synced from OpenID), default.\",\"type\":\"string\"}},\"type\":\"object\"}},\"application/merge-patch+shorthand\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"$schema\":{\"description\":\"A URL to the JSON Schema for this object.\",\"examples\":[\"/api/v2/schemas/UserAvatarProviderBody.json\"],\"format\":\"uri\",\"readOnly\":true,\"type\":\"string\"},\"avatar_provider\":{\"description\":\"The avatar provider. One of: gravatar (uses the user email), upload, initials, marble (random per user), ldap (synced from LDAP), openid (synced from OpenID), default.\",\"type\":\"string\"}},\"type\":\"object\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.replace_avatar_provider",
+    "method": "PUT",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "signature": "(fields: dict[str, Any], params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "Set the current user's avatar provider. Changes the avatar provider for the authenticated user. Valid values: gravatar, upload, initials, marble, ldap, openid, default. Full replacement can reset omitted fields. Prefer the partial update tool for sparse changes. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback. Request body schema: {\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/UserAvatarProviderBody\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.list_timezones",
+    "method": "GET",
+    "path": "/api/v2/user/timezones",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.settings",
+    "description": "List available time zones. Returns every time zone this Vikunja instance can handle. The list depends on the host system and is unsorted; sort it client-side. Credential fields in nested settings are redacted from responses; do not replace settings from a redacted readback."
+  },
+  {
+    "tool": "vikunja.list_sessions",
+    "method": "GET",
+    "path": "/api/v2/user/sessions",
+    "signature": "(page: int = 1, per_page: int = 50, query: str | None = None, params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.sessions",
+    "description": "List sessions. Returns the authenticated user's own active sessions, most recently active first. Never lists other users' sessions; link share tokens are forbidden. The server requires suitable user authentication; the configured API token may be refused. Credential fields are redacted from responses. Query parameters: [{\"name\":\"page\",\"description\":\"1-based page number.\",\"schema\":{\"default\":1,\"description\":\"1-based page number.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"per_page\",\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"schema\":{\"description\":\"Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.\",\"format\":\"int64\",\"minimum\":1,\"type\":\"integer\"}},{\"name\":\"q\",\"description\":\"Search query; filters the list to items matching this string.\",\"schema\":{\"description\":\"Search query; filters the list to items matching this string.\",\"type\":\"string\"}}]"
+  },
+  {
+    "tool": "vikunja.delete_session",
+    "method": "DELETE",
+    "path": "/api/v2/user/sessions/{session}",
+    "signature": "(session_id: str, params: dict[str, Any] | None = None)",
+    "class": "admin",
+    "module": "nexus_tools_vikunja.sessions",
+    "description": "Delete a session. Revokes a session by its UUID. Only the owning user may delete it; deleting another user's session is forbidden. The server requires suitable user authentication; the configured API token may be refused. Credential fields are redacted from responses."
+  },
+  {
+    "tool": "vikunja.subscribe",
+    "method": "POST",
+    "path": "/api/v2/subscriptions/{entity}/{entityID}",
+    "signature": "(entity: str, entity_id: int, params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.subscriptions",
+    "description": "Subscribe to an entity. Subscribes the authenticated user to a project or task so they receive its notifications. The user needs read access to the entity. Fails if the user is already subscribed, directly or through a parent project. Subscribing again after an opt-out lifts it."
+  },
+  {
+    "tool": "vikunja.unsubscribe",
+    "method": "DELETE",
+    "path": "/api/v2/subscriptions/{entity}/{entityID}",
+    "signature": "(entity: str, entity_id: int, params: dict[str, Any] | None = None)",
+    "class": "destructive",
+    "module": "nexus_tools_vikunja.subscriptions",
+    "description": "Unsubscribe from an entity. Stops notifications about a project or task for the authenticated user. If the subscription was inherited from a parent project, the opt-out is recorded for this entity instead, leaving the parent subscription in place. Only affects the caller's subscription, not other users'."
+  },
+  {
+    "tool": "vikunja.duplicate_project",
+    "method": "POST",
+    "path": "/api/v2/projects/{projectid}/duplicate",
+    "signature": "(project_id: int, fields: dict[str, Any] | None = None, params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.miscellaneous",
+    "description": "Duplicate a project. Deep-copies a project \u2014 its tasks, files, kanban data, assignees, comments, attachments, labels, relations and backgrounds \u2014 into a new project owned by the authenticated user. User/team/link shares are only copied when duplicate_shares is set to true. The user needs read access to the source project, plus write access to the parent project when one is given. The copy is placed under parent_project_id (top level if omitted). Returns the duplicate in duplicated_project. fields accepts parent_project_id and duplicate_shares. Sharing is not copied unless explicitly requested. Request body schema: {\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/ProjectDuplicate\"}}},\"required\":true}"
+  },
+  {
+    "tool": "vikunja.mark_task_read",
+    "method": "PUT",
+    "path": "/api/v2/tasks/{task}/read",
+    "signature": "(task_id: int, params: dict[str, Any] | None = None)",
+    "class": "write",
+    "module": "nexus_tools_vikunja.miscellaneous",
+    "description": "Mark a task as read. Clears the authenticated user's unread status for a task, dismissing the unread indicator raised by mentions and other task notifications. Idempotent: marking an already-read or inaccessible task succeeds as a no-op."
+  },
+  {
+    "tool": "vikunja.get_server_health",
+    "method": "GET",
+    "path": "/api/v2/health",
+    "signature": "(params: dict[str, Any] | None = None)",
+    "class": "read",
+    "module": "nexus_tools_vikunja.miscellaneous",
+    "description": "Healthcheck. Reports whether the service and its dependencies (database, Redis if enabled) are reachable. Returns 200 with status \"OK\" when healthy, 500 otherwise. When OpenID Connect providers are configured, each provider's availability is reported too; an unavailable provider (typically because it was unreachable while Vikunja started) degrades the status but never fails the check, since initialization is retried automatically (with exponential backoff, after at most 15 minutes) and a restart would not help. Public \u2014 no authentication required."
+  }
+]

@@ -27,6 +27,8 @@ from .tool_policy import (
 
 
 TOOL_PACKAGES_ENV = "NEXUS_TOOL_PACKAGES"
+NAMESPACE_METADATA_VARIABLE = "NEXUS_NAMESPACES"
+MAX_NAMESPACE_DESCRIPTION_LENGTH = 240
 DEFAULT_TOOL_PACKAGES: Tuple[str, ...] = ()
 REPO_ROOT = Path(__file__).resolve().parents[1]
 LOCAL_TOOL_PACKS_ROOT = REPO_ROOT / "tool_packs"
@@ -38,6 +40,7 @@ FIRST_PARTY_TOOL_PACK_ORDER: Tuple[str, ...] = (
     "nexus_tools_sonarr",
     "nexus_tools_tautulli",
     "nexus_tools_starling",
+    "nexus_tools_agent_memory",
 )
 
 
@@ -65,8 +68,29 @@ class CatalogProblem:
     path: Optional[str] = None
 
 
+@dataclass(frozen=True)
+class NamespaceMetadata:
+    """Literal namespace metadata discovered from a tool package initializer."""
+
+    name: str
+    display_name: str
+    description: str
+
+
+@dataclass(frozen=True)
+class ToolNamespace:
+    """Policy-filtered summary for one canonical tool namespace."""
+
+    name: str
+    display_name: str
+    description: str
+    tool_count: int
+
+
 _CATALOG: Optional[Dict[str, ToolSpec]] = None
 _CATALOG_PROBLEMS: Tuple[CatalogProblem, ...] = ()
+_NAMESPACE_METADATA: Dict[str, NamespaceMetadata] = {}
+_NAMESPACE_NAME_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 _DISCOVERY_VERBS = ("get", "create", "update", "delete", "set", "head")
 _STOPWORDS = {
     "a",
@@ -184,7 +208,15 @@ class _FileCacheEntry:
     specs: Tuple[ToolSpec, ...]
 
 
+@dataclass(frozen=True)
+class _NamespaceMetadataCacheEntry:
+    fingerprint: Tuple[int, int]  # (mtime_ns, size)
+    metadata: Tuple[NamespaceMetadata, ...]
+    problems: Tuple[CatalogProblem, ...]
+
+
 _FILE_CACHE: Dict[str, _FileCacheEntry] = {}
+_NAMESPACE_METADATA_CACHE: Dict[Tuple[str, str], _NamespaceMetadataCacheEntry] = {}
 
 
 def get_tool_package_names() -> Sequence[str]:
@@ -228,12 +260,14 @@ def get_catalog_diagnostics(*, refresh: bool = False) -> Dict[str, List[str]]:
 def build_catalog() -> Dict[str, ToolSpec]:
     """Scan all configured packages and build a name->ToolSpec catalog."""
 
-    global _CATALOG_PROBLEMS
+    global _CATALOG_PROBLEMS, _NAMESPACE_METADATA
 
     catalog: Dict[str, ToolSpec] = {}
+    namespace_metadata: Dict[str, NamespaceMetadata] = {}
     duplicates: List[Tuple[str, str, str]] = []
     problems: List[CatalogProblem] = []
     seen_files: Set[str] = set()
+    seen_metadata_files: Set[Tuple[str, str]] = set()
     package_names = tuple(get_tool_package_names())
 
     _ensure_tool_pack_paths(package_names)
@@ -250,19 +284,74 @@ def build_catalog() -> Dict[str, ToolSpec]:
             )
             continue
 
+        package_metadata_names: Set[str] = set()
+        package_tool_namespaces: Set[str] = set()
+        package_namespace_problem_codes: Set[str] = set()
         for location in spec.submodule_search_locations:
             package_path = Path(location)
+            seen_metadata_files.add(
+                (package_name, str(package_path / "__init__.py"))
+            )
+            problems_before_metadata = len(problems)
+            for metadata in scan_namespace_metadata(
+                package_name,
+                package_path,
+                problems=problems,
+            ):
+                package_metadata_names.add(metadata.name)
+                existing_metadata = namespace_metadata.get(metadata.name)
+                if existing_metadata is not None and existing_metadata != metadata:
+                    problems.append(
+                        CatalogProblem(
+                            code="conflicting_namespace_metadata",
+                            message=(
+                                f"Tool package '{package_name}' declares conflicting metadata "
+                                f"for namespace '{metadata.name}'; using the first declaration."
+                            ),
+                            package=package_name,
+                            path=str(package_path / "__init__.py"),
+                        )
+                    )
+                    continue
+                namespace_metadata.setdefault(metadata.name, metadata)
+            package_namespace_problem_codes.update(
+                problem.code
+                for problem in problems[problems_before_metadata:]
+                if problem.package == package_name
+            )
+
             for tool_spec in scan_package(
                 package_name,
                 package_path,
                 seen_files=seen_files,
                 problems=problems,
             ):
+                if tool_spec.alias_of is None:
+                    namespace = namespace_for_tool(tool_spec.name)
+                    if namespace:
+                        package_tool_namespaces.add(namespace)
                 existing = catalog.get(tool_spec.name)
                 if existing is not None:
                     duplicates.append((tool_spec.name, existing.module, tool_spec.module))
                     continue
                 catalog[tool_spec.name] = tool_spec
+
+        if package_namespace_problem_codes & {
+            "missing_namespace_metadata",
+            "malformed_namespace_metadata",
+        }:
+            continue
+        for namespace in sorted(package_tool_namespaces - package_metadata_names):
+            problems.append(
+                CatalogProblem(
+                    code="missing_namespace_metadata",
+                    message=(
+                        f"Tool package '{package_name}' has no usable namespace metadata "
+                        f"for '{namespace}'; using inferred namespace metadata."
+                    ),
+                    package=package_name,
+                )
+            )
 
     if duplicates:
         lines = [
@@ -277,7 +366,13 @@ def build_catalog() -> Dict[str, ToolSpec]:
     stale = [path for path in _FILE_CACHE.keys() if path not in seen_files]
     for path in stale:
         _FILE_CACHE.pop(path, None)
+    stale_metadata = [
+        path for path in _NAMESPACE_METADATA_CACHE.keys() if path not in seen_metadata_files
+    ]
+    for path in stale_metadata:
+        _NAMESPACE_METADATA_CACHE.pop(path, None)
 
+    _NAMESPACE_METADATA = namespace_metadata
     _CATALOG_PROBLEMS = tuple(problems)
     return catalog
 
@@ -346,6 +441,229 @@ def _ensure_tool_pack_paths(package_names: Sequence[str]) -> None:
         package_root_s = str(package_root)
         if package_root_s not in sys.path:
             sys.path.insert(0, package_root_s)
+
+
+def scan_namespace_metadata(
+    package_name: str,
+    package_path: Path,
+    *,
+    problems: Optional[List[CatalogProblem]] = None,
+) -> Tuple[NamespaceMetadata, ...]:
+    """Read literal ``NEXUS_NAMESPACES`` metadata without importing the package."""
+
+    initializer = package_path / "__init__.py"
+    try:
+        st = initializer.stat()
+    except OSError:
+        local_problems: List[CatalogProblem] = []
+        _append_namespace_problem(
+            local_problems,
+            code="missing_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"{initializer} could not be read",
+        )
+        if problems is not None:
+            problems.extend(local_problems)
+        return ()
+
+    fingerprint = (getattr(st, "st_mtime_ns", int(st.st_mtime * 1e9)), st.st_size)
+    cache_key = (package_name, str(initializer))
+    cached = _NAMESPACE_METADATA_CACHE.get(cache_key)
+    if cached is not None and cached.fingerprint == fingerprint:
+        if problems is not None:
+            problems.extend(cached.problems)
+        return cached.metadata
+
+    local_problems = []
+    metadata = _scan_namespace_metadata_uncached(
+        package_name,
+        package_path,
+        problems=local_problems,
+    )
+    _NAMESPACE_METADATA_CACHE[cache_key] = _NamespaceMetadataCacheEntry(
+        fingerprint=fingerprint,
+        metadata=metadata,
+        problems=tuple(local_problems),
+    )
+    if problems is not None:
+        problems.extend(local_problems)
+    return metadata
+
+
+def _scan_namespace_metadata_uncached(
+    package_name: str,
+    package_path: Path,
+    *,
+    problems: Optional[List[CatalogProblem]] = None,
+) -> Tuple[NamespaceMetadata, ...]:
+    initializer = package_path / "__init__.py"
+    try:
+        source = initializer.read_text(encoding="utf-8")
+    except OSError:
+        _append_namespace_problem(
+            problems,
+            code="missing_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"{initializer} could not be read",
+        )
+        return ()
+
+    try:
+        tree = ast.parse(source, filename=str(initializer))
+    except SyntaxError as exc:
+        line = f"{exc.lineno}:{exc.offset}" if exc.lineno is not None else "?"
+        _append_namespace_problem(
+            problems,
+            code="malformed_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"package initializer has a syntax error at {line}: {exc.msg}",
+        )
+        return ()
+
+    values: List[ast.AST] = []
+    for node in tree.body:
+        if isinstance(node, ast.Assign):
+            if any(
+                isinstance(target, ast.Name)
+                and target.id == NAMESPACE_METADATA_VARIABLE
+                for target in node.targets
+            ):
+                values.append(node.value)
+        elif (
+            isinstance(node, ast.AnnAssign)
+            and isinstance(node.target, ast.Name)
+            and node.target.id == NAMESPACE_METADATA_VARIABLE
+            and node.value is not None
+        ):
+            values.append(node.value)
+
+    if not values:
+        _append_namespace_problem(
+            problems,
+            code="missing_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"{NAMESPACE_METADATA_VARIABLE} is not declared",
+        )
+        return ()
+    if len(values) > 1:
+        _append_namespace_problem(
+            problems,
+            code="malformed_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"{NAMESPACE_METADATA_VARIABLE} must be declared exactly once",
+        )
+        return ()
+
+    try:
+        payload = ast.literal_eval(values[0])
+    except (ValueError, TypeError, SyntaxError):
+        _append_namespace_problem(
+            problems,
+            code="malformed_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"{NAMESPACE_METADATA_VARIABLE} must be a literal list of dictionaries",
+        )
+        return ()
+
+    if not isinstance(payload, list):
+        _append_namespace_problem(
+            problems,
+            code="malformed_namespace_metadata",
+            package_name=package_name,
+            initializer=initializer,
+            reason=f"{NAMESPACE_METADATA_VARIABLE} must be a list",
+        )
+        return ()
+
+    metadata: List[NamespaceMetadata] = []
+    seen_names: Set[str] = set()
+    required_keys = {"name", "display_name", "description"}
+    for index, item in enumerate(payload):
+        reason = _namespace_metadata_item_error(item, required_keys=required_keys)
+        if reason is None:
+            name = item["name"].strip()
+            if name in seen_names:
+                reason = f"entry {index} duplicates namespace '{name}'"
+            else:
+                seen_names.add(name)
+        if reason is not None:
+            _append_namespace_problem(
+                problems,
+                code="malformed_namespace_metadata",
+                package_name=package_name,
+                initializer=initializer,
+                reason=reason,
+            )
+            continue
+
+        metadata.append(
+            NamespaceMetadata(
+                name=item["name"].strip(),
+                display_name=item["display_name"].strip(),
+                description=item["description"].strip(),
+            )
+        )
+
+    return tuple(metadata)
+
+
+def _namespace_metadata_item_error(
+    item: object,
+    *,
+    required_keys: Set[str],
+) -> Optional[str]:
+    if not isinstance(item, dict):
+        return "each namespace entry must be a dictionary"
+    if set(item) != required_keys:
+        return (
+            "each namespace entry must contain exactly name, display_name, and description"
+        )
+    if not all(isinstance(item[key], str) for key in required_keys):
+        return "namespace entry fields must all be strings"
+
+    name = item["name"].strip()
+    display_name = item["display_name"].strip()
+    description = item["description"].strip()
+    if not _NAMESPACE_NAME_RE.fullmatch(name):
+        return f"namespace name '{name}' is not canonical"
+    if not display_name or "\n" in display_name or "\r" in display_name:
+        return "display_name must be a non-empty single line"
+    if not description or "\n" in description or "\r" in description:
+        return "description must be a non-empty single line"
+    if len(description) > MAX_NAMESPACE_DESCRIPTION_LENGTH:
+        return (
+            f"description exceeds {MAX_NAMESPACE_DESCRIPTION_LENGTH} characters"
+        )
+    return None
+
+
+def _append_namespace_problem(
+    problems: Optional[List[CatalogProblem]],
+    *,
+    code: str,
+    package_name: str,
+    initializer: Path,
+    reason: str,
+) -> None:
+    if problems is None:
+        return
+    problems.append(
+        CatalogProblem(
+            code=code,
+            message=(
+                f"Tool package '{package_name}' has no usable namespace metadata "
+                f"({reason}); using inferred namespace metadata."
+            ),
+            package=package_name,
+            path=str(initializer),
+        )
+    )
 
 
 def scan_package(
@@ -779,6 +1097,52 @@ def discoverable_specs(
     return [spec for spec in spec_list if _is_discoverable(spec, catalog)]
 
 
+def list_catalog_namespaces(
+    *,
+    policy: Optional[ToolPolicy] = None,
+    refresh: bool = False,
+) -> List[ToolNamespace]:
+    """Return policy-visible canonical namespace summaries sorted by name."""
+
+    catalog = get_catalog(refresh=refresh)
+    counts: Dict[str, int] = {}
+    for spec in discoverable_specs(
+        catalog.values(),
+        include_aliases=False,
+        catalog=catalog,
+        policy=policy,
+    ):
+        namespace = namespace_for_tool(spec.name)
+        if not namespace:
+            continue
+        counts[namespace] = counts.get(namespace, 0) + 1
+
+    namespaces: List[ToolNamespace] = []
+    for name in sorted(counts):
+        metadata = _NAMESPACE_METADATA.get(name) or _fallback_namespace_metadata(name)
+        namespaces.append(
+            ToolNamespace(
+                name=name,
+                display_name=metadata.display_name,
+                description=metadata.description,
+                tool_count=counts[name],
+            )
+        )
+    return namespaces
+
+
+def _fallback_namespace_metadata(name: str) -> NamespaceMetadata:
+    display_name = name.replace("_", " ").title()
+    description = f"Tools provided by the {display_name} namespace."
+    if len(description) > MAX_NAMESPACE_DESCRIPTION_LENGTH:
+        description = "Tools provided by this namespace."
+    return NamespaceMetadata(
+        name=name,
+        display_name=display_name,
+        description=description,
+    )
+
+
 def _is_discoverable(spec: ToolSpec, catalog: Dict[str, ToolSpec]) -> bool:
     collapsed = _collapse_discovery_duplicate(spec.name)
     return collapsed == spec.name or collapsed not in catalog
@@ -856,6 +1220,7 @@ def search_specs(
     query: str = "",
     *,
     limit: int = 20,
+    namespace: Optional[str] = None,
     include_aliases: bool = False,
     policy: Optional[ToolPolicy] = None,
     catalog: Optional[Dict[str, ToolSpec]] = None,
@@ -871,6 +1236,13 @@ def search_specs(
         catalog=catalog,
         policy=policy,
     )
+    if namespace is not None:
+        exact_namespace = namespace.strip()
+        spec_list = [
+            spec
+            for spec in spec_list
+            if namespace_for_tool(spec.name) == exact_namespace
+        ]
     if not query:
         return sorted(spec_list, key=lambda spec: spec.name)[:limit]
 
@@ -889,6 +1261,7 @@ def search_catalog(
     query: str = "",
     *,
     limit: int = 20,
+    namespace: Optional[str] = None,
     include_aliases: bool = False,
     policy: Optional[ToolPolicy] = None,
 ) -> List[ToolSpec]:
@@ -904,6 +1277,7 @@ def search_catalog(
         catalog.values(),
         query,
         limit=limit,
+        namespace=namespace,
         include_aliases=include_aliases,
         policy=policy,
         catalog=catalog,
@@ -1057,8 +1431,12 @@ def spec_to_dict(
 
 
 __all__ = [
-    "ToolSpec",
     "CatalogProblem",
+    "MAX_NAMESPACE_DESCRIPTION_LENGTH",
+    "NAMESPACE_METADATA_VARIABLE",
+    "NamespaceMetadata",
+    "ToolNamespace",
+    "ToolSpec",
     "canonical_name_for_spec",
     "canonical_specs",
     "discoverable_specs",
@@ -1069,7 +1447,9 @@ __all__ = [
     "get_catalog_problems",
     "get_canonical_spec",
     "is_spec_allowed",
+    "list_catalog_namespaces",
     "resolve_tool_request",
+    "scan_namespace_metadata",
     "search_catalog",
     "search_specs",
     "score_spec",

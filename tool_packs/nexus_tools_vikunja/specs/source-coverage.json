@@ -1,0 +1,592 @@
+{
+  "source_version": "v2.7.0",
+  "source_url": "https://vikunja.example.com/api/v2/openapi.json",
+  "checked_on": "2026-10-04",
+  "source_sha256": "d3401e9c8b550fd7560049b9162d48249e65bfa124e64ce20922505e5c7c37e6",
+  "live_operations": 197,
+  "covered_operations": 133,
+  "tool_count": 141,
+  "direct_operation_tools": 133,
+  "composite_helper_tools": 8,
+  "requested_scope_operations": 133,
+  "requested_scope_covered": 133,
+  "remaining_operations": 64,
+  "remaining": [
+    {
+      "method": "DELETE",
+      "path": "/api/v2/admin/invite-links/{id}",
+      "operation_id": "admin-invite-links-delete",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Delete an invite link"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/admin/users/{id}",
+      "operation_id": "admin-users-delete",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Delete a user (admin)"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/projects/{project}/background",
+      "operation_id": "projects-background-delete",
+      "tags": [
+        "project"
+      ],
+      "summary": "Remove a project background"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/user/settings/email",
+      "operation_id": "user-cancel-email-update",
+      "tags": [
+        "user"
+      ],
+      "summary": "Cancel a pending email change"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/user/settings/token/caldav/{id}",
+      "operation_id": "caldav-tokens-delete",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete a CalDAV token"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/admin/invite-links",
+      "operation_id": "admin-invite-links-list",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List invite links"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/admin/overview",
+      "operation_id": "admin-overview",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Admin overview"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/admin/projects",
+      "operation_id": "admin-projects-list",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List all projects (admin)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/admin/teams",
+      "operation_id": "admin-teams-list",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List local teams for invitations"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/admin/users",
+      "operation_id": "admin-users-list",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List users (admin)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/avatar/{username}",
+      "operation_id": "avatar-get",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a user's avatar"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/mcp/info",
+      "operation_id": "mcp-info",
+      "tags": [
+        "mcp"
+      ],
+      "summary": "Get MCP connection settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/migration/csv/status",
+      "operation_id": "migration-csv-status",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Get the CSV migration status"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/migration/planka/status",
+      "operation_id": "migration-planka-status",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Get the migration status for planka"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/migration/ticktick/status",
+      "operation_id": "migration-ticktick-status",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Get the migration status for ticktick"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/migration/vikunja-file/status",
+      "operation_id": "migration-vikunja-file-status",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Get the migration status for vikunja-file"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/migration/wekan/status",
+      "operation_id": "migration-wekan-status",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Get the migration status for wekan"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/notifications.atom",
+      "operation_id": "notifications-atom-feed",
+      "tags": [
+        "service"
+      ],
+      "summary": "Notifications Atom feed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/projects/{project}/background",
+      "operation_id": "projects-background-get",
+      "tags": [
+        "project"
+      ],
+      "summary": "Get a project background"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/token/test",
+      "operation_id": "token-test",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Test a token"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/user/export",
+      "operation_id": "user-export-status",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get the current data export"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/user/settings/token/caldav",
+      "operation_id": "caldav-tokens-list",
+      "tags": [
+        "user"
+      ],
+      "summary": "List CalDAV tokens"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/user/settings/totp",
+      "operation_id": "totp-get",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get totp status"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/user/settings/totp/qrcode",
+      "operation_id": "totp-qrcode",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get the totp enrollment qr code"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/admin/projects/{id}/owner",
+      "operation_id": "admin-projects-patch-owner",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Reassign a project's owner (admin)"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/admin/users/{id}/admin",
+      "operation_id": "admin-users-patch-admin",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Promote or demote a user (admin)"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/admin/users/{id}/password",
+      "operation_id": "admin-users-set-password",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Set a user's password (admin)"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/admin/users/{id}/status",
+      "operation_id": "admin-users-patch-status",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Set a user's status (admin)"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/admin/invite-links",
+      "operation_id": "admin-invite-links-create",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Create an invite link"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/admin/users",
+      "operation_id": "admin-users-create",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Create a user (admin)"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/admin/users/{id}/password-reset-email",
+      "operation_id": "admin-users-password-reset-email",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Send a password-reset email (admin)"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/invite-links/check",
+      "operation_id": "invite-links-check",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Check an invitation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/login",
+      "operation_id": "auth-login",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Login"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/logout",
+      "operation_id": "auth-logout",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Logout"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/csv/detect",
+      "operation_id": "migration-csv-detect",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Detect a CSV file's structure"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/csv/migrate",
+      "operation_id": "migration-csv-migrate",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Import a CSV file"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/csv/preview",
+      "operation_id": "migration-csv-preview",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Preview a CSV import"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/planka/migrate",
+      "operation_id": "migration-planka-migrate",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Migrate from planka"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/ticktick/migrate",
+      "operation_id": "migration-ticktick-migrate",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Migrate from ticktick"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/vikunja-file/migrate",
+      "operation_id": "migration-vikunja-file-migrate",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Migrate from vikunja-file"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/migration/wekan/migrate",
+      "operation_id": "migration-wekan-migrate",
+      "tags": [
+        "migration"
+      ],
+      "summary": "Migrate from wekan"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/oauth/authorize",
+      "operation_id": "oauth-authorize",
+      "tags": [
+        "auth"
+      ],
+      "summary": "OAuth 2.0 authorize endpoint"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/oauth/token",
+      "operation_id": "oauth-token",
+      "tags": [
+        "auth"
+      ],
+      "summary": "OAuth 2.0 token endpoint"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/register",
+      "operation_id": "auth-register",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Register"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/token/test",
+      "operation_id": "token-check",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Check a token"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/confirm",
+      "operation_id": "auth-confirm-email",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Confirm an email address"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/deletion/cancel",
+      "operation_id": "user-deletion-cancel",
+      "tags": [
+        "user"
+      ],
+      "summary": "Cancel account deletion"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/deletion/confirm",
+      "operation_id": "user-deletion-confirm",
+      "tags": [
+        "user"
+      ],
+      "summary": "Confirm account deletion"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/deletion/request",
+      "operation_id": "user-deletion-request",
+      "tags": [
+        "user"
+      ],
+      "summary": "Request account deletion"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/export/download",
+      "operation_id": "user-export-download",
+      "tags": [
+        "user"
+      ],
+      "summary": "Download the data export"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/export/request",
+      "operation_id": "user-export-request",
+      "tags": [
+        "user"
+      ],
+      "summary": "Request a data export"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/password",
+      "operation_id": "user-change-password",
+      "tags": [
+        "user"
+      ],
+      "summary": "Change the current user's password"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/password/reset",
+      "operation_id": "auth-password-reset",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Reset a password"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/password/token",
+      "operation_id": "auth-password-token",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Request a password reset token"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/settings/email/resend",
+      "operation_id": "user-resend-email-confirmation",
+      "tags": [
+        "user"
+      ],
+      "summary": "Resend the confirmation mail for a pending email change"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/settings/token/caldav",
+      "operation_id": "caldav-tokens-create",
+      "tags": [
+        "user"
+      ],
+      "summary": "Generate a CalDAV token"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/settings/totp/disable",
+      "operation_id": "totp-disable",
+      "tags": [
+        "user"
+      ],
+      "summary": "Disable totp"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/settings/totp/enable",
+      "operation_id": "totp-enable",
+      "tags": [
+        "user"
+      ],
+      "summary": "Enable totp"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/settings/totp/enroll",
+      "operation_id": "totp-enroll",
+      "tags": [
+        "user"
+      ],
+      "summary": "Enroll into totp"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/token",
+      "operation_id": "token-renew",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Renew a link-share token"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/user/token/refresh",
+      "operation_id": "auth-refresh-token",
+      "tags": [
+        "auth"
+      ],
+      "summary": "Refresh user token"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/projects/{project}/backgrounds/upload",
+      "operation_id": "projects-background-upload",
+      "tags": [
+        "project"
+      ],
+      "summary": "Upload a project background"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/user/settings/avatar",
+      "operation_id": "user-avatar-upload",
+      "tags": [
+        "user"
+      ],
+      "summary": "Upload your avatar"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/user/settings/email",
+      "operation_id": "user-update-email",
+      "tags": [
+        "user"
+      ],
+      "summary": "Update the current user's email address"
+    }
+  ]
+}

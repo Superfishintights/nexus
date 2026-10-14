@@ -1,0 +1,137 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/v2/time-entries",
+    "summary": "List time entries"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v2/time-entries",
+    "summary": "Create a time entry"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v2/time-entries/{id}",
+    "summary": "Delete a time entry"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/time-entries/{id}",
+    "summary": "Get a time entry"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v2/time-entries/{id}",
+    "summary": "Update a time entry (partial)"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v2/time-entries/{id}",
+    "summary": "Update a time entry"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v2/time-entries/timer/stop",
+    "summary": "Stop the running timer"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/tasks/{task_id}/time-entries",
+    "summary": "List a task's time entries"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/projects/{project_id}/time-entries",
+    "summary": "List a project's time entries"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v2/notifications",
+    "summary": "Delete all notifications"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/notifications",
+    "summary": "List notifications"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v2/notifications",
+    "summary": "Mark all notifications as read"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v2/notifications/{notificationid}",
+    "summary": "Mark a notification as (un-)read"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/user/settings/general",
+    "summary": "Get the current user's general settings"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v2/user/settings/general",
+    "summary": "Update the current user's general settings (partial)"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v2/user/settings/general",
+    "summary": "Update the current user's general settings"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "summary": "Get the current user's avatar provider"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "summary": "Set the current user's avatar provider (partial)"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "summary": "Set the current user's avatar provider"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/user/timezones",
+    "summary": "List available time zones"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/user/sessions",
+    "summary": "List sessions"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v2/user/sessions/{session}",
+    "summary": "Delete a session"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v2/subscriptions/{entity}/{entityID}",
+    "summary": "Unsubscribe from an entity"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v2/subscriptions/{entity}/{entityID}",
+    "summary": "Subscribe to an entity"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v2/projects/{projectid}/duplicate",
+    "summary": "Duplicate a project"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v2/tasks/{task}/read",
+    "summary": "Mark a task as read"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/health",
+    "summary": "Healthcheck"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "method": "patch",
+    "path": "/labels/{id}"
+  },
+  {
+    "method": "patch",
+    "path": "/projects/{id}"
+  },
+  {
+    "method": "patch",
+    "path": "/projects/{project}/views/{view}"
+  },
+  {
+    "method": "patch",
+    "path": "/tasks/{task}"
+  },
+  {
+    "method": "patch",
+    "path": "/tasks/{task}/comments/{commentid}"
+  },
+  {
+    "method": "patch",
+    "path": "/user/bots/{bot}"
+  }
+]

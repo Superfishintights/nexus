@@ -3,7 +3,7 @@
 Nexus MCP Server
 
 A Model Context Protocol server that exposes a small, context-efficient surface:
-`run_code`, `search_tools`, and `get_tool`.
+`run_code`, `search_tools`, `get_tool`, and `list_tool_namespaces`.
 
 The model writes Python code that imports and calls tool functions from any
 configured tool package.
@@ -13,7 +13,7 @@ import json
 import os
 import sys
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 os.environ.setdefault("FASTMCP_LOG_LEVEL", "ERROR")
 os.environ.setdefault("FASTMCP_CHECK_FOR_UPDATES", "off")
@@ -29,6 +29,7 @@ from nexus.tool_catalog import (
     ToolSpec,
     get_catalog,
     get_catalog_diagnostics,
+    list_catalog_namespaces,
     resolve_tool_request,
     search_catalog,
     spec_to_dict,
@@ -99,6 +100,7 @@ def search_tools(
     query: str = "",
     detail_level: str = "summary",
     limit: int = 20,
+    namespace: Optional[str] = None,
 ) -> str:
     """Search for relevant tools without loading every definition.
 
@@ -106,13 +108,19 @@ def search_tools(
         query: Free-text search query. Empty means "list tools".
         detail_level: One of "name", "summary", "full".
         limit: Maximum number of tools to return.
+        namespace: Optional exact canonical namespace filter.
 
     Returns:
         JSON string containing matching tool metadata.
     """
 
     policy = get_active_tool_policy()
-    matches = search_catalog(query, limit=limit, policy=policy)
+    matches = search_catalog(
+        query,
+        limit=limit,
+        namespace=namespace,
+        policy=policy,
+    )
     tools: List[Dict[str, Any]] = [
         _tool_to_dict(spec, detail_level=detail_level) for spec in matches
     ]
@@ -125,6 +133,8 @@ def search_tools(
         "tools": tools,
         "policy": policy.to_dict(),
     }
+    if namespace is not None:
+        response["namespace"] = namespace
     diagnostics = get_catalog_diagnostics()
     if diagnostics["warnings"]:
         response["warnings"] = diagnostics["warnings"]
@@ -183,8 +193,32 @@ def get_tool(name: str, detail_level: str = "full") -> str:
 
 
 @mcp.tool()
+def list_tool_namespaces() -> str:
+    """List policy-visible canonical tool namespaces and their tool counts."""
+
+    policy = get_active_tool_policy()
+    namespaces = list_catalog_namespaces(policy=policy, refresh=True)
+    response = {
+        "success": True,
+        "namespaces": [
+            {
+                "name": namespace.name,
+                "display_name": namespace.display_name,
+                "description": namespace.description,
+                "tool_count": namespace.tool_count,
+            }
+            for namespace in namespaces
+        ],
+        "policy": policy.to_dict(),
+    }
+    diagnostics = get_catalog_diagnostics()
+    if diagnostics["warnings"]:
+        response["warnings"] = diagnostics["warnings"]
+    return _json_dumps(response)
+
+
 def list_available_tools() -> str:
-    """Deprecated: use search_tools instead."""
+    """Deprecated Python compatibility wrapper; use search_tools instead."""
 
     return search_tools("", detail_level="name", limit=10_000)
 

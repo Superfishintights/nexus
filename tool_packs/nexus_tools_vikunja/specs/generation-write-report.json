@@ -1,0 +1,1229 @@
+{
+  "api_prefix": "/api/v2",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "info",
+      "filename": "get_info.py",
+      "method": "GET",
+      "name": "get_info",
+      "path": "/api/v2/info",
+      "path_params": [],
+      "summary": "Instance info"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "labels",
+      "filename": "get_labels.py",
+      "method": "GET",
+      "name": "get_labels",
+      "path": "/api/v2/labels",
+      "path_params": [],
+      "summary": "List labels"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "labels",
+      "filename": "create_labels.py",
+      "method": "POST",
+      "name": "create_labels",
+      "path": "/api/v2/labels",
+      "path_params": [],
+      "summary": "Create a label"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "labels/{id}",
+      "filename": "get_labels_by_id.py",
+      "method": "GET",
+      "name": "get_labels_by_id",
+      "path": "/api/v2/labels/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Get a label"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "labels/{id}",
+      "filename": "update_labels_by_id.py",
+      "method": "PUT",
+      "name": "update_labels_by_id",
+      "path": "/api/v2/labels/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Update a label"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "labels/{id}",
+      "filename": "delete_labels_by_id.py",
+      "method": "DELETE",
+      "name": "delete_labels_by_id",
+      "path": "/api/v2/labels/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Delete a label"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects",
+      "filename": "get_projects.py",
+      "method": "GET",
+      "name": "get_projects",
+      "path": "/api/v2/projects",
+      "path_params": [],
+      "summary": "List projects"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects",
+      "filename": "create_projects.py",
+      "method": "POST",
+      "name": "create_projects",
+      "path": "/api/v2/projects",
+      "path_params": [],
+      "summary": "Create a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{id}",
+      "filename": "get_projects_by_id.py",
+      "method": "GET",
+      "name": "get_projects_by_id",
+      "path": "/api/v2/projects/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Get a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{id}",
+      "filename": "update_projects_by_id.py",
+      "method": "PUT",
+      "name": "update_projects_by_id",
+      "path": "/api/v2/projects/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Update a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{id}",
+      "filename": "delete_projects_by_id.py",
+      "method": "DELETE",
+      "name": "delete_projects_by_id",
+      "path": "/api/v2/projects/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Delete a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/tasks",
+      "filename": "get_projects_by_project_tasks.py",
+      "method": "GET",
+      "name": "get_projects_by_project_tasks",
+      "path": "/api/v2/projects/{project}/tasks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "List tasks in a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/tasks",
+      "filename": "create_projects_by_project_tasks.py",
+      "method": "POST",
+      "name": "create_projects_by_project_tasks",
+      "path": "/api/v2/projects/{project}/tasks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Create a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/tasks/bulk",
+      "filename": "create_projects_by_project_tasks_bulk.py",
+      "method": "POST",
+      "name": "create_projects_by_project_tasks_bulk",
+      "path": "/api/v2/projects/{project}/tasks/bulk",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Create multiple tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/tasks/by-index/{index}",
+      "filename": "get_projects_by_project_tasks_by_index_by_index.py",
+      "method": "GET",
+      "name": "get_projects_by_project_tasks_by_index_by_index",
+      "path": "/api/v2/projects/{project}/tasks/by-index/{index}",
+      "path_params": [
+        [
+          "project",
+          "str"
+        ],
+        [
+          "index",
+          "int"
+        ]
+      ],
+      "summary": "Get a task by its project index"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/teams",
+      "filename": "get_projects_by_project_teams.py",
+      "method": "GET",
+      "name": "get_projects_by_project_teams",
+      "path": "/api/v2/projects/{project}/teams",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "List the teams a project is shared with"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/teams",
+      "filename": "create_projects_by_project_teams.py",
+      "method": "POST",
+      "name": "create_projects_by_project_teams",
+      "path": "/api/v2/projects/{project}/teams",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Share a project with a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/teams/{team}",
+      "filename": "update_projects_by_project_teams_by_team.py",
+      "method": "PUT",
+      "name": "update_projects_by_project_teams_by_team",
+      "path": "/api/v2/projects/{project}/teams/{team}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "team",
+          "int"
+        ]
+      ],
+      "summary": "Update a team's permission on a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/teams/{team}",
+      "filename": "delete_projects_by_project_teams_by_team.py",
+      "method": "DELETE",
+      "name": "delete_projects_by_project_teams_by_team",
+      "path": "/api/v2/projects/{project}/teams/{team}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "team",
+          "int"
+        ]
+      ],
+      "summary": "Remove a team from a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/users",
+      "filename": "get_projects_by_project_users.py",
+      "method": "GET",
+      "name": "get_projects_by_project_users",
+      "path": "/api/v2/projects/{project}/users",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "List the users a project is shared with"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/users",
+      "filename": "create_projects_by_project_users.py",
+      "method": "POST",
+      "name": "create_projects_by_project_users",
+      "path": "/api/v2/projects/{project}/users",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Share a project with a user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/users/search",
+      "filename": "get_projects_by_project_users_search.py",
+      "method": "GET",
+      "name": "get_projects_by_project_users_search",
+      "path": "/api/v2/projects/{project}/users/search",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Search users with access to a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/users/{user}",
+      "filename": "update_projects_by_project_users_by_user.py",
+      "method": "PUT",
+      "name": "update_projects_by_project_users_by_user",
+      "path": "/api/v2/projects/{project}/users/{user}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "user",
+          "str"
+        ]
+      ],
+      "summary": "Update a user's permission on a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/users/{user}",
+      "filename": "delete_projects_by_project_users_by_user.py",
+      "method": "DELETE",
+      "name": "delete_projects_by_project_users_by_user",
+      "path": "/api/v2/projects/{project}/users/{user}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "user",
+          "str"
+        ]
+      ],
+      "summary": "Remove a user's access to a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views",
+      "filename": "get_projects_by_project_views.py",
+      "method": "GET",
+      "name": "get_projects_by_project_views",
+      "path": "/api/v2/projects/{project}/views",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "List the views of a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views",
+      "filename": "create_projects_by_project_views.py",
+      "method": "POST",
+      "name": "create_projects_by_project_views",
+      "path": "/api/v2/projects/{project}/views",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Create a view in a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}",
+      "filename": "get_projects_by_project_views_by_view.py",
+      "method": "GET",
+      "name": "get_projects_by_project_views_by_view",
+      "path": "/api/v2/projects/{project}/views/{view}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "Get a single view of a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}",
+      "filename": "update_projects_by_project_views_by_view.py",
+      "method": "PUT",
+      "name": "update_projects_by_project_views_by_view",
+      "path": "/api/v2/projects/{project}/views/{view}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "Update a view of a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}",
+      "filename": "delete_projects_by_project_views_by_view.py",
+      "method": "DELETE",
+      "name": "delete_projects_by_project_views_by_view",
+      "path": "/api/v2/projects/{project}/views/{view}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "Delete a view of a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/buckets",
+      "filename": "get_projects_by_project_views_by_view_buckets.py",
+      "method": "GET",
+      "name": "get_projects_by_project_views_by_view_buckets",
+      "path": "/api/v2/projects/{project}/views/{view}/buckets",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "List the buckets of a kanban view"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/buckets",
+      "filename": "create_projects_by_project_views_by_view_buckets.py",
+      "method": "POST",
+      "name": "create_projects_by_project_views_by_view_buckets",
+      "path": "/api/v2/projects/{project}/views/{view}/buckets",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "Create a bucket in a kanban view"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/buckets/tasks",
+      "filename": "get_projects_by_project_views_by_view_buckets_tasks.py",
+      "method": "GET",
+      "name": "get_projects_by_project_views_by_view_buckets_tasks",
+      "path": "/api/v2/projects/{project}/views/{view}/buckets/tasks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "List a kanban view's buckets with their tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/buckets/{bucket}",
+      "filename": "update_projects_by_project_views_by_view_buckets_by_bucket.py",
+      "method": "PUT",
+      "name": "update_projects_by_project_views_by_view_buckets_by_bucket",
+      "path": "/api/v2/projects/{project}/views/{view}/buckets/{bucket}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ],
+        [
+          "bucket",
+          "int"
+        ]
+      ],
+      "summary": "Update a bucket of a kanban view"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/buckets/{bucket}",
+      "filename": "delete_projects_by_project_views_by_view_buckets_by_bucket.py",
+      "method": "DELETE",
+      "name": "delete_projects_by_project_views_by_view_buckets_by_bucket",
+      "path": "/api/v2/projects/{project}/views/{view}/buckets/{bucket}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ],
+        [
+          "bucket",
+          "int"
+        ]
+      ],
+      "summary": "Delete a bucket of a kanban view"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/buckets/{bucket}/tasks",
+      "filename": "update_projects_by_project_views_by_view_buckets_by_bucket_tasks.py",
+      "method": "PUT",
+      "name": "update_projects_by_project_views_by_view_buckets_by_bucket_tasks",
+      "path": "/api/v2/projects/{project}/views/{view}/buckets/{bucket}/tasks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ],
+        [
+          "bucket",
+          "int"
+        ]
+      ],
+      "summary": "Place a task in a kanban bucket"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/views/{view}/tasks",
+      "filename": "get_projects_by_project_views_by_view_tasks.py",
+      "method": "GET",
+      "name": "get_projects_by_project_views_by_view_tasks",
+      "path": "/api/v2/projects/{project}/views/{view}/tasks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "view",
+          "int"
+        ]
+      ],
+      "summary": "List tasks in a project view"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "routes",
+      "filename": "get_routes.py",
+      "method": "GET",
+      "name": "get_routes",
+      "path": "/api/v2/routes",
+      "path_params": [],
+      "summary": "List API token routes"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks",
+      "filename": "get_tasks.py",
+      "method": "GET",
+      "name": "get_tasks",
+      "path": "/api/v2/tasks",
+      "path_params": [],
+      "summary": "List tasks across all projects"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/bulk",
+      "filename": "update_tasks_bulk.py",
+      "method": "PUT",
+      "name": "update_tasks_bulk",
+      "path": "/api/v2/tasks/bulk",
+      "path_params": [],
+      "summary": "Bulk update tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}",
+      "filename": "get_tasks_by_task.py",
+      "method": "GET",
+      "name": "get_tasks_by_task",
+      "path": "/api/v2/tasks/{task}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Get a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}",
+      "filename": "update_tasks_by_task.py",
+      "method": "PUT",
+      "name": "update_tasks_by_task",
+      "path": "/api/v2/tasks/{task}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Update a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}",
+      "filename": "delete_tasks_by_task.py",
+      "method": "DELETE",
+      "name": "delete_tasks_by_task",
+      "path": "/api/v2/tasks/{task}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Delete a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/assignees",
+      "filename": "get_tasks_by_task_assignees.py",
+      "method": "GET",
+      "name": "get_tasks_by_task_assignees",
+      "path": "/api/v2/tasks/{task}/assignees",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "List the assignees of a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/assignees",
+      "filename": "create_tasks_by_task_assignees.py",
+      "method": "POST",
+      "name": "create_tasks_by_task_assignees",
+      "path": "/api/v2/tasks/{task}/assignees",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Assign a user to a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/assignees/bulk",
+      "filename": "update_tasks_by_task_assignees_bulk.py",
+      "method": "PUT",
+      "name": "update_tasks_by_task_assignees_bulk",
+      "path": "/api/v2/tasks/{task}/assignees/bulk",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Replace all assignees of a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/assignees/{user}",
+      "filename": "delete_tasks_by_task_assignees_by_user.py",
+      "method": "DELETE",
+      "name": "delete_tasks_by_task_assignees_by_user",
+      "path": "/api/v2/tasks/{task}/assignees/{user}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "user",
+          "int"
+        ]
+      ],
+      "summary": "Remove an assignee from a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/comments",
+      "filename": "get_tasks_by_task_comments.py",
+      "method": "GET",
+      "name": "get_tasks_by_task_comments",
+      "path": "/api/v2/tasks/{task}/comments",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "List the comments of a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/comments",
+      "filename": "create_tasks_by_task_comments.py",
+      "method": "POST",
+      "name": "create_tasks_by_task_comments",
+      "path": "/api/v2/tasks/{task}/comments",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Create a comment on a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/comments/{commentid}",
+      "filename": "get_tasks_by_task_comments_by_commentid.py",
+      "method": "GET",
+      "name": "get_tasks_by_task_comments_by_commentid",
+      "path": "/api/v2/tasks/{task}/comments/{commentid}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "commentid",
+          "int"
+        ]
+      ],
+      "summary": "Get a single comment of a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/comments/{commentid}",
+      "filename": "update_tasks_by_task_comments_by_commentid.py",
+      "method": "PUT",
+      "name": "update_tasks_by_task_comments_by_commentid",
+      "path": "/api/v2/tasks/{task}/comments/{commentid}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "commentid",
+          "int"
+        ]
+      ],
+      "summary": "Update a comment of a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/comments/{commentid}",
+      "filename": "delete_tasks_by_task_comments_by_commentid.py",
+      "method": "DELETE",
+      "name": "delete_tasks_by_task_comments_by_commentid",
+      "path": "/api/v2/tasks/{task}/comments/{commentid}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "commentid",
+          "int"
+        ]
+      ],
+      "summary": "Delete a comment of a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/duplicate",
+      "filename": "create_tasks_by_task_duplicate.py",
+      "method": "POST",
+      "name": "create_tasks_by_task_duplicate",
+      "path": "/api/v2/tasks/{task}/duplicate",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Duplicate a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/labels",
+      "filename": "get_tasks_by_task_labels.py",
+      "method": "GET",
+      "name": "get_tasks_by_task_labels",
+      "path": "/api/v2/tasks/{task}/labels",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "List the labels on a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/labels",
+      "filename": "create_tasks_by_task_labels.py",
+      "method": "POST",
+      "name": "create_tasks_by_task_labels",
+      "path": "/api/v2/tasks/{task}/labels",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Add a label to a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/labels/bulk",
+      "filename": "update_tasks_by_task_labels_bulk.py",
+      "method": "PUT",
+      "name": "update_tasks_by_task_labels_bulk",
+      "path": "/api/v2/tasks/{task}/labels/bulk",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Replace all labels on a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/labels/{label}",
+      "filename": "delete_tasks_by_task_labels_by_label.py",
+      "method": "DELETE",
+      "name": "delete_tasks_by_task_labels_by_label",
+      "path": "/api/v2/tasks/{task}/labels/{label}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "label",
+          "int"
+        ]
+      ],
+      "summary": "Remove a label from a task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/position",
+      "filename": "update_tasks_by_task_position.py",
+      "method": "PUT",
+      "name": "update_tasks_by_task_position",
+      "path": "/api/v2/tasks/{task}/position",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Set a task's position in a view"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/relations",
+      "filename": "create_tasks_by_task_relations.py",
+      "method": "POST",
+      "name": "create_tasks_by_task_relations",
+      "path": "/api/v2/tasks/{task}/relations",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Create a task relation"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/relations/{relationKind}/{otherTask}",
+      "filename": "delete_tasks_by_task_relations_by_relation_kind_by_other_task.py",
+      "method": "DELETE",
+      "name": "delete_tasks_by_task_relations_by_relation_kind_by_other_task",
+      "path": "/api/v2/tasks/{task}/relations/{relationKind}/{otherTask}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "relation_kind",
+          "str"
+        ],
+        [
+          "other_task",
+          "int"
+        ]
+      ],
+      "summary": "Delete a task relation"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tokens",
+      "filename": "get_tokens.py",
+      "method": "GET",
+      "name": "get_tokens",
+      "path": "/api/v2/tokens",
+      "path_params": [],
+      "summary": "List api tokens"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tokens",
+      "filename": "create_tokens.py",
+      "method": "POST",
+      "name": "create_tokens",
+      "path": "/api/v2/tokens",
+      "path_params": [],
+      "summary": "Create an api token"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tokens/{id}",
+      "filename": "delete_tokens_by_id.py",
+      "method": "DELETE",
+      "name": "delete_tokens_by_id",
+      "path": "/api/v2/tokens/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Delete an api token"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user",
+      "filename": "get_user.py",
+      "method": "GET",
+      "name": "get_user",
+      "path": "/api/v2/user",
+      "path_params": [],
+      "summary": "Get the current user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/bots",
+      "filename": "get_user_bots.py",
+      "method": "GET",
+      "name": "get_user_bots",
+      "path": "/api/v2/user/bots",
+      "path_params": [],
+      "summary": "List bot users"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/bots",
+      "filename": "create_user_bots.py",
+      "method": "POST",
+      "name": "create_user_bots",
+      "path": "/api/v2/user/bots",
+      "path_params": [],
+      "summary": "Create a bot user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/bots/{bot}",
+      "filename": "get_user_bots_by_bot.py",
+      "method": "GET",
+      "name": "get_user_bots_by_bot",
+      "path": "/api/v2/user/bots/{bot}",
+      "path_params": [
+        [
+          "bot",
+          "int"
+        ]
+      ],
+      "summary": "Get a bot user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/bots/{bot}",
+      "filename": "update_user_bots_by_bot.py",
+      "method": "PUT",
+      "name": "update_user_bots_by_bot",
+      "path": "/api/v2/user/bots/{bot}",
+      "path_params": [
+        [
+          "bot",
+          "int"
+        ]
+      ],
+      "summary": "Update a bot user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/bots/{bot}",
+      "filename": "delete_user_bots_by_bot.py",
+      "method": "DELETE",
+      "name": "delete_user_bots_by_bot",
+      "path": "/api/v2/user/bots/{bot}",
+      "path_params": [
+        [
+          "bot",
+          "int"
+        ]
+      ],
+      "summary": "Delete a bot user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "users",
+      "filename": "get_users.py",
+      "method": "GET",
+      "name": "get_users",
+      "path": "/api/v2/users",
+      "path_params": [],
+      "summary": "Search users"
+    }
+  ],
+  "canonical_count": 69,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": false,
+  "namespace": "vikunja",
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "tool_packs/nexus_tools_vikunja/.preflight/vikunja",
+  "skipped": [],
+  "skipped_count": 0,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 0,
+  "spec": "tool_packs/nexus_tools_vikunja/specs/scoped-v2.json",
+  "tools_root": "tool_packs/nexus_tools_vikunja/.preflight",
+  "write_mode": true,
+  "written_files": [
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_info.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_labels.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_labels.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_labels_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_labels_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_labels_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_projects_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_projects_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_tasks.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects_by_project_tasks.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects_by_project_tasks_bulk.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_tasks_by_index_by_index.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_teams.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects_by_project_teams.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_projects_by_project_teams_by_team.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_projects_by_project_teams_by_team.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_users.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects_by_project_users.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_users_search.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_projects_by_project_users_by_user.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_projects_by_project_users_by_user.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_views.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects_by_project_views.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_views_by_view.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_projects_by_project_views_by_view.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_projects_by_project_views_by_view.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_views_by_view_buckets.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_projects_by_project_views_by_view_buckets.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_views_by_view_buckets_tasks.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_projects_by_project_views_by_view_buckets_by_bucket.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_projects_by_project_views_by_view_buckets_by_bucket.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_projects_by_project_views_by_view_buckets_by_bucket_tasks.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_projects_by_project_views_by_view_tasks.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_routes.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tasks.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_tasks_bulk.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tasks_by_task.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_tasks_by_task.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_tasks_by_task.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tasks_by_task_assignees.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_tasks_by_task_assignees.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_tasks_by_task_assignees_bulk.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_tasks_by_task_assignees_by_user.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tasks_by_task_comments.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_tasks_by_task_comments.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tasks_by_task_comments_by_commentid.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_tasks_by_task_comments_by_commentid.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_tasks_by_task_comments_by_commentid.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_tasks_by_task_duplicate.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tasks_by_task_labels.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_tasks_by_task_labels.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_tasks_by_task_labels_bulk.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_tasks_by_task_labels_by_label.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_tasks_by_task_position.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_tasks_by_task_relations.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_tasks_by_task_relations_by_relation_kind_by_other_task.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_tokens.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_tokens.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_tokens_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_user.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_user_bots.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/create_user_bots.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_user_bots_by_bot.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/update_user_bots_by_bot.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/delete_user_bots_by_bot.py",
+    "tool_packs/nexus_tools_vikunja/.preflight/vikunja/get_users.py"
+  ]
+}

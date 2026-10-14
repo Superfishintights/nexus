@@ -42,6 +42,8 @@ def configure_tool_packages(monkeypatch, package_names: Iterable[str]) -> Tuple[
     add_tool_pack_paths(package_list)
     monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, ",".join(package_list))
     tool_catalog._CATALOG = None
+    tool_catalog._NAMESPACE_METADATA = {}
     tool_catalog._FILE_CACHE.clear()
+    tool_catalog._NAMESPACE_METADATA_CACHE.clear()
     clear_registry()
     return package_list

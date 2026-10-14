@@ -1,0 +1,27 @@
+{
+  "approved_operations": 27,
+  "generator_supported_operations": 24,
+  "manual_merge_patch_operations": 3,
+  "ordinary_mock_tests": 47,
+  "whole_pack_tests": 84,
+  "validator": {
+    "canonical_tools": 141,
+    "aliases": 0,
+    "duplicates": 0,
+    "issues": 0
+  },
+  "catalog": {
+    "canonical_tools": 141,
+    "new_tools_loaded": 27,
+    "warnings": []
+  },
+  "compile_and_selftest": "passed",
+  "independent_review": "Two findings corrected: time-entry example field and nested credential error redaction.",
+  "live_writes": 0,
+  "live_fixtures": 0,
+  "deployment": "Parent lane owns deployment; no deployment claimed by this implementation.",
+  "scope": "New files only; existing client/auth/planner/resource modules and shared metadata unchanged.",
+  "generator_staging": "Temporary generated scaffolds consolidated into six final semantic modules; staging removed after validation.",
+  "contracts": "ordinary-tool-contracts.json",
+  "runtime_limits": "ordinary-runtime-limits.md"
+}

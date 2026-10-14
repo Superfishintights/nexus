@@ -101,7 +101,16 @@ def test_legacy_tools_alias_expands_to_local_tool_packs(
 
     package_names = tool_catalog.get_tool_package_names()
 
-    assert package_names == builtin_tool_packages(include_starling=True)
+    expected_packages = {
+        root.name
+        for root in tool_catalog.LOCAL_TOOL_PACKS_ROOT.iterdir()
+        if root.name.startswith("nexus_tools_")
+        and (root / "pyproject.toml").is_file()
+        and (root / root.name / "__init__.py").is_file()
+    }
+    assert set(package_names) == expected_packages
+    assert package_names[:6] == builtin_tool_packages(include_starling=True)
+    assert len(package_names) == len(set(package_names))
 
 
 def test_catalog_scans_without_import(dummy_tools: str) -> None:
@@ -197,6 +206,294 @@ def test_catalog_reports_nonfatal_problems(tmp_path: Path, monkeypatch: pytest.M
     assert catalog == {}
     assert any(problem.code == "syntax_error" for problem in problems)
     assert any(problem.code == "missing_package" for problem in problems)
+
+
+def test_namespace_metadata_is_read_statically_without_importing_package(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package_name = "literal_namespace_tools"
+    package_path = tmp_path / package_name
+    package_path.mkdir()
+    description = "x" * tool_catalog.MAX_NAMESPACE_DESCRIPTION_LENGTH
+    (package_path / "__init__.py").write_text(
+        repr_source(
+            [
+                {
+                    "name": "demo",
+                    "display_name": "Demo Tools",
+                    "description": description,
+                }
+            ]
+        )
+        + "\nraise RuntimeError('package initializer must not execute')\n",
+        encoding="utf-8",
+    )
+    (package_path / "tool.py").write_text(
+        textwrap.dedent(
+            """
+            from nexus.tool_registry import register_tool
+
+            @register_tool(namespace="demo")
+            def alpha() -> str:
+                return "ok"
+            """
+        ).lstrip(),
+        encoding="utf-8",
+    )
+    monkeypatch.syspath_prepend(str(tmp_path))
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, package_name)
+
+    namespaces = tool_catalog.list_catalog_namespaces(refresh=True)
+
+    assert package_name not in sys.modules
+    assert namespaces == [
+        tool_catalog.ToolNamespace(
+            name="demo",
+            display_name="Demo Tools",
+            description=description,
+            tool_count=1,
+        )
+    ]
+    assert tool_catalog.get_catalog_diagnostics()["warnings"] == []
+
+
+def repr_source(payload: object) -> str:
+    return f"{tool_catalog.NAMESPACE_METADATA_VARIABLE} = {payload!r}\n"
+
+
+def test_namespace_metadata_shape_and_description_limit_are_validated(
+    tmp_path: Path,
+) -> None:
+    package_path = tmp_path / "shape_namespace_tools"
+    package_path.mkdir()
+    (package_path / "__init__.py").write_text(
+        repr_source(
+            [
+                {
+                    "name": "valid",
+                    "display_name": "Valid",
+                    "description": "v" * tool_catalog.MAX_NAMESPACE_DESCRIPTION_LENGTH,
+                },
+                {
+                    "name": "too_long",
+                    "display_name": "Too Long",
+                    "description": "x"
+                    * (tool_catalog.MAX_NAMESPACE_DESCRIPTION_LENGTH + 1),
+                },
+                {
+                    "name": "extra_key",
+                    "display_name": "Extra Key",
+                    "description": "Invalid shape",
+                    "extra": True,
+                },
+            ]
+        ),
+        encoding="utf-8",
+    )
+    problems: list[tool_catalog.CatalogProblem] = []
+
+    metadata = tool_catalog.scan_namespace_metadata(
+        "shape_namespace_tools",
+        package_path,
+        problems=problems,
+    )
+
+    assert [entry.name for entry in metadata] == ["valid"]
+    assert len(metadata[0].description) == tool_catalog.MAX_NAMESPACE_DESCRIPTION_LENGTH
+    assert len(problems) == 2
+    assert all(problem.code == "malformed_namespace_metadata" for problem in problems)
+    assert any("exceeds 240 characters" in problem.message for problem in problems)
+    assert any("contain exactly" in problem.message for problem in problems)
+
+
+@pytest.mark.parametrize(
+    ("initializer_source", "problem_code", "reason"),
+    [
+        ("", "missing_namespace_metadata", "is not declared"),
+        (
+            "NEXUS_NAMESPACES = make_namespaces()\n",
+            "malformed_namespace_metadata",
+            "literal list of dictionaries",
+        ),
+    ],
+)
+def test_missing_or_malformed_namespace_metadata_falls_back_with_diagnostics(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    initializer_source: str,
+    problem_code: str,
+    reason: str,
+) -> None:
+    package_name = "fallback_namespace_tools"
+    package_path = tmp_path / package_name
+    package_path.mkdir()
+    (package_path / "__init__.py").write_text(initializer_source, encoding="utf-8")
+    (package_path / "tool.py").write_text(
+        textwrap.dedent(
+            """
+            from nexus.tool_registry import register_tool
+
+            @register_tool(namespace="demo")
+            def alpha() -> str:
+                return "ok"
+            """
+        ).lstrip(),
+        encoding="utf-8",
+    )
+    monkeypatch.syspath_prepend(str(tmp_path))
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, package_name)
+
+    namespaces = tool_catalog.list_catalog_namespaces(refresh=True)
+    problems = [
+        problem
+        for problem in tool_catalog.get_catalog_problems()
+        if problem.package == package_name
+    ]
+
+    assert namespaces == [
+        tool_catalog.ToolNamespace(
+            name="demo",
+            display_name="Demo",
+            description="Tools provided by the Demo namespace.",
+            tool_count=1,
+        )
+    ]
+    assert len(problems) == 1
+    problem = problems[0]
+    assert problem.code == problem_code
+    assert problem.package == package_name
+    assert reason in problem.message
+
+
+def test_namespace_listing_is_policy_filtered_and_counts_discoverable_canonical_tools(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package_name = "counted_namespace_tools"
+    package_path = tmp_path / package_name
+    package_path.mkdir()
+    (package_path / "__init__.py").write_text(
+        repr_source(
+            [
+                {
+                    "name": "demo",
+                    "display_name": "Demo",
+                    "description": "Demo namespace tools.",
+                },
+                {
+                    "name": "other",
+                    "display_name": "Other",
+                    "description": "Other namespace tools.",
+                },
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (package_path / "tools.py").write_text(
+        textwrap.dedent(
+            """
+            from nexus.tool_registry import register_tool
+
+            @register_tool(namespace="demo", aliases=["legacy_alpha"])
+            def alpha() -> str:
+                return "alpha"
+
+            @register_tool(namespace="demo")
+            def get_item() -> str:
+                return "item"
+
+            @register_tool(namespace="demo")
+            def get_get_item() -> str:
+                return "compatibility duplicate"
+
+            @register_tool(namespace="other")
+            def beta() -> str:
+                return "beta"
+            """
+        ).lstrip(),
+        encoding="utf-8",
+    )
+    monkeypatch.syspath_prepend(str(tmp_path))
+    monkeypatch.setenv(tool_catalog.TOOL_PACKAGES_ENV, package_name)
+
+    unrestricted = tool_catalog.list_catalog_namespaces(refresh=True)
+    restricted = tool_catalog.list_catalog_namespaces(
+        policy=ToolPolicy(
+            mode="restricted",
+            allowed_tools=frozenset({"demo.alpha"}),
+        )
+    )
+    collapsed_only = tool_catalog.list_catalog_namespaces(
+        policy=ToolPolicy(
+            mode="restricted",
+            allowed_tools=frozenset({"demo.get_get_item"}),
+        )
+    )
+
+    assert [(entry.name, entry.tool_count) for entry in unrestricted] == [
+        ("demo", 2),
+        ("other", 1),
+    ]
+    assert [(entry.name, entry.tool_count) for entry in restricted] == [("demo", 1)]
+    assert collapsed_only == []
+
+
+def test_search_catalog_supports_optional_exact_namespace_filter(
+    dummy_tools: str,
+) -> None:
+    del dummy_tools
+
+    unfiltered = tool_catalog.search_catalog("", limit=20)
+    exact = tool_catalog.search_catalog("", namespace="demo", limit=20)
+
+    assert [spec.name for spec in unfiltered] == ["alpha", "beta_tool", "demo.gamma"]
+    assert [spec.name for spec in exact] == ["demo.gamma"]
+    assert tool_catalog.search_catalog("", namespace="dem", limit=20) == []
+    assert tool_catalog.search_catalog("", namespace="Demo", limit=20) == []
+
+
+def test_all_first_party_packs_declare_valid_literal_namespace_metadata(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Google common supplies shared clients rather than tools. Blackboard is
+    # retained as historical source but is retired from the supported suite.
+    package_names = tuple(
+        name
+        for name in tool_catalog.discover_local_tool_packages()
+        if name not in {"nexus_tools_google_common", "nexus_tools_agent_blackboard"}
+    )
+    assert set(builtin_tool_packages(include_starling=True)) <= set(package_names)
+    for package_name in package_names:
+        package_path = tool_catalog.LOCAL_TOOL_PACKS_ROOT / package_name / package_name
+        problems: list[tool_catalog.CatalogProblem] = []
+
+        metadata = tool_catalog.scan_namespace_metadata(
+            package_name,
+            package_path,
+            problems=problems,
+        )
+
+        assert problems == [], package_name
+        assert [entry.name for entry in metadata] == [
+            package_name.removeprefix("nexus_tools_")
+        ]
+        assert all(
+            len(entry.description) <= tool_catalog.MAX_NAMESPACE_DESCRIPTION_LENGTH
+            for entry in metadata
+        )
+
+    configure_tool_packages(monkeypatch, package_names)
+    namespaces = tool_catalog.list_catalog_namespaces(refresh=True)
+
+    assert {entry.name for entry in namespaces} == {
+        name.removeprefix("nexus_tools_") for name in package_names
+    }
+    assert all(entry.tool_count > 0 for entry in namespaces)
+    assert sum(entry.tool_count for entry in namespaces) == len(
+        tool_catalog.discoverable_specs(tool_catalog.get_catalog().values())
+    )
+    assert tool_catalog.get_catalog_diagnostics()["warnings"] == []
 
 
 def test_duplicate_names_in_same_module_fail(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

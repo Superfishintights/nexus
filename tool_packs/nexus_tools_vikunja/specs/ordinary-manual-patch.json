@@ -1,0 +1,17 @@
+[
+  {
+    "method": "PATCH",
+    "path": "/api/v2/time-entries/{id}",
+    "reason": "Generator does not support PATCH; implement JSON Merge Patch manually."
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v2/user/settings/general",
+    "reason": "Generator does not support PATCH; implement JSON Merge Patch manually."
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v2/user/settings/avatar/provider",
+    "reason": "Generator does not support PATCH; implement JSON Merge Patch manually."
+  }
+]
