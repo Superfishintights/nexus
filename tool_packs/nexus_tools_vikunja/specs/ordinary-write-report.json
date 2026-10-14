@@ -1,0 +1,377 @@
+{
+  "api_prefix": "/api/v2",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "health",
+      "filename": "get_health.py",
+      "method": "GET",
+      "name": "get_health",
+      "path": "/api/v2/health",
+      "path_params": [],
+      "summary": "Healthcheck"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notifications",
+      "filename": "get_notifications.py",
+      "method": "GET",
+      "name": "get_notifications",
+      "path": "/api/v2/notifications",
+      "path_params": [],
+      "summary": "List notifications"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notifications",
+      "filename": "create_notifications.py",
+      "method": "POST",
+      "name": "create_notifications",
+      "path": "/api/v2/notifications",
+      "path_params": [],
+      "summary": "Mark all notifications as read"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notifications",
+      "filename": "delete_notifications.py",
+      "method": "DELETE",
+      "name": "delete_notifications",
+      "path": "/api/v2/notifications",
+      "path_params": [],
+      "summary": "Delete all notifications"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "notifications/{notificationid}",
+      "filename": "update_notifications_by_notificationid.py",
+      "method": "PUT",
+      "name": "update_notifications_by_notificationid",
+      "path": "/api/v2/notifications/{notificationid}",
+      "path_params": [
+        [
+          "notificationid",
+          "int"
+        ]
+      ],
+      "summary": "Mark a notification as (un-)read"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project_id}/time-entries",
+      "filename": "get_projects_by_project_id_time_entries.py",
+      "method": "GET",
+      "name": "get_projects_by_project_id_time_entries",
+      "path": "/api/v2/projects/{project_id}/time-entries",
+      "path_params": [
+        [
+          "project_id",
+          "int"
+        ]
+      ],
+      "summary": "List a project's time entries"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{projectid}/duplicate",
+      "filename": "create_projects_by_projectid_duplicate.py",
+      "method": "POST",
+      "name": "create_projects_by_projectid_duplicate",
+      "path": "/api/v2/projects/{projectid}/duplicate",
+      "path_params": [
+        [
+          "projectid",
+          "int"
+        ]
+      ],
+      "summary": "Duplicate a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "subscriptions/{entity}/{entityID}",
+      "filename": "create_subscriptions_by_entity_by_entity_id.py",
+      "method": "POST",
+      "name": "create_subscriptions_by_entity_by_entity_id",
+      "path": "/api/v2/subscriptions/{entity}/{entityID}",
+      "path_params": [
+        [
+          "entity",
+          "str"
+        ],
+        [
+          "entity_id",
+          "int"
+        ]
+      ],
+      "summary": "Subscribe to an entity"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "subscriptions/{entity}/{entityID}",
+      "filename": "delete_subscriptions_by_entity_by_entity_id.py",
+      "method": "DELETE",
+      "name": "delete_subscriptions_by_entity_by_entity_id",
+      "path": "/api/v2/subscriptions/{entity}/{entityID}",
+      "path_params": [
+        [
+          "entity",
+          "str"
+        ],
+        [
+          "entity_id",
+          "int"
+        ]
+      ],
+      "summary": "Unsubscribe from an entity"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task_id}/time-entries",
+      "filename": "get_tasks_by_task_id_time_entries.py",
+      "method": "GET",
+      "name": "get_tasks_by_task_id_time_entries",
+      "path": "/api/v2/tasks/{task_id}/time-entries",
+      "path_params": [
+        [
+          "task_id",
+          "int"
+        ]
+      ],
+      "summary": "List a task's time entries"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/read",
+      "filename": "update_tasks_by_task_read.py",
+      "method": "PUT",
+      "name": "update_tasks_by_task_read",
+      "path": "/api/v2/tasks/{task}/read",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "Mark a task as read"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "time-entries",
+      "filename": "get_time_entries.py",
+      "method": "GET",
+      "name": "get_time_entries",
+      "path": "/api/v2/time-entries",
+      "path_params": [],
+      "summary": "List time entries"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "time-entries",
+      "filename": "create_time_entries.py",
+      "method": "POST",
+      "name": "create_time_entries",
+      "path": "/api/v2/time-entries",
+      "path_params": [],
+      "summary": "Create a time entry"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "time-entries/timer/stop",
+      "filename": "create_time_entries_timer_stop.py",
+      "method": "POST",
+      "name": "create_time_entries_timer_stop",
+      "path": "/api/v2/time-entries/timer/stop",
+      "path_params": [],
+      "summary": "Stop the running timer"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "time-entries/{id}",
+      "filename": "get_time_entries_by_id.py",
+      "method": "GET",
+      "name": "get_time_entries_by_id",
+      "path": "/api/v2/time-entries/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Get a time entry"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "time-entries/{id}",
+      "filename": "update_time_entries_by_id.py",
+      "method": "PUT",
+      "name": "update_time_entries_by_id",
+      "path": "/api/v2/time-entries/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Update a time entry"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "time-entries/{id}",
+      "filename": "delete_time_entries_by_id.py",
+      "method": "DELETE",
+      "name": "delete_time_entries_by_id",
+      "path": "/api/v2/time-entries/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Delete a time entry"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/sessions",
+      "filename": "get_user_sessions.py",
+      "method": "GET",
+      "name": "get_user_sessions",
+      "path": "/api/v2/user/sessions",
+      "path_params": [],
+      "summary": "List sessions"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/sessions/{session}",
+      "filename": "delete_user_sessions_by_session.py",
+      "method": "DELETE",
+      "name": "delete_user_sessions_by_session",
+      "path": "/api/v2/user/sessions/{session}",
+      "path_params": [
+        [
+          "session",
+          "str"
+        ]
+      ],
+      "summary": "Delete a session"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/avatar/provider",
+      "filename": "get_user_settings_avatar_provider.py",
+      "method": "GET",
+      "name": "get_user_settings_avatar_provider",
+      "path": "/api/v2/user/settings/avatar/provider",
+      "path_params": [],
+      "summary": "Get the current user's avatar provider"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/avatar/provider",
+      "filename": "update_user_settings_avatar_provider.py",
+      "method": "PUT",
+      "name": "update_user_settings_avatar_provider",
+      "path": "/api/v2/user/settings/avatar/provider",
+      "path_params": [],
+      "summary": "Set the current user's avatar provider"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/general",
+      "filename": "get_user_settings_general.py",
+      "method": "GET",
+      "name": "get_user_settings_general",
+      "path": "/api/v2/user/settings/general",
+      "path_params": [],
+      "summary": "Get the current user's general settings"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/general",
+      "filename": "update_user_settings_general.py",
+      "method": "PUT",
+      "name": "update_user_settings_general",
+      "path": "/api/v2/user/settings/general",
+      "path_params": [],
+      "summary": "Update the current user's general settings"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/timezones",
+      "filename": "get_user_timezones.py",
+      "method": "GET",
+      "name": "get_user_timezones",
+      "path": "/api/v2/user/timezones",
+      "path_params": [],
+      "summary": "List available time zones"
+    }
+  ],
+  "canonical_count": 24,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": false,
+  "namespace": "vikunja",
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja",
+  "skipped": [],
+  "skipped_count": 0,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 0,
+  "spec": "tool_packs/nexus_tools_vikunja/specs/ordinary-scoped-v2.json",
+  "tools_root": "tool_packs/nexus_tools_vikunja/specs/ordinary-staging",
+  "write_mode": true,
+  "written_files": [
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_health.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_notifications.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/create_notifications.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/delete_notifications.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/update_notifications_by_notificationid.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_projects_by_project_id_time_entries.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/create_projects_by_projectid_duplicate.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/create_subscriptions_by_entity_by_entity_id.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/delete_subscriptions_by_entity_by_entity_id.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_tasks_by_task_id_time_entries.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/update_tasks_by_task_read.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_time_entries.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/create_time_entries.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/create_time_entries_timer_stop.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_time_entries_by_id.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/update_time_entries_by_id.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/delete_time_entries_by_id.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_user_sessions.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/delete_user_sessions_by_session.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_user_settings_avatar_provider.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/update_user_settings_avatar_provider.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_user_settings_general.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/update_user_settings_general.py",
+    "tool_packs/nexus_tools_vikunja/specs/ordinary-staging/vikunja/get_user_timezones.py"
+  ]
+}

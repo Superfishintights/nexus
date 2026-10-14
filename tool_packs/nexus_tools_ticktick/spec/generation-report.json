@@ -1,0 +1,720 @@
+{
+  "api_prefix": "/open/v1",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "countdown",
+      "filename": "get_countdown.py",
+      "method": "GET",
+      "name": "get_countdown",
+      "path": "/open/v1/countdown",
+      "path_params": [],
+      "summary": "Get Countdowns"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "focus",
+      "filename": "get_focus.py",
+      "method": "GET",
+      "name": "get_focus",
+      "path": "/open/v1/focus",
+      "path_params": [],
+      "summary": "Get Focuses By Time Range"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "focus",
+      "filename": "create_focus.py",
+      "method": "POST",
+      "name": "create_focus",
+      "path": "/open/v1/focus",
+      "path_params": [],
+      "summary": "Create Focus"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "focus/{focusId}",
+      "filename": "get_focus_by_focus_id.py",
+      "method": "GET",
+      "name": "get_focus_by_focus_id",
+      "path": "/open/v1/focus/{focusId}",
+      "path_params": [
+        [
+          "focus_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Focus By Focus ID"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "focus/{focusId}",
+      "filename": "delete_focus_by_focus_id.py",
+      "method": "DELETE",
+      "name": "delete_focus_by_focus_id",
+      "path": "/open/v1/focus/{focusId}",
+      "path_params": [
+        [
+          "focus_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete Focus"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit",
+      "filename": "get_habit.py",
+      "method": "GET",
+      "name": "get_habit",
+      "path": "/open/v1/habit",
+      "path_params": [],
+      "summary": "Get All Habits"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit",
+      "filename": "create_habit.py",
+      "method": "POST",
+      "name": "create_habit",
+      "path": "/open/v1/habit",
+      "path_params": [],
+      "summary": "Create Habit"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit/checkins",
+      "filename": "get_habit_checkins.py",
+      "method": "GET",
+      "name": "get_habit_checkins",
+      "path": "/open/v1/habit/checkins",
+      "path_params": [],
+      "summary": "Get Habit Check-Ins"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit/sections",
+      "filename": "get_habit_sections.py",
+      "method": "GET",
+      "name": "get_habit_sections",
+      "path": "/open/v1/habit/sections",
+      "path_params": [],
+      "summary": "Get Habit Sections"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit/{habitId}",
+      "filename": "get_habit_by_habit_id.py",
+      "method": "GET",
+      "name": "get_habit_by_habit_id",
+      "path": "/open/v1/habit/{habitId}",
+      "path_params": [
+        [
+          "habit_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Habit By Habit ID"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit/{habitId}",
+      "filename": "create_habit_by_habit_id.py",
+      "method": "POST",
+      "name": "create_habit_by_habit_id",
+      "path": "/open/v1/habit/{habitId}",
+      "path_params": [
+        [
+          "habit_id",
+          "str"
+        ]
+      ],
+      "summary": "Update Habit"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "habit/{habitId}/checkin",
+      "filename": "create_habit_by_habit_id_checkin.py",
+      "method": "POST",
+      "name": "create_habit_by_habit_id_checkin",
+      "path": "/open/v1/habit/{habitId}/checkin",
+      "path_params": [
+        [
+          "habit_id",
+          "str"
+        ]
+      ],
+      "summary": "Create Or Update Habit Check-In"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "preference",
+      "filename": "create_preference.py",
+      "method": "POST",
+      "name": "create_preference",
+      "path": "/open/v1/preference",
+      "path_params": [],
+      "summary": "Get User Preferences"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project",
+      "filename": "get_project.py",
+      "method": "GET",
+      "name": "get_project",
+      "path": "/open/v1/project",
+      "path_params": [],
+      "summary": "Get User Project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project",
+      "filename": "create_project.py",
+      "method": "POST",
+      "name": "create_project",
+      "path": "/open/v1/project",
+      "path_params": [],
+      "summary": "Create Project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/group",
+      "filename": "get_project_group.py",
+      "method": "GET",
+      "name": "get_project_group",
+      "path": "/open/v1/project/group",
+      "path_params": [],
+      "summary": "Get Project Groups"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/group",
+      "filename": "create_project_group.py",
+      "method": "POST",
+      "name": "create_project_group",
+      "path": "/open/v1/project/group",
+      "path_params": [],
+      "summary": "Create Project Group"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/group/{projectGroupId}",
+      "filename": "create_project_group_by_project_group_id.py",
+      "method": "POST",
+      "name": "create_project_group_by_project_group_id",
+      "path": "/open/v1/project/group/{projectGroupId}",
+      "path_params": [
+        [
+          "project_group_id",
+          "str"
+        ]
+      ],
+      "summary": "Update Project Group"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/group/{projectGroupId}",
+      "filename": "delete_project_group_by_project_group_id.py",
+      "method": "DELETE",
+      "name": "delete_project_group_by_project_group_id",
+      "path": "/open/v1/project/group/{projectGroupId}",
+      "path_params": [
+        [
+          "project_group_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete Project Group"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}",
+      "filename": "get_project_by_project_id.py",
+      "method": "GET",
+      "name": "get_project_by_project_id",
+      "path": "/open/v1/project/{projectId}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Project By ID"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}",
+      "filename": "create_project_by_project_id.py",
+      "method": "POST",
+      "name": "create_project_by_project_id",
+      "path": "/open/v1/project/{projectId}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Update Project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}",
+      "filename": "delete_project_by_project_id.py",
+      "method": "DELETE",
+      "name": "delete_project_by_project_id",
+      "path": "/open/v1/project/{projectId}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete Project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/column",
+      "filename": "get_project_by_project_id_column.py",
+      "method": "GET",
+      "name": "get_project_by_project_id_column",
+      "path": "/open/v1/project/{projectId}/column",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Columns"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/column",
+      "filename": "create_project_by_project_id_column.py",
+      "method": "POST",
+      "name": "create_project_by_project_id_column",
+      "path": "/open/v1/project/{projectId}/column",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Create Column"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/column/{columnId}",
+      "filename": "create_project_by_project_id_column_by_column_id.py",
+      "method": "POST",
+      "name": "create_project_by_project_id_column_by_column_id",
+      "path": "/open/v1/project/{projectId}/column/{columnId}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "column_id",
+          "str"
+        ]
+      ],
+      "summary": "Update Column"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/data",
+      "filename": "get_project_by_project_id_data.py",
+      "method": "GET",
+      "name": "get_project_by_project_id_data",
+      "path": "/open/v1/project/{projectId}/data",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Project With Data"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/members",
+      "filename": "get_project_by_project_id_members.py",
+      "method": "GET",
+      "name": "get_project_by_project_id_members",
+      "path": "/open/v1/project/{projectId}/members",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Project Members"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/task/{taskId}",
+      "filename": "get_project_by_project_id_task_by_task_id.py",
+      "method": "GET",
+      "name": "get_project_by_project_id_task_by_task_id",
+      "path": "/open/v1/project/{projectId}/task/{taskId}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "task_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Task By Project ID And Task ID"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/task/{taskId}",
+      "filename": "delete_project_by_project_id_task_by_task_id.py",
+      "method": "DELETE",
+      "name": "delete_project_by_project_id_task_by_task_id",
+      "path": "/open/v1/project/{projectId}/task/{taskId}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "task_id",
+          "str"
+        ]
+      ],
+      "summary": "Delete Task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/task/{taskId}/comment",
+      "filename": "create_project_by_project_id_task_by_task_id_comment.py",
+      "method": "POST",
+      "name": "create_project_by_project_id_task_by_task_id_comment",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comment",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "task_id",
+          "str"
+        ]
+      ],
+      "summary": "Add Task Comment"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/task/{taskId}/comment/{id}",
+      "filename": "delete_project_by_project_id_task_by_task_id_comment_by_id.py",
+      "method": "DELETE",
+      "name": "delete_project_by_project_id_task_by_task_id_comment_by_id",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comment/{id}",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "task_id",
+          "str"
+        ],
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "summary": "Delete Task Comment"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/task/{taskId}/comments",
+      "filename": "get_project_by_project_id_task_by_task_id_comments.py",
+      "method": "GET",
+      "name": "get_project_by_project_id_task_by_task_id_comments",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/comments",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "task_id",
+          "str"
+        ]
+      ],
+      "summary": "Get Task Comments"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "project/{projectId}/task/{taskId}/complete",
+      "filename": "create_project_by_project_id_task_by_task_id_complete.py",
+      "method": "POST",
+      "name": "create_project_by_project_id_task_by_task_id_complete",
+      "path": "/open/v1/project/{projectId}/task/{taskId}/complete",
+      "path_params": [
+        [
+          "project_id",
+          "str"
+        ],
+        [
+          "task_id",
+          "str"
+        ]
+      ],
+      "summary": "Complete Task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag",
+      "filename": "get_tag.py",
+      "method": "GET",
+      "name": "get_tag",
+      "path": "/open/v1/tag",
+      "path_params": [],
+      "summary": "Get Tags"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tag",
+      "filename": "create_tag.py",
+      "method": "POST",
+      "name": "create_tag",
+      "path": "/open/v1/tag",
+      "path_params": [],
+      "summary": "Create Tag"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task",
+      "filename": "create_task.py",
+      "method": "POST",
+      "name": "create_task",
+      "path": "/open/v1/task",
+      "path_params": [],
+      "summary": "Create Task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/assign",
+      "filename": "create_task_assign.py",
+      "method": "POST",
+      "name": "create_task_assign",
+      "path": "/open/v1/task/assign",
+      "path_params": [],
+      "summary": "Assign Task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/batch",
+      "filename": "create_task_batch.py",
+      "method": "POST",
+      "name": "create_task_batch",
+      "path": "/open/v1/task/batch",
+      "path_params": [],
+      "summary": "Batch Create or Update Tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/completeTasks",
+      "filename": "create_task_complete_tasks.py",
+      "method": "POST",
+      "name": "create_task_complete_tasks",
+      "path": "/open/v1/task/completeTasks",
+      "path_params": [],
+      "summary": "Complete Multiple Tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/completed",
+      "filename": "create_task_completed.py",
+      "method": "POST",
+      "name": "create_task_completed",
+      "path": "/open/v1/task/completed",
+      "path_params": [],
+      "summary": "List Completed Tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/filter",
+      "filename": "create_task_filter.py",
+      "method": "POST",
+      "name": "create_task_filter",
+      "path": "/open/v1/task/filter",
+      "path_params": [],
+      "summary": "Filter Tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/move",
+      "filename": "create_task_move.py",
+      "method": "POST",
+      "name": "create_task_move",
+      "path": "/open/v1/task/move",
+      "path_params": [],
+      "summary": "Move Task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/search",
+      "filename": "create_task_search.py",
+      "method": "POST",
+      "name": "create_task_search",
+      "path": "/open/v1/task/search",
+      "path_params": [],
+      "summary": "Search Tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/unassign",
+      "filename": "create_task_unassign.py",
+      "method": "POST",
+      "name": "create_task_unassign",
+      "path": "/open/v1/task/unassign",
+      "path_params": [],
+      "summary": "Unassign Task"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/undone",
+      "filename": "create_task_undone.py",
+      "method": "POST",
+      "name": "create_task_undone",
+      "path": "/open/v1/task/undone",
+      "path_params": [],
+      "summary": "List Undone Tasks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "task/{taskId}",
+      "filename": "create_task_by_task_id.py",
+      "method": "POST",
+      "name": "create_task_by_task_id",
+      "path": "/open/v1/task/{taskId}",
+      "path_params": [
+        [
+          "task_id",
+          "str"
+        ]
+      ],
+      "summary": "Update Task"
+    }
+  ],
+  "canonical_count": 46,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": false,
+  "namespace": "ticktick",
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "tool_packs/nexus_tools_ticktick/_generation/ticktick",
+  "skipped": [],
+  "skipped_count": 0,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 0,
+  "spec": "tool_packs/nexus_tools_ticktick/spec/openapi.json",
+  "tools_root": "tool_packs/nexus_tools_ticktick/_generation",
+  "write_mode": true,
+  "written_files": [
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_countdown.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_focus.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_focus.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_focus_by_focus_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/delete_focus_by_focus_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_habit.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_habit.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_habit_checkins.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_habit_sections.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_habit_by_habit_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_habit_by_habit_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_habit_by_habit_id_checkin.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_preference.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_group.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_group.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_group_by_project_group_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/delete_project_group_by_project_group_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_by_project_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_by_project_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/delete_project_by_project_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_by_project_id_column.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_by_project_id_column.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_by_project_id_column_by_column_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_by_project_id_data.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_by_project_id_members.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_by_project_id_task_by_task_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/delete_project_by_project_id_task_by_task_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_by_project_id_task_by_task_id_comment.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/delete_project_by_project_id_task_by_task_id_comment_by_id.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_project_by_project_id_task_by_task_id_comments.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_project_by_project_id_task_by_task_id_complete.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/get_tag.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_tag.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_assign.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_batch.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_complete_tasks.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_completed.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_filter.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_move.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_search.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_unassign.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_undone.py",
+    "tool_packs/nexus_tools_ticktick/_generation/ticktick/create_task_by_task_id.py"
+  ]
+}

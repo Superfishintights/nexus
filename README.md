@@ -1,152 +1,47 @@
-# Nexus MCP Server
+# Nexus
 
-Nexus is a code-mode Model Context Protocol (MCP) server. Core runtime and tool packs are now split for distribution:
+Nexus is a Python MCP gateway with independently installable tool packs. The default branch contains the source used by the running Streamable HTTP service, including its authentication, file staging, tool discovery and execution workers.
 
-- `nexus-core`: MCP server/runtime (`nexus/`)
-- Tool packs: separate Python packages with distinct import roots
+The gateway exposes `run_code`, `search_tools`, `get_tool` and `list_tool_namespaces`. Tool operations remain behind the gateway, so clients can discover the operations they need without loading the whole catalog.
 
-This repo remains a monorepo for development.
+## Run with Docker
 
-## Requirements
+The repository contains the core and all tool-pack sources. No sibling repositories or prebuilt overlay images are required.
 
-- Python `>= 3.10` (see `nexus/pyproject.toml`)
-
-## Install
-
-Install core:
-
-```bash
-pip install -e ./nexus
+```sh
+cp .env.example .env
+mkdir -p secrets state uploads staged-files
+# Edit .env with your own token, endpoints and service credentials.
+docker compose build
+docker compose up -d
 ```
 
-Install only the tool packs you want:
+Compose binds to localhost by default. Change the published address for your own network or reverse proxy. The MCP endpoint is `/mcp`; health checks use `/healthz`. A configured bearer token is required. Store credentials in the excluded `.env` file and `secrets/` directory, never in Git.
 
-```bash
-pip install -e ./tool_packs/nexus_tools_jira
-pip install -e ./tool_packs/nexus_tools_n8n
+The Docker image selects 30 active tool packs. Shared Google helpers and the retired Blackboard pack are available in the source tree; Blackboard is not enabled in the default runtime. See [the source snapshot](docs/running-source.md) for catalog counts and validation.
+
+## Discover and call tools
+
+Use `search_tools` and `get_tool` to inspect operations, or enumerate the lazy `TOOLS` catalog inside `run_code`.
+
+```python
+RESULT = load_tool("waha.get_health")()
 ```
 
-## Configure Tool Discovery
+Each tool pack under `tool_packs/` has its own package metadata and configuration. Install only the packs needed for a smaller deployment. The core also supports stdio through `python -m nexus.server`.
 
-Nexus no longer assumes a built-in `tools` package by default.
-Set `NEXUS_TOOL_PACKAGES` to the installed pack roots:
+## Local installation and checks
 
-```bash
-export NEXUS_TOOL_PACKAGES="nexus_tools_jira,nexus_tools_n8n"
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -c requirements-runtime.txt './nexus[test]' ./tool_packs/nexus_tools_*
+.venv/bin/python -m nexus.selftest
+env -u NEXUS_TOOL_PACKAGES PYTHONPATH="$PWD" .venv/bin/python -m pytest nexus tool_packs --import-mode=importlib \
+  --ignore-glob='*/phase5_tests/*' --ignore-glob='*/nexus_tools_agent_blackboard/*'
 ```
 
-When running from this monorepo, Nexus also bootstraps local `tool_packs/<name>`
-directories onto `sys.path`, so you can point `NEXUS_TOOL_PACKAGES` at the local
-pack roots without separately installing each one.
+The supported offline suite excludes the retired Blackboard pack and historical Phase 5 connector tests. Those tests belong to separate unreleased work and can regenerate source manifests. Some optional integration tests require separately configured services. The runtime dependency constraints record the versions in the source service at synchronization time.
 
-The legacy value `NEXUS_TOOL_PACKAGES=tools` is treated as a compatibility alias
-for all first-party tool packs in the monorepo, but explicit pack names are preferred.
+## Private data
 
-## Run
-
-```bash
-python nexus/server.py
-```
-
-## Execution model
-
-Nexus keeps a small host/runner boundary:
-
-- `nexus/server.py` is the host-facing MCP surface for `search_tools`,
-  `get_tool`, and `run_code`.
-- `nexus/runner.py` prepares snippet globals and reuses a pooled persistent execution worker by default.
-- `nexus/execution_worker.py` runs snippets in subprocess workers that can serve multiple requests before restart.
-- Tool policy and tool loading stay on the Nexus side of the boundary so
-  restricted mode can block arbitrary imports while still allowing approved
-  canonical tool calls.
-- Approved tool calls still consume the snippet's overall execution timeout budget.
-- Approved tool calls execute in short-lived subprocesses, so timed-out tool calls
-  are killed instead of continuing in detached host threads.
-- In pooled mode, waiting for an available worker now counts against the same
-  request timeout budget.
-
-Restricted mode is a hardened convenience surface, not a hostile-code sandbox.
-It blocks direct imports plus common introspection/frame escapes, but a real
-security boundary still requires OS/container isolation.
-
-Set `NEXUS_RUN_CODE_MODE=oneshot` to force the previous spawn-per-call behavior for comparison or debugging.
-
-Persistent-runner tuning knobs:
-
-- `NEXUS_RUN_CODE_MODE=persistent_pool` — default pooled warm workers
-- `NEXUS_RUN_CODE_MODE=persistent` — single warm worker, best for sequential latency
-- `NEXUS_RUN_CODE_MODE=oneshot` — legacy spawn-per-call mode
-- `NEXUS_PERSISTENT_WORKER_POOL_SIZE` — pool size in pooled mode (default `4`)
-- `NEXUS_PERSISTENT_WORKER_MAX_REQUESTS` — recycle a worker after N requests (default `100`)
-- `NEXUS_PERSISTENT_WORKER_IDLE_SECONDS` — recycle a worker after idle time (default `300`)
-
-## Phase-1 benchmark harness
-
-Generate a machine-readable baseline for the current catalog + runner path:
-
-```bash
-python -m nexus.benchmark_phase1 --iterations 5 --warmups 1
-```
-
-This writes a JSON report under `.omx/benchmarks/` by default and gives you a repeatable baseline for:
-
-- catalog listing/search latency,
-- `get_tool` lookup latency,
-- trivial `run_code` latency, and
-- lazy `TOOLS.search(...)` orchestration latency.
-
-## Self-test (stdlib only)
-
-```bash
-python nexus/selftest.py
-python nexus/selftest.py --benchmark
-python nexus/selftest.py --compare-run-modes --benchmark-iterations 5 --benchmark-warmups 1
-```
-
-## Configuration (cross-platform)
-
-Nexus reads settings from:
-
-1) Process environment variables
-2) A `.env` file
-
-Supported `.env` locations (lowest precedence to highest):
-
-- User config:
-  - Linux: `~/.config/nexus/.env` (or `$XDG_CONFIG_HOME/nexus/.env`)
-  - macOS: `~/Library/Application Support/nexus/.env`
-  - Windows: `%APPDATA%\\nexus\\.env`
-- Project-local: `./.env`
-
-Override lookup with `NEXUS_ENV_FILE`.
-
-## Tool Pack Import Roots
-
-Current first-party pack roots:
-
-- `nexus_tools_jira`
-- `nexus_tools_n8n`
-- `nexus_tools_sonarr`
-- `nexus_tools_radarr`
-- `nexus_tools_tautulli`
-- `nexus_tools_starling`
-
-## MCP Client Setup
-
-Nexus is a stdio MCP server. Configure your client to run:
-
-- Command: `python`
-- Args: `nexus/server.py`
-- Working directory: repo root
-
-```json
-{
-  "mcpServers": {
-    "nexus": {
-      "command": "python",
-      "args": ["nexus/server.py"],
-      "cwd": "/absolute/path/to/nexus-repo"
-    }
-  }
-}
-```
+Provider keys, OAuth tokens, account state, uploads and credentials are deployment data. They are excluded from Git and the Docker build context. Examples and unit tests must use synthetic values. This repository does not contain the running service's environment or mounted secret/state directories.

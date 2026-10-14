@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-tools-chaptarr"
+version = "0.1.0"
+description = "Complete Chaptarr API tools for Nexus"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["nexus-core>=0.1.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus_tools_chaptarr*"]
+
+[tool.setuptools.package-data]
+nexus_tools_chaptarr = ["openapi.json", "coverage-manifest.json"]

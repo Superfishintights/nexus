@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-tools-agent-blackboard"
+version = "0.1.0"
+description = "Nexus tool pack: Agent Blackboard"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "nexus-core>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus_tools_agent_blackboard*"]

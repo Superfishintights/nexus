@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-tools-audiobookshelf"
+version = "0.1.0"
+description = "Production Audiobookshelf management tools for Nexus"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "nexus-core>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexus_tools_audiobookshelf*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"
+pythonpath = [".", "../.."]

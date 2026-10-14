@@ -1,0 +1,6720 @@
+{
+  "source_revision": "e67374f4b3fed01bbf08f18672add944062fcb49",
+  "spec_sha256": "1444bc8e56f39a741070b4434a63dea7a18b9ef7e6f0f2fb105a2882a2a352d6",
+  "operations": [
+    {
+      "name": "get",
+      "path": "/",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "path",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_api",
+      "path": "/api",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_author",
+      "path": "/api/v1/author",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_author",
+      "path": "/api/v1/author",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "queueIfUnavailable",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_author_editor",
+      "path": "/api/v1/author/editor",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_author_editor",
+      "path": "/api/v1/author/editor",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_author_import",
+      "path": "/api/v1/author/import",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_author_lookup",
+      "path": "/api/v1/author/lookup",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "term",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_author_by_author_id",
+      "path": "/api/v1/author/{authorId}",
+      "method": "GET",
+      "path_params": [
+        [
+          "author_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_author_by_id",
+      "path": "/api/v1/author/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_author_by_id",
+      "path": "/api/v1/author/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "moveFiles",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_author_by_id",
+      "path": "/api/v1/author/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "deleteFiles",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "addImportListExclusion",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "readdAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_author_by_id_downloadmedia",
+      "path": "/api/v1/author/{id}/downloadmedia",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "forceDownload",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_author_by_id_loadimage",
+      "path": "/api/v1/author/{id}/loadimage",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_author_by_id_monitor_by_media_type",
+      "path": "/api/v1/author/{id}/monitor/{mediaType}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ],
+        [
+          "media_type",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_author_by_id_primaryphoto",
+      "path": "/api/v1/author/{id}/primaryphoto",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_author_by_id_selectedmediatype_by_media_type",
+      "path": "/api/v1/author/{id}/selectedmediatype/{mediaType}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ],
+        [
+          "media_type",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_author_by_id_size_by_media_type",
+      "path": "/api/v1/author/{id}/size/{mediaType}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ],
+        [
+          "media_type",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_blocklist",
+      "path": "/api/v1/blocklist",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_blocklist_bulk",
+      "path": "/api/v1/blocklist/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_blocklist_by_id",
+      "path": "/api/v1/blocklist/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_book",
+      "path": "/api/v1/book",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bookIds",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "titleSlug",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "includeAllAuthorBooks",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "monitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "include",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_book",
+      "path": "/api/v1/book",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_book",
+      "path": "/api/v1/book",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_book_buckets",
+      "path": "/api/v1/book/buckets",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "includeUnmonitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "title"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "ASC"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "downloaded",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "monitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "missing",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "wanted",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_book_editor",
+      "path": "/api/v1/book/editor",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_book_editor",
+      "path": "/api/v1/book/editor",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_book_ids",
+      "path": "/api/v1/book/ids",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "includeUnmonitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "downloaded",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "monitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "missing",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "wanted",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_book_import",
+      "path": "/api/v1/book/import",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_book_lookup",
+      "path": "/api/v1/book/lookup",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "term",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_book_monitor",
+      "path": "/api/v1/book/monitor",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_book_paged",
+      "path": "/api/v1/book/paged",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "offset",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 200
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "cleanTitle"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "ASC"
+          }
+        },
+        {
+          "name": "includeUnmonitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "downloaded",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "monitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "missing",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "wanted",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "include",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_book_by_book_id",
+      "path": "/api/v1/book/{bookId}",
+      "method": "GET",
+      "path_params": [
+        [
+          "book_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_book_by_book_id_siblings",
+      "path": "/api/v1/book/{bookId}/siblings",
+      "method": "GET",
+      "path_params": [
+        [
+          "book_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_book_by_id",
+      "path": "/api/v1/book/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_book_by_id",
+      "path": "/api/v1/book/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_book_by_id",
+      "path": "/api/v1/book/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "deleteFiles",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "addImportListExclusion",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "applyToBothFormats",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_book_by_id_downloadmedia",
+      "path": "/api/v1/book/{id}/downloadmedia",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "forceDownload",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_book_by_id_editions_wanted",
+      "path": "/api/v1/book/{id}/editions/wanted",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_book_by_id_overview",
+      "path": "/api/v1/book/{id}/overview",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_bookfile",
+      "path": "/api/v1/bookfile",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bookFileIds",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        {
+          "name": "unmapped",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_bookfile_bulk",
+      "path": "/api/v1/bookfile/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_bookfile_editor",
+      "path": "/api/v1/bookfile/editor",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_bookfile_by_id",
+      "path": "/api/v1/bookfile/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_bookfile_by_id",
+      "path": "/api/v1/bookfile/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_bookfile_by_id",
+      "path": "/api/v1/bookfile/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_bookshelf",
+      "path": "/api/v1/bookshelf",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_calendar",
+      "path": "/api/v1/calendar",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "start",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        {
+          "name": "end",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        {
+          "name": "unmonitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_calendar_by_id",
+      "path": "/api/v1/calendar/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_command",
+      "path": "/api/v1/command",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_command",
+      "path": "/api/v1/command",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_command_cancel_all",
+      "path": "/api/v1/command/cancel/all",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_command_pause_all",
+      "path": "/api/v1/command/pause/all",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_command_resume_all",
+      "path": "/api/v1/command/resume/all",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_command_by_id",
+      "path": "/api/v1/command/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_command_by_id",
+      "path": "/api/v1/command/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_command_by_id_pause",
+      "path": "/api/v1/command/{id}/pause",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_command_by_id_resume",
+      "path": "/api/v1/command/{id}/resume",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_conversion",
+      "path": "/api/v1/config/conversion",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_conversion_by_id",
+      "path": "/api/v1/config/conversion/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_conversion_by_id",
+      "path": "/api/v1/config/conversion/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_development",
+      "path": "/api/v1/config/development",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_config_development_test",
+      "path": "/api/v1/config/development/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_config_development_by_id",
+      "path": "/api/v1/config/development/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_development_by_id",
+      "path": "/api/v1/config/development/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_downloadclient",
+      "path": "/api/v1/config/downloadclient",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_downloadclient_by_id",
+      "path": "/api/v1/config/downloadclient/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_downloadclient_by_id",
+      "path": "/api/v1/config/downloadclient/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_hardcover",
+      "path": "/api/v1/config/hardcover",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_config_hardcover",
+      "path": "/api/v1/config/hardcover",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_config_hardcover",
+      "path": "/api/v1/config/hardcover",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_host",
+      "path": "/api/v1/config/host",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_config_host_test_proxy",
+      "path": "/api/v1/config/host/test/proxy",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_config_host_by_id",
+      "path": "/api/v1/config/host/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_host_by_id",
+      "path": "/api/v1/config/host/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_indexer",
+      "path": "/api/v1/config/indexer",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_indexer_by_id",
+      "path": "/api/v1/config/indexer/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_indexer_by_id",
+      "path": "/api/v1/config/indexer/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_mediamanagement",
+      "path": "/api/v1/config/mediamanagement",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_mediamanagement_by_id",
+      "path": "/api/v1/config/mediamanagement/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_mediamanagement_by_id",
+      "path": "/api/v1/config/mediamanagement/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_metadataprovider",
+      "path": "/api/v1/config/metadataprovider",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_metadataprovider_by_id",
+      "path": "/api/v1/config/metadataprovider/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_metadataprovider_by_id",
+      "path": "/api/v1/config/metadataprovider/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_naming",
+      "path": "/api/v1/config/naming",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_config_naming_pattern_compile",
+      "path": "/api/v1/config/naming-pattern/compile",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_config_naming_pattern_decompile",
+      "path": "/api/v1/config/naming-pattern/decompile",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_config_naming_pattern_preview",
+      "path": "/api/v1/config/naming-pattern/preview",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_config_naming_pattern_validate",
+      "path": "/api/v1/config/naming-pattern/validate",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_naming_examples",
+      "path": "/api/v1/config/naming/examples",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "renameBooks",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "replaceIllegalCharacters",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "colonReplacementFormat",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "standardBookFormat",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "authorFolderFormat",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "ebookRenameBooks",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "ebookReplaceIllegalCharacters",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "ebookColonReplacementFormat",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "ebookStandardBookFormat",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "ebookAuthorFolderFormat",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "includeAuthorName",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "includeBookTitle",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "includeQuality",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "replaceSpaces",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "separator",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "numberStyle",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "id",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "resourceName",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "audiobook"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_naming_by_id",
+      "path": "/api/v1/config/naming/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_naming_by_id",
+      "path": "/api/v1/config/naming/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_config_ui",
+      "path": "/api/v1/config/ui",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_config_ui_by_id",
+      "path": "/api/v1/config/ui/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_config_ui_by_id",
+      "path": "/api/v1/config/ui/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_customfilter",
+      "path": "/api/v1/customfilter",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_customfilter",
+      "path": "/api/v1/customfilter",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_customfilter_by_id",
+      "path": "/api/v1/customfilter/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_customfilter_by_id",
+      "path": "/api/v1/customfilter/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_customfilter_by_id",
+      "path": "/api/v1/customfilter/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_customformat",
+      "path": "/api/v1/customformat",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_customformat",
+      "path": "/api/v1/customformat",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_customformat_schema",
+      "path": "/api/v1/customformat/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_customformat_by_id",
+      "path": "/api/v1/customformat/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_customformat_by_id",
+      "path": "/api/v1/customformat/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_customformat_by_id",
+      "path": "/api/v1/customformat/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_delayprofile",
+      "path": "/api/v1/delayprofile",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_delayprofile",
+      "path": "/api/v1/delayprofile",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "update_delayprofile_reorder_by_id",
+      "path": "/api/v1/delayprofile/reorder/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "afterId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_delayprofile_by_id",
+      "path": "/api/v1/delayprofile/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_delayprofile_by_id",
+      "path": "/api/v1/delayprofile/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_delayprofile_by_id",
+      "path": "/api/v1/delayprofile/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_diskspace",
+      "path": "/api/v1/diskspace",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_downloadclient",
+      "path": "/api/v1/downloadclient",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_downloadclient",
+      "path": "/api/v1/downloadclient",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_downloadclient_action_by_name",
+      "path": "/api/v1/downloadclient/action/{name}",
+      "method": "POST",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "update_downloadclient_bulk",
+      "path": "/api/v1/downloadclient/bulk",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_downloadclient_bulk",
+      "path": "/api/v1/downloadclient/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_downloadclient_schema",
+      "path": "/api/v1/downloadclient/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_downloadclient_test",
+      "path": "/api/v1/downloadclient/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceTest",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_downloadclient_testall",
+      "path": "/api/v1/downloadclient/testall",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_downloadclient_by_id",
+      "path": "/api/v1/downloadclient/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_downloadclient_by_id",
+      "path": "/api/v1/downloadclient/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_downloadclient_by_id",
+      "path": "/api/v1/downloadclient/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_edition",
+      "path": "/api/v1/edition",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_filesystem",
+      "path": "/api/v1/filesystem",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "path",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "includeFiles",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "allowFoldersWithoutTrailingSlashes",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_filesystem_mediafiles",
+      "path": "/api/v1/filesystem/mediafiles",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "path",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_filesystem_type",
+      "path": "/api/v1/filesystem/type",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "path",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_health",
+      "path": "/api/v1/health",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_history",
+      "path": "/api/v1/history",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "includeBook",
+          "in": "query",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "eventType",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "downloadId",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_history_author",
+      "path": "/api/v1/history/author",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "eventType",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/EntityHistoryEventType"
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeBook",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_history_failed_by_id",
+      "path": "/api/v1/history/failed/{id}",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_history_since",
+      "path": "/api/v1/history/since",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "date",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        {
+          "name": "eventType",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/EntityHistoryEventType"
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeBook",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_ignored",
+      "path": "/api/v1/ignored",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_ignored_bulk",
+      "path": "/api/v1/ignored/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_ignored_by_id",
+      "path": "/api/v1/ignored/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_importlist",
+      "path": "/api/v1/importlist",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_importlist",
+      "path": "/api/v1/importlist",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_importlist_action_by_name",
+      "path": "/api/v1/importlist/action/{name}",
+      "method": "POST",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "update_importlist_bulk",
+      "path": "/api/v1/importlist/bulk",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_importlist_bulk",
+      "path": "/api/v1/importlist/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_importlist_schema",
+      "path": "/api/v1/importlist/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_importlist_test",
+      "path": "/api/v1/importlist/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceTest",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_importlist_testall",
+      "path": "/api/v1/importlist/testall",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_importlist_by_id",
+      "path": "/api/v1/importlist/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_importlist_by_id",
+      "path": "/api/v1/importlist/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_importlist_by_id",
+      "path": "/api/v1/importlist/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_importlistexclusion",
+      "path": "/api/v1/importlistexclusion",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_importlistexclusion",
+      "path": "/api/v1/importlistexclusion",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_importlistexclusion_bulk",
+      "path": "/api/v1/importlistexclusion/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_importlistexclusion_by_id",
+      "path": "/api/v1/importlistexclusion/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_importlistexclusion_by_id",
+      "path": "/api/v1/importlistexclusion/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_importlistexclusion_by_id",
+      "path": "/api/v1/importlistexclusion/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_indexer",
+      "path": "/api/v1/indexer",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_indexer",
+      "path": "/api/v1/indexer",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_indexer_action_by_name",
+      "path": "/api/v1/indexer/action/{name}",
+      "method": "POST",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "update_indexer_bulk",
+      "path": "/api/v1/indexer/bulk",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_indexer_bulk",
+      "path": "/api/v1/indexer/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_indexer_schema",
+      "path": "/api/v1/indexer/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_indexer_test",
+      "path": "/api/v1/indexer/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceTest",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_indexer_testall",
+      "path": "/api/v1/indexer/testall",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_indexer_by_id",
+      "path": "/api/v1/indexer/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_indexer_by_id",
+      "path": "/api/v1/indexer/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_indexer_by_id",
+      "path": "/api/v1/indexer/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_indexerflag",
+      "path": "/api/v1/indexerflag",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_language",
+      "path": "/api/v1/language",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_language_by_id",
+      "path": "/api/v1/language/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_library_search",
+      "path": "/api/v1/library/search",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "term",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_localization",
+      "path": "/api/v1/localization",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_log",
+      "path": "/api/v1/log",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        },
+        {
+          "name": "level",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_log_file",
+      "path": "/api/v1/log/file",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_log_file_update",
+      "path": "/api/v1/log/file/update",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_log_file_update_by_filename",
+      "path": "/api/v1/log/file/update/{filename}",
+      "method": "GET",
+      "path_params": [
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "pattern": "[-.a-zA-Z0-9]+?\\.txt",
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_log_file_by_filename",
+      "path": "/api/v1/log/file/{filename}",
+      "method": "GET",
+      "path_params": [
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "pattern": "[-.a-zA-Z0-9]+?\\.txt",
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_manualimport",
+      "path": "/api/v1/manualimport",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "folder",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "downloadId",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "filterExistingFiles",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "replaceExistingFiles",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "bookFileIds",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_manualimport",
+      "path": "/api/v1/manualimport",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_matchinglog_preview",
+      "path": "/api/v1/matchinglog/preview",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_mediacover_author_by_author_id_by_filename",
+      "path": "/api/v1/mediacover/author/{authorId}/{filename}",
+      "method": "GET",
+      "path_params": [
+        [
+          "author_id",
+          "int"
+        ],
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_mediacover_book_by_book_id_by_filename",
+      "path": "/api/v1/mediacover/book/{bookId}/{filename}",
+      "method": "GET",
+      "path_params": [
+        [
+          "book_id",
+          "int"
+        ],
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_mediacover_books_by_book_id_by_filename",
+      "path": "/api/v1/mediacover/books/{bookId}/{filename}",
+      "method": "GET",
+      "path_params": [
+        [
+          "book_id",
+          "int"
+        ],
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_mediacover_by_author_id_by_filename",
+      "path": "/api/v1/mediacover/{authorId}/{filename}",
+      "method": "GET",
+      "path_params": [
+        [
+          "author_id",
+          "int"
+        ],
+        [
+          "filename",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_metadata",
+      "path": "/api/v1/metadata",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_metadata",
+      "path": "/api/v1/metadata",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_metadata_action_by_name",
+      "path": "/api/v1/metadata/action/{name}",
+      "method": "POST",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_metadata_schema",
+      "path": "/api/v1/metadata/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_metadata_test",
+      "path": "/api/v1/metadata/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceTest",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_metadata_testall",
+      "path": "/api/v1/metadata/testall",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_metadata_by_id",
+      "path": "/api/v1/metadata/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_metadata_by_id",
+      "path": "/api/v1/metadata/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_metadata_by_id",
+      "path": "/api/v1/metadata/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_metadataprofile",
+      "path": "/api/v1/metadataprofile",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_metadataprofile",
+      "path": "/api/v1/metadataprofile",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_metadataprofile_languages",
+      "path": "/api/v1/metadataprofile/languages",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_metadataprofile_schema",
+      "path": "/api/v1/metadataprofile/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_metadataprofile_by_id",
+      "path": "/api/v1/metadataprofile/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_metadataprofile_by_id",
+      "path": "/api/v1/metadataprofile/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_metadataprofile_by_id",
+      "path": "/api/v1/metadataprofile/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_notification",
+      "path": "/api/v1/notification",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_notification",
+      "path": "/api/v1/notification",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_notification_action_by_name",
+      "path": "/api/v1/notification/action/{name}",
+      "method": "POST",
+      "path_params": [
+        [
+          "name",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_notification_bulk",
+      "path": "/api/v1/notification/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_notification_schema",
+      "path": "/api/v1/notification/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_notification_test",
+      "path": "/api/v1/notification/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "forceTest",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_notification_testall",
+      "path": "/api/v1/notification/testall",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_notification_by_id",
+      "path": "/api/v1/notification/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_notification_by_id",
+      "path": "/api/v1/notification/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "forceSave",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "delete_notification_by_id",
+      "path": "/api/v1/notification/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_parse",
+      "path": "/api/v1/parse",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "title",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_pendingauthorimport",
+      "path": "/api/v1/pendingauthorimport",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_pendingauthorimport_author_exists_by_provider_id",
+      "path": "/api/v1/pendingauthorimport/author/exists/{providerId}",
+      "method": "GET",
+      "path_params": [
+        [
+          "provider_id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "providerId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_pendingauthorimport_author_queue",
+      "path": "/api/v1/pendingauthorimport/author/queue",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_pendingauthorimport_profiles_options",
+      "path": "/api/v1/pendingauthorimport/profiles/options",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_pendingauthorimport_by_id",
+      "path": "/api/v1/pendingauthorimport/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_pendingauthorimport_by_id",
+      "path": "/api/v1/pendingauthorimport/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_pendingauthorimport_by_id_retry",
+      "path": "/api/v1/pendingauthorimport/{id}/retry",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_qualitydefinition",
+      "path": "/api/v1/qualitydefinition",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "update_qualitydefinition_update",
+      "path": "/api/v1/qualitydefinition/update",
+      "method": "PUT",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_qualitydefinition_by_id",
+      "path": "/api/v1/qualitydefinition/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_qualitydefinition_by_id",
+      "path": "/api/v1/qualitydefinition/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_qualityprofile",
+      "path": "/api/v1/qualityprofile",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_qualityprofile",
+      "path": "/api/v1/qualityprofile",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_qualityprofile_schema",
+      "path": "/api/v1/qualityprofile/schema",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_qualityprofile_by_id",
+      "path": "/api/v1/qualityprofile/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_qualityprofile_by_id",
+      "path": "/api/v1/qualityprofile/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_qualityprofile_by_id",
+      "path": "/api/v1/qualityprofile/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_queue",
+      "path": "/api/v1/queue",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        },
+        {
+          "name": "includeUnknownAuthorItems",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeBook",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_queue_bulk",
+      "path": "/api/v1/queue/bulk",
+      "method": "DELETE",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "removeFromClient",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "blocklist",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "skipRedownload",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "changeCategory",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_queue_cancelconversion_by_id",
+      "path": "/api/v1/queue/cancelconversion/{id}",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_queue_details",
+      "path": "/api/v1/queue/details",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bookIds",
+          "in": "query",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeBook",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_queue_grab_bulk",
+      "path": "/api/v1/queue/grab/bulk",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "create_queue_grab_by_id",
+      "path": "/api/v1/queue/grab/{id}",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_queue_status",
+      "path": "/api/v1/queue/status",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_queue_by_id",
+      "path": "/api/v1/queue/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "removeFromClient",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "blocklist",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "skipRedownload",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "changeCategory",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_release",
+      "path": "/api/v1/release",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bypassFilters",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_release",
+      "path": "/api/v1/release",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_release_push",
+      "path": "/api/v1/release/push",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_releaseprofile",
+      "path": "/api/v1/releaseprofile",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_releaseprofile",
+      "path": "/api/v1/releaseprofile",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_releaseprofile_by_id",
+      "path": "/api/v1/releaseprofile/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_releaseprofile_by_id",
+      "path": "/api/v1/releaseprofile/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_releaseprofile_by_id",
+      "path": "/api/v1/releaseprofile/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_remotepathmapping",
+      "path": "/api/v1/remotepathmapping",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_remotepathmapping",
+      "path": "/api/v1/remotepathmapping",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_remotepathmapping_suggestions",
+      "path": "/api/v1/remotepathmapping/suggestions",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "downloadClientId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0
+          }
+        },
+        {
+          "name": "host",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_remotepathmapping_test",
+      "path": "/api/v1/remotepathmapping/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json"
+      ]
+    },
+    {
+      "name": "get_remotepathmapping_by_id",
+      "path": "/api/v1/remotepathmapping/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_remotepathmapping_by_id",
+      "path": "/api/v1/remotepathmapping/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_remotepathmapping_by_id",
+      "path": "/api/v1/remotepathmapping/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_rename",
+      "path": "/api/v1/rename",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "moveToCanonicalAuthorFolder",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_retag",
+      "path": "/api/v1/retag",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "bookId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_rootfolder",
+      "path": "/api/v1/rootfolder",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_rootfolder",
+      "path": "/api/v1/rootfolder",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_rootfolder_by_id",
+      "path": "/api/v1/rootfolder/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_rootfolder_by_id",
+      "path": "/api/v1/rootfolder/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_rootfolder_by_id",
+      "path": "/api/v1/rootfolder/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_rootfolder_by_id_link_author",
+      "path": "/api/v1/rootfolder/{id}/link-author",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_search",
+      "path": "/api/v1/search",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "term",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "provider",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_series",
+      "path": "/api/v1/series",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "authorId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_series_add",
+      "path": "/api/v1/series/add",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_series_lookup",
+      "path": "/api/v1/series/lookup",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "foreignSeriesId",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "provider",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "hardcover"
+          }
+        },
+        {
+          "name": "metadataProfileId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "primaryWorkCount",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_series_by_series_id",
+      "path": "/api/v1/series/{seriesId}",
+      "method": "GET",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_series_by_series_id_narrators",
+      "path": "/api/v1/series/{seriesId}/narrators",
+      "method": "GET",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "create_series_by_series_id_narrators_discover",
+      "path": "/api/v1/series/{seriesId}/narrators/discover",
+      "method": "POST",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_series_by_series_id_narrators_inheritance",
+      "path": "/api/v1/series/{seriesId}/narrators/inheritance",
+      "method": "GET",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_series_by_series_id_narrators_preferred",
+      "path": "/api/v1/series/{seriesId}/narrators/preferred",
+      "method": "PUT",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_series_by_series_id_narrators_search",
+      "path": "/api/v1/series/{seriesId}/narrators/search",
+      "method": "POST",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_series_by_series_id_variants",
+      "path": "/api/v1/series/{seriesId}/variants",
+      "method": "GET",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_series_by_series_id_variants_by_variant_id",
+      "path": "/api/v1/series/{seriesId}/variants/{variantId}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "series_id",
+          "int"
+        ],
+        [
+          "variant_id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "seriesId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "variantId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_settings_proxy",
+      "path": "/api/v1/settings/proxy",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_settings_proxy",
+      "path": "/api/v1/settings/proxy",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_settings_proxy_test",
+      "path": "/api/v1/settings/proxy/test",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_settings_proxy_by_id",
+      "path": "/api/v1/settings/proxy/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_settings_proxy_by_id",
+      "path": "/api/v1/settings/proxy/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_settings_proxy_by_id",
+      "path": "/api/v1/settings/proxy/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_backup",
+      "path": "/api/v1/system/backup",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_system_backup_restore_upload",
+      "path": "/api/v1/system/backup/restore/upload",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_system_backup_restore_by_id",
+      "path": "/api/v1/system/backup/restore/{id}",
+      "method": "POST",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "delete_system_backup_by_id",
+      "path": "/api/v1/system/backup/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_proxy_debug",
+      "path": "/api/v1/system/proxy/debug",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_system_reset",
+      "path": "/api/v1/system/reset",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_system_restart",
+      "path": "/api/v1/system/restart",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_routes",
+      "path": "/api/v1/system/routes",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_routes_duplicate",
+      "path": "/api/v1/system/routes/duplicate",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_system_settingsbackup_create",
+      "path": "/api/v1/system/settingsbackup/create",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_system_settingsbackup_files",
+      "path": "/api/v1/system/settingsbackup/files",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "rootFolder",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_settingsbackup_locations",
+      "path": "/api/v1/system/settingsbackup/locations",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_system_settingsbackup_restore",
+      "path": "/api/v1/system/settingsbackup/restore",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "create_system_shutdown",
+      "path": "/api/v1/system/shutdown",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_statistics",
+      "path": "/api/v1/system/statistics",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "all"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_status",
+      "path": "/api/v1/system/status",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_task",
+      "path": "/api/v1/system/task",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_system_task_by_id",
+      "path": "/api/v1/system/task/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_tag",
+      "path": "/api/v1/tag",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_tag",
+      "path": "/api/v1/tag",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "get_tag_detail",
+      "path": "/api/v1/tag/detail",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_tag_detail_by_id",
+      "path": "/api/v1/tag/detail/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_tag_by_id",
+      "path": "/api/v1/tag/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "update_tag_by_id",
+      "path": "/api/v1/tag/{id}",
+      "method": "PUT",
+      "path_params": [
+        [
+          "id",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "application/json",
+        "text/json",
+        "application/*+json"
+      ]
+    },
+    {
+      "name": "delete_tag_by_id",
+      "path": "/api/v1/tag/{id}",
+      "method": "DELETE",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_update",
+      "path": "/api/v1/update",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_wanted_cutoff",
+      "path": "/api/v1/wanted/cutoff",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "monitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_wanted_cutoff_by_id",
+      "path": "/api/v1/wanted/cutoff/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_wanted_missing",
+      "path": "/api/v1/wanted/missing",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
+        },
+        {
+          "name": "sortKey",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "sortDirection",
+          "in": "query",
+          "schema": {
+            "$ref": "#/components/schemas/SortDirection"
+          }
+        },
+        {
+          "name": "includeAuthor",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "monitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        {
+          "name": "mediaType",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_wanted_missing_by_id",
+      "path": "/api/v1/wanted/missing/{id}",
+      "method": "GET",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_auth_oidc",
+      "path": "/auth/oidc",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "returnUrl",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_auth_plex",
+      "path": "/auth/plex",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "returnUrl",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_auth_plex_callback",
+      "path": "/auth/plex/callback",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "state",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_content_by_path",
+      "path": "/content/{path}",
+      "method": "GET",
+      "path_params": [
+        [
+          "path",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "path",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "pattern": "^(?!api(/|$)).*",
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_feed_v1_calendar_chaptarr_ics",
+      "path": "/feed/v1/calendar/chaptarr.ics",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "pastDays",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 7
+          }
+        },
+        {
+          "name": "futureDays",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 28
+          }
+        },
+        {
+          "name": "tags",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        {
+          "name": "tagList",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        {
+          "name": "unmonitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_feed_v1_calendar_readarr_ics",
+      "path": "/feed/v1/calendar/readarr.ics",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "pastDays",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 7
+          }
+        },
+        {
+          "name": "futureDays",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "default": 28
+          }
+        },
+        {
+          "name": "tags",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        {
+          "name": "tagList",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        {
+          "name": "unmonitored",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "request_content_types": []
+    },
+    {
+      "name": "get_login",
+      "path": "/login",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "create_login",
+      "path": "/login",
+      "method": "POST",
+      "path_params": [],
+      "parameters": [
+        {
+          "name": "returnUrl",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": [
+        "multipart/form-data"
+      ]
+    },
+    {
+      "name": "get_logout",
+      "path": "/logout",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_ping",
+      "path": "/ping",
+      "method": "GET",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "head_ping",
+      "path": "/ping",
+      "method": "HEAD",
+      "path_params": [],
+      "parameters": [],
+      "request_content_types": []
+    },
+    {
+      "name": "get_by_path",
+      "path": "/{path}",
+      "method": "GET",
+      "path_params": [
+        [
+          "path",
+          "str"
+        ]
+      ],
+      "parameters": [
+        {
+          "name": "path",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "pattern": "^(?!(api|feed)(/|$)).*",
+            "type": "string"
+          }
+        }
+      ],
+      "request_content_types": []
+    }
+  ]
+}

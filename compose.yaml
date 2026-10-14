@@ -1,0 +1,35 @@
+services:
+  nexus:
+    image: nexus-http:local
+    build:
+      context: .
+      network: host
+    env_file:
+      - .env
+    environment:
+      NEXUS_HTTP_HOST: 0.0.0.0
+      NEXUS_HTTP_PORT: "8000"
+      NEXUS_HTTP_PATH: /mcp
+      GOOGLE_CLIENT_CONFIG_FILE: /run/nexus-secrets/google-client.json
+      GOOGLE_TOKEN_FILE: /run/nexus-state/google/google-token.json
+      WAHA_API_KEY_FILE: /run/nexus-secrets/waha_api_key
+      WAHA_CONTROL_API_KEY_FILE: /run/nexus-secrets/waha_control_api_key
+      VAULTWARDEN_PASSWORD_FILE: /run/nexus-secrets/vaultwarden-master-password
+      VAULTWARDEN_XDG_CONFIG_HOME: /run/nexus-state/xdg
+      VAULTWARDEN_AUDIT_FILE: /run/nexus-state/vaultwarden/audit.jsonl
+      AUDIOBOOKSHELF_UPLOAD_ROOTS: /work/uploads
+      NEXUS_FILE_STAGING_ROOT: /work/staged-files
+    volumes:
+      - ./secrets:/run/nexus-secrets:ro
+      - ./state:/run/nexus-state
+      - ./uploads:/work/uploads:ro
+      - ./staged-files:/work/staged-files
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped

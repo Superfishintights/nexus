@@ -11,14 +11,21 @@ from .client import get_client
     description="Retrieve details of a specific n8n execution.",
     examples=["n8n.get_execution(\"123\")"],
 )
-def get_execution(execution_id: str) -> Dict[str, Any]:
+def get_execution(
+    execution_id: str,
+    include_data: bool = False,
+) -> Dict[str, Any]:
     """Retrieve details of a specific n8n execution.
 
     Args:
         execution_id: The ID of the execution to retrieve.
+        include_data: Include node run data and error details when true.
 
     Returns:
         Dictionary containing the execution details.
     """
     client = get_client()
-    return client._make_request(f"executions/{execution_id}")
+    return client._make_request(
+        f"executions/{execution_id}",
+        query_params={"includeData": str(include_data).lower()},
+    )

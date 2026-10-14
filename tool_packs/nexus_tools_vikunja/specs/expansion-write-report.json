@@ -1,0 +1,482 @@
+{
+  "api_prefix": "/api/v2",
+  "canonical": [
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filters",
+      "filename": "create_filters.py",
+      "method": "POST",
+      "name": "create_filters",
+      "path": "/api/v2/filters",
+      "path_params": [],
+      "summary": "Create a saved filter"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filters/{filter}",
+      "filename": "get_filters_by_filter.py",
+      "method": "GET",
+      "name": "get_filters_by_filter",
+      "path": "/api/v2/filters/{filter}",
+      "path_params": [
+        [
+          "filter",
+          "int"
+        ]
+      ],
+      "summary": "Get a saved filter"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filters/{filter}",
+      "filename": "update_filters_by_filter.py",
+      "method": "PUT",
+      "name": "update_filters_by_filter",
+      "path": "/api/v2/filters/{filter}",
+      "path_params": [
+        [
+          "filter",
+          "int"
+        ]
+      ],
+      "summary": "Update a saved filter"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "filters/{filter}",
+      "filename": "delete_filters_by_filter.py",
+      "method": "DELETE",
+      "name": "delete_filters_by_filter",
+      "path": "/api/v2/filters/{filter}",
+      "path_params": [
+        [
+          "filter",
+          "int"
+        ]
+      ],
+      "summary": "Delete a saved filter"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/webhooks",
+      "filename": "get_projects_by_project_webhooks.py",
+      "method": "GET",
+      "name": "get_projects_by_project_webhooks",
+      "path": "/api/v2/projects/{project}/webhooks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "List a project's webhooks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/webhooks",
+      "filename": "create_projects_by_project_webhooks.py",
+      "method": "POST",
+      "name": "create_projects_by_project_webhooks",
+      "path": "/api/v2/projects/{project}/webhooks",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ]
+      ],
+      "summary": "Create a webhook target in a project"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/webhooks/{webhook}",
+      "filename": "update_projects_by_project_webhooks_by_webhook.py",
+      "method": "PUT",
+      "name": "update_projects_by_project_webhooks_by_webhook",
+      "path": "/api/v2/projects/{project}/webhooks/{webhook}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "webhook",
+          "int"
+        ]
+      ],
+      "summary": "Update a webhook target's events"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "projects/{project}/webhooks/{webhook}",
+      "filename": "delete_projects_by_project_webhooks_by_webhook.py",
+      "method": "DELETE",
+      "name": "delete_projects_by_project_webhooks_by_webhook",
+      "path": "/api/v2/projects/{project}/webhooks/{webhook}",
+      "path_params": [
+        [
+          "project",
+          "int"
+        ],
+        [
+          "webhook",
+          "int"
+        ]
+      ],
+      "summary": "Delete a webhook target"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/attachments",
+      "filename": "get_tasks_by_task_attachments.py",
+      "method": "GET",
+      "name": "get_tasks_by_task_attachments",
+      "path": "/api/v2/tasks/{task}/attachments",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ]
+      ],
+      "summary": "List a task's attachments"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "tasks/{task}/attachments/{attachment}",
+      "filename": "delete_tasks_by_task_attachments_by_attachment.py",
+      "method": "DELETE",
+      "name": "delete_tasks_by_task_attachments_by_attachment",
+      "path": "/api/v2/tasks/{task}/attachments/{attachment}",
+      "path_params": [
+        [
+          "task",
+          "int"
+        ],
+        [
+          "attachment",
+          "int"
+        ]
+      ],
+      "summary": "Delete a task attachment"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams",
+      "filename": "get_teams.py",
+      "method": "GET",
+      "name": "get_teams",
+      "path": "/api/v2/teams",
+      "path_params": [],
+      "summary": "List teams"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams",
+      "filename": "create_teams.py",
+      "method": "POST",
+      "name": "create_teams",
+      "path": "/api/v2/teams",
+      "path_params": [],
+      "summary": "Create a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams/{id}",
+      "filename": "get_teams_by_id.py",
+      "method": "GET",
+      "name": "get_teams_by_id",
+      "path": "/api/v2/teams/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Get a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams/{id}",
+      "filename": "update_teams_by_id.py",
+      "method": "PUT",
+      "name": "update_teams_by_id",
+      "path": "/api/v2/teams/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Update a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams/{id}",
+      "filename": "delete_teams_by_id.py",
+      "method": "DELETE",
+      "name": "delete_teams_by_id",
+      "path": "/api/v2/teams/{id}",
+      "path_params": [
+        [
+          "id",
+          "int"
+        ]
+      ],
+      "summary": "Delete a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams/{team}/members",
+      "filename": "create_teams_by_team_members.py",
+      "method": "POST",
+      "name": "create_teams_by_team_members",
+      "path": "/api/v2/teams/{team}/members",
+      "path_params": [
+        [
+          "team",
+          "int"
+        ]
+      ],
+      "summary": "Add a member to a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams/{team}/members/{user}",
+      "filename": "delete_teams_by_team_members_by_user.py",
+      "method": "DELETE",
+      "name": "delete_teams_by_team_members_by_user",
+      "path": "/api/v2/teams/{team}/members/{user}",
+      "path_params": [
+        [
+          "team",
+          "int"
+        ],
+        [
+          "user",
+          "str"
+        ]
+      ],
+      "summary": "Remove a member from a team"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "teams/{team}/members/{user}/admin",
+      "filename": "create_teams_by_team_members_by_user_admin.py",
+      "method": "POST",
+      "name": "create_teams_by_team_members_by_user_admin",
+      "path": "/api/v2/teams/{team}/members/{user}/admin",
+      "path_params": [
+        [
+          "team",
+          "int"
+        ],
+        [
+          "user",
+          "str"
+        ]
+      ],
+      "summary": "Toggle a team member's admin status"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/webhooks",
+      "filename": "get_user_settings_webhooks.py",
+      "method": "GET",
+      "name": "get_user_settings_webhooks",
+      "path": "/api/v2/user/settings/webhooks",
+      "path_params": [],
+      "summary": "List the current user's webhooks"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/webhooks",
+      "filename": "create_user_settings_webhooks.py",
+      "method": "POST",
+      "name": "create_user_settings_webhooks",
+      "path": "/api/v2/user/settings/webhooks",
+      "path_params": [],
+      "summary": "Create a webhook for the current user"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/webhooks/events",
+      "filename": "get_user_settings_webhooks_events.py",
+      "method": "GET",
+      "name": "get_user_settings_webhooks_events",
+      "path": "/api/v2/user/settings/webhooks/events",
+      "path_params": [],
+      "summary": "List available user-directed webhook events"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/webhooks/{webhook}",
+      "filename": "update_user_settings_webhooks_by_webhook.py",
+      "method": "PUT",
+      "name": "update_user_settings_webhooks_by_webhook",
+      "path": "/api/v2/user/settings/webhooks/{webhook}",
+      "path_params": [
+        [
+          "webhook",
+          "int"
+        ]
+      ],
+      "summary": "Update a user webhook's events"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "user/settings/webhooks/{webhook}",
+      "filename": "delete_user_settings_webhooks_by_webhook.py",
+      "method": "DELETE",
+      "name": "delete_user_settings_webhooks_by_webhook",
+      "path": "/api/v2/user/settings/webhooks/{webhook}",
+      "path_params": [
+        [
+          "webhook",
+          "int"
+        ]
+      ],
+      "summary": "Delete a user webhook"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "webhooks/events",
+      "filename": "get_webhooks_events.py",
+      "method": "GET",
+      "name": "get_webhooks_events",
+      "path": "/api/v2/webhooks/events",
+      "path_params": [],
+      "summary": "List available webhook events"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "{entitykind}/{entityid}/reactions",
+      "filename": "get_by_entitykind_by_entityid_reactions.py",
+      "method": "GET",
+      "name": "get_by_entitykind_by_entityid_reactions",
+      "path": "/api/v2/{entitykind}/{entityid}/reactions",
+      "path_params": [
+        [
+          "entitykind",
+          "str"
+        ],
+        [
+          "entityid",
+          "int"
+        ]
+      ],
+      "summary": "List reactions for an entity"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "{entitykind}/{entityid}/reactions",
+      "filename": "create_by_entitykind_by_entityid_reactions.py",
+      "method": "POST",
+      "name": "create_by_entitykind_by_entityid_reactions",
+      "path": "/api/v2/{entitykind}/{entityid}/reactions",
+      "path_params": [
+        [
+          "entitykind",
+          "str"
+        ],
+        [
+          "entityid",
+          "int"
+        ]
+      ],
+      "summary": "React to an entity"
+    },
+    {
+      "api_path_override": null,
+      "deprecated": false,
+      "endpoint": "{entitykind}/{entityid}/reactions/delete",
+      "filename": "create_by_entitykind_by_entityid_reactions_delete.py",
+      "method": "POST",
+      "name": "create_by_entitykind_by_entityid_reactions_delete",
+      "path": "/api/v2/{entitykind}/{entityid}/reactions/delete",
+      "path_params": [
+        [
+          "entitykind",
+          "str"
+        ],
+        [
+          "entityid",
+          "int"
+        ]
+      ],
+      "summary": "Remove a reaction from an entity"
+    }
+  ],
+  "canonical_count": 27,
+  "collision_count": 0,
+  "collisions": {},
+  "deprecated_placeholder_count": 0,
+  "deprecated_placeholders": [],
+  "extra_paths": [],
+  "guardrail_failures": [],
+  "include_nonprefix_paths": false,
+  "namespace": "vikunja",
+  "pycompile_errors": [],
+  "removed_files": [],
+  "service_dir": "tool_packs/nexus_tools_vikunja/.expansion/vikunja",
+  "skipped": [],
+  "skipped_count": 0,
+  "skipped_out_of_scope_count": 0,
+  "skipped_unsupported_count": 0,
+  "spec": "tool_packs/nexus_tools_vikunja/specs/expansion-scoped-v2.json",
+  "tools_root": "tool_packs/nexus_tools_vikunja/.expansion",
+  "write_mode": true,
+  "written_files": [
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_filters.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_filters_by_filter.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/update_filters_by_filter.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/delete_filters_by_filter.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_projects_by_project_webhooks.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_projects_by_project_webhooks.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/update_projects_by_project_webhooks_by_webhook.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/delete_projects_by_project_webhooks_by_webhook.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_tasks_by_task_attachments.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/delete_tasks_by_task_attachments_by_attachment.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_teams.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_teams.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_teams_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/update_teams_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/delete_teams_by_id.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_teams_by_team_members.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/delete_teams_by_team_members_by_user.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_teams_by_team_members_by_user_admin.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_user_settings_webhooks.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_user_settings_webhooks.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_user_settings_webhooks_events.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/update_user_settings_webhooks_by_webhook.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/delete_user_settings_webhooks_by_webhook.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_webhooks_events.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/get_by_entitykind_by_entityid_reactions.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_by_entitykind_by_entityid_reactions.py",
+    "tool_packs/nexus_tools_vikunja/.expansion/vikunja/create_by_entitykind_by_entityid_reactions_delete.py"
+  ]
+}

@@ -1,0 +1,376 @@
+[
+  {
+    "tool": "ticktick.list_countdowns",
+    "method": "GET",
+    "path": "/open/v1/countdown",
+    "path_arguments": [],
+    "request_contract": ""
+  },
+  {
+    "tool": "ticktick.list_focus",
+    "method": "GET",
+    "path": "/open/v1/focus",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| **Type**  | **Name**               | **Description**                                                                                                  | **Schema**        |\n| --------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------- |\n| **Query** | **from** *required*    | Range start time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-01T00:00:00+0800\"`           | string (date-time) |\n| **Query** | **to** *required*      | Range end time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-02T00:00:00+0800\"`             | string (date-time) |\n| **Query** | **type** *required*    | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1`                                                            | integer (int32)   |\n\nIf the time range exceeds 30 days, the server automatically adjusts the start time to 30 days before `to`."
+  },
+  {
+    "tool": "ticktick.create_focus",
+    "method": "POST",
+    "path": "/open/v1/focus",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| Type     | Name                | Description                                                                                           | Schema             |\n| -------- | ------------------- | ----------------------------------------------------------------------------------------------------- | ------------------ |\n| **Body** | **type** *required* | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1`                                                | integer (int32)    |\n| **Body** | taskId              | Task id                                                                                               | string             |\n| **Body** | note                | Focus note (max 5000 chars)                                                                           | string             |\n| **Body** | startTime           | Focus start time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T09:00:00+0800\"` | string (date-time) |\n| **Body** | endTime             | Focus end time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T09:25:00+0800\"`   | string (date-time) |\n| **Body** | pauseDuration       | Pause duration in seconds                                                                             | integer (int32)    |\n| **Body** | duration            | Focus duration                                                                                        | integer (int64)    |\n| **Body** | relationType        | Relation types                                                                                        | < integer > array  |"
+  },
+  {
+    "tool": "ticktick.get_focus",
+    "method": "GET",
+    "path": "/open/v1/focus/{focusId}",
+    "path_arguments": [
+      "focus_id"
+    ],
+    "request_contract": "##### Parameters\n| Type      | Name                   | Description                                                                                         | Schema          |\n| --------- | ---------------------- | --------------------------------------------------------------------------------------------------- | --------------- |\n| **Path**  | **focusId** *required* | Focus identifier                                                                                    | string          |\n| **Query** | **type** *required*    | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1`                                              | integer (int32) |"
+  },
+  {
+    "tool": "ticktick.delete_focus",
+    "method": "DELETE",
+    "path": "/open/v1/focus/{focusId}",
+    "path_arguments": [
+      "focus_id"
+    ],
+    "request_contract": "##### Parameters\n| **Type**  | **Name**               | **Description**                                    | **Schema**      |\n| --------- | ---------------------- | -------------------------------------------------- | --------------- |\n| **Path**  | **focusId** *required* | Focus identifier                                   | string          |\n| **Query** | **type** *required*    | Focus type <br> **Value** : Pomodoro: `0`, Timing: `1` | integer (int32) |"
+  },
+  {
+    "tool": "ticktick.list_habits",
+    "method": "GET",
+    "path": "/open/v1/habit",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\nNo parameters."
+  },
+  {
+    "tool": "ticktick.create_habit",
+    "method": "POST",
+    "path": "/open/v1/habit",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| **Type** | **Name**                 | **Description**                                                                                                 | **Schema**        |\n| -------- | ------------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------- |\n| **Body** | name *required*          | Habit name. Maximum length is 1000 characters                                                                   | string            |\n| **Body** | iconRes                  | Habit icon resource                                                                                             | string            |\n| **Body** | color                    | Habit color                                                                                                     | string            |\n| **Body** | sortOrder                | Habit sort order                                                                                                | integer (int64)   |\n| **Body** | status                   | Habit status                                                                                                    | integer (int32)   |\n| **Body** | encouragement            | Habit encouragement message                                                                                     | string            |\n| **Body** | type                     | Habit type                                                                                                      | string            |\n| **Body** | goal                     | Habit goal                                                                                                      | number (double)   |\n| **Body** | step                     | Habit step                                                                                                      | number (double)   |\n| **Body** | unit                     | Habit unit                                                                                                      | string            |\n| **Body** | repeatRule               | Habit repeat rule <br> **Example** : `\"RRULE:FREQ=DAILY;INTERVAL=1\"`                                            | string            |\n| **Body** | reminders                | Habit reminders                                                                                                 | < string > array  |\n| **Body** | recordEnable             | Whether record is enabled                                                                                       | boolean           |\n| **Body** | sectionId                | Habit section identifier                                                                                        | string            |\n| **Body** | targetDays               | Target days                                                                                                     | integer (int32)   |\n| **Body** | targetStartDate          | Target start date in `YYYYMMDD` format <br> **Example** : `20240101`                                            | integer (int32)   |\n| **Body** | completedCycles          | Completed cycles                                                                                                | integer (int32)   |\n| **Body** | exDates                  | Excluded dates                                                                                                  | < string > array  |\n| **Body** | style                    | Habit style                                                                                                     | integer (int32)   |"
+  },
+  {
+    "tool": "ticktick.list_habit_checkins",
+    "method": "GET",
+    "path": "/open/v1/habit/checkins",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| **Type**  | **Name**                  | **Description**                                                        | **Schema**      |\n| --------- | ------------------------- | ---------------------------------------------------------------------- | --------------- |\n| **Query** | **habitIds** *required*   | Habit identifiers, separated by commas <br> **Example** : `habit-1,habit-2` | string          |\n| **Query** | **from** *required*       | Start date stamp in `YYYYMMDD` format <br> **Example** : `20260401`    | integer (int32) |\n| **Query** | **to** *required*         | End date stamp in `YYYYMMDD` format <br> **Example** : `20260407`      | integer (int32) |"
+  },
+  {
+    "tool": "ticktick.list_habit_sections",
+    "method": "GET",
+    "path": "/open/v1/habit/sections",
+    "path_arguments": [],
+    "request_contract": "Returns the current user's habit sections."
+  },
+  {
+    "tool": "ticktick.get_habit",
+    "method": "GET",
+    "path": "/open/v1/habit/{habitId}",
+    "path_arguments": [
+      "habit_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                   | Description         | Schema |\n| -------- | ---------------------- | ------------------- | ------ |\n| **Path** | **habitId** *required* | Habit identifier    | string |"
+  },
+  {
+    "tool": "ticktick.update_habit",
+    "method": "POST",
+    "path": "/open/v1/habit/{habitId}",
+    "path_arguments": [
+      "habit_id"
+    ],
+    "request_contract": "##### Parameters\n| **Type** | **Name**                 | **Description**                                                                                                 | **Schema**        |\n| -------- | ------------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------- |\n| **Path** | **habitId** *required*   | Habit identifier                                                                                                | string            |\n| **Body** | name                     | Habit name. If empty, it will be treated as null. Maximum length is 1000 characters                            | string            |\n| **Body** | iconRes                  | Habit icon resource                                                                                             | string            |\n| **Body** | color                    | Habit color                                                                                                     | string            |\n| **Body** | sortOrder                | Habit sort order                                                                                                | integer (int64)   |\n| **Body** | status                   | Habit status                                                                                                    | integer (int32)   |\n| **Body** | encouragement            | Habit encouragement message                                                                                     | string            |\n| **Body** | type                     | Habit type                                                                                                      | string            |\n| **Body** | goal                     | Habit goal                                                                                                      | number (double)   |\n| **Body** | step                     | Habit step                                                                                                      | number (double)   |\n| **Body** | unit                     | Habit unit                                                                                                      | string            |\n| **Body** | repeatRule               | Habit repeat rule <br> **Example** : `\"RRULE:FREQ=DAILY;INTERVAL=1\"`                                            | string            |\n| **Body** | reminders                | Habit reminders                                                                                                 | < string > array  |\n| **Body** | recordEnable             | Whether record is enabled                                                                                       | boolean           |\n| **Body** | sectionId                | Habit section identifier                                                                                        | string            |\n| **Body** | targetDays               | Target days                                                                                                     | integer (int32)   |\n| **Body** | targetStartDate          | Target start date in `YYYYMMDD` format <br> **Example** : `20240101`                                            | integer (int32)   |\n| **Body** | completedCycles          | Completed cycles                                                                                                | integer (int32)   |\n| **Body** | exDates                  | Excluded dates                                                                                                  | < string > array  |\n| **Body** | style                    | Habit style                                                                                                     | integer (int32)   |"
+  },
+  {
+    "tool": "ticktick.upsert_habit_checkin",
+    "method": "POST",
+    "path": "/open/v1/habit/{habitId}/checkin",
+    "path_arguments": [
+      "habit_id"
+    ],
+    "request_contract": "##### Parameters\n| **Type** | **Name**               | **Description**                                                                                          | **Schema**      |\n| -------- | ---------------------- | -------------------------------------------------------------------------------------------------------- | --------------- |\n| **Path** | **habitId** *required* | Habit identifier                                                                                         | string          |\n| **Body** | stamp *required*       | Date stamp in `YYYYMMDD` format <br> **Example** : `20260407`                                            | integer (int32) |\n| **Body** | time                   | Check-in time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T08:00:00+0000\"`     | string (date-time) |\n| **Body** | opTime                 | Operation time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2026-04-07T08:00:00+0000\"`    | string (date-time) |\n| **Body** | value                  | Check-in value. Default is `1.0`                                                                         | number (double) |\n| **Body** | goal                   | Check-in goal. Default is `1.0`                                                                          | number (double) |\n| **Body** | status                 | Check-in status                                                                                          | integer (int32) |"
+  },
+  {
+    "tool": "ticktick.get_preferences",
+    "method": "POST",
+    "path": "/open/v1/preference",
+    "path_arguments": [],
+    "request_contract": "Returns the current user's preferences."
+  },
+  {
+    "tool": "ticktick.list_projects",
+    "method": "GET",
+    "path": "/open/v1/project",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Query** | offset | Zero-based result offset. When either pagination parameter is provided, omitted or negative values default to `0`. | integer |\n| **Query** | limit | Maximum number of projects to return. When either pagination parameter is provided, omitted or negative values default to `200`. | integer |"
+  },
+  {
+    "tool": "ticktick.create_project",
+    "method": "POST",
+    "path": "/open/v1/project",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| **Type** | **Name**         | **Description**                         | **Schema**           |\n| -------- | ---------------- | --------------------------------------- | --------------- |\n| **Body** | name  *required* | name of the project                     | string          |\n| **Body** | color            | color of project, eg. \"#F18181\"         | string          |\n| **Body** | sortOrder        | sort order value of the project         | integer (int64) |\n| **Body** | viewMode         | view mode, \"list\", \"kanban\", \"timeline\" | string          |\n| **Body** | kind             | project kind, \"TASK\", \"NOTE\"            | string          |"
+  },
+  {
+    "tool": "ticktick.list_project_groups",
+    "method": "GET",
+    "path": "/open/v1/project/group",
+    "path_arguments": [],
+    "request_contract": ""
+  },
+  {
+    "tool": "ticktick.create_project_group",
+    "method": "POST",
+    "path": "/open/v1/project/group",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| Type     | Name                | Description                       | Schema |\n| -------- | ------------------- | --------------------------------- | ------ |\n| **Body** | **name** *required* | Project group name (max 64 chars) | string |"
+  },
+  {
+    "tool": "ticktick.update_project_group",
+    "method": "POST",
+    "path": "/open/v1/project/group/{projectGroupId}",
+    "path_arguments": [
+      "project_group_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                          | Description                       | Schema |\n| -------- | ----------------------------- | --------------------------------- | ------ |\n| **Path** | **projectGroupId** *required* | Project group identifier          | string |\n| **Body** | name                          | Project group name (max 64 chars) | string |"
+  },
+  {
+    "tool": "ticktick.delete_project_group",
+    "method": "DELETE",
+    "path": "/open/v1/project/group/{projectGroupId}",
+    "path_arguments": [
+      "project_group_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                          | Description              | Schema |\n| -------- | ----------------------------- | ------------------------ | ------ |\n| **Path** | **projectGroupId** *required* | Project group identifier | string |"
+  },
+  {
+    "tool": "ticktick.get_project",
+    "method": "GET",
+    "path": "/open/v1/project/{projectId}",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                   | Description        | Schema |\n| -------- | ---------------------- | ------------------ | ------ |\n| **Path** | **project** *required* | Project identifier | string |"
+  },
+  {
+    "tool": "ticktick.update_project",
+    "method": "POST",
+    "path": "/open/v1/project/{projectId}",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "##### Parameters\n| **Type** | **Parameter**        | **Description**                         | Schema          |\n| -------- | -------------------- | --------------------------------------- | --------------- |\n| **Path** | projectId *required* | project identifier                      | string          | \n| **Body** | name                 | name of the project                     | string          |\n| **Body** | color                | color of the project                    | string          |\n| **Body** | sortOrder            | sort order value, default 0             | integer (int64) |\n| **Body** | viewMode             | view mode, \"list\", \"kanban\", \"timeline\" | string          |\n| **Body** | kind                 | project kind, \"TASK\", \"NOTE\"            | string          |"
+  },
+  {
+    "tool": "ticktick.delete_project",
+    "method": "DELETE",
+    "path": "/open/v1/project/{projectId}",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "##### Parameters\n| Type | Name                     | Description        | Schema |\n| ---- | ------------------------ | ------------------ | ------ |\n| Path | **projectId** *required* | Project identifier | string       |"
+  },
+  {
+    "tool": "ticktick.list_columns",
+    "method": "GET",
+    "path": "/open/v1/project/{projectId}/column",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |"
+  },
+  {
+    "tool": "ticktick.create_column",
+    "method": "POST",
+    "path": "/open/v1/project/{projectId}/column",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description                   | Schema |\n| -------- | ------------------------ | ----------------------------- | ------ |\n| **Path** | **projectId** *required* | Project identifier            | string |\n| **Body** | **name** *required*      | Column name (max 1000 chars)  | string |"
+  },
+  {
+    "tool": "ticktick.update_column",
+    "method": "POST",
+    "path": "/open/v1/project/{projectId}/column/{columnId}",
+    "path_arguments": [
+      "project_id",
+      "column_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description                   | Schema |\n| -------- | ------------------------ | ----------------------------- | ------ |\n| **Path** | **projectId** *required* | Project identifier            | string |\n| **Path** | **columnId** *required*  | Column identifier             | string |\n| **Body** | name                     | Column name (max 1000 chars)  | string |"
+  },
+  {
+    "tool": "ticktick.get_project_data",
+    "method": "GET",
+    "path": "/open/v1/project/{projectId}/data",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "##### Parameters\n|Type|Name|Description|Schema|  \n|---|---|---|---|  \n|**Path**|**projectId** *required*|Project identifier|string|"
+  },
+  {
+    "tool": "ticktick.list_project_members",
+    "method": "GET",
+    "path": "/open/v1/project/{projectId}/members",
+    "path_arguments": [
+      "project_id"
+    ],
+    "request_contract": "Returns the members of a project.\n\n##### Parameters\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Path** | **projectId** *required* | Project identifier | string |"
+  },
+  {
+    "tool": "ticktick.get_task",
+    "method": "GET",
+    "path": "/open/v1/project/{projectId}/task/{taskId}",
+    "path_arguments": [
+      "project_id",
+      "task_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description        | Schema | \n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |"
+  },
+  {
+    "tool": "ticktick.delete_task",
+    "method": "DELETE",
+    "path": "/open/v1/project/{projectId}/task/{taskId}",
+    "path_arguments": [
+      "project_id",
+      "task_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |"
+  },
+  {
+    "tool": "ticktick.add_task_comment",
+    "method": "POST",
+    "path": "/open/v1/project/{projectId}/task/{taskId}/comment",
+    "path_arguments": [
+      "project_id",
+      "task_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |\n| **Body** | **title** *required*     | Comment text       | string |"
+  },
+  {
+    "tool": "ticktick.delete_task_comment",
+    "method": "DELETE",
+    "path": "/open/v1/project/{projectId}/task/{taskId}/comment/{id}",
+    "path_arguments": [
+      "project_id",
+      "task_id",
+      "id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description         | Schema |\n| -------- | ------------------------ | ------------------- | ------ |\n| **Path** | **projectId** *required* | Project identifier  | string |\n| **Path** | **taskId** *required*    | Task identifier     | string |\n| **Path** | **id** *required*        | Comment identifier  | string |"
+  },
+  {
+    "tool": "ticktick.list_task_comments",
+    "method": "GET",
+    "path": "/open/v1/project/{projectId}/task/{taskId}/comments",
+    "path_arguments": [
+      "project_id",
+      "task_id"
+    ],
+    "request_contract": "##### Parameters\n| Type     | Name                     | Description        | Schema |\n| -------- | ------------------------ | ------------------ | ------ |\n| **Path** | **projectId** *required* | Project identifier | string |\n| **Path** | **taskId** *required*    | Task identifier    | string |"
+  },
+  {
+    "tool": "ticktick.complete_task",
+    "method": "POST",
+    "path": "/open/v1/project/{projectId}/task/{taskId}/complete",
+    "path_arguments": [
+      "project_id",
+      "task_id"
+    ],
+    "request_contract": "##### Parameters\n\n|Type|Name|Description|Schema|  \n|---|---|---|---|  \n|**Path**|**projectId** *required*|Project identifier|string|  \n|**Path**|**taskId** *required*|Task identifier|string|"
+  },
+  {
+    "tool": "ticktick.list_tags",
+    "method": "GET",
+    "path": "/open/v1/tag",
+    "path_arguments": [],
+    "request_contract": ""
+  },
+  {
+    "tool": "ticktick.create_tag",
+    "method": "POST",
+    "path": "/open/v1/tag",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| Type     | Name                | Description                                                        | Schema |\n| -------- | ------------------- | ------------------------------------------------------------------ | ------ |\n| **Body** | **name** *required* | Tag name (max 64 chars, lowercase, trimmed)                        | string |\n| **Body** | **label** *required*| Tag label (max 64 chars, must match name when lowercased)          | string |"
+  },
+  {
+    "tool": "ticktick.create_task",
+    "method": "POST",
+    "path": "/open/v1/task",
+    "path_arguments": [],
+    "request_contract": "##### Parameters\n| **Type** | **Name**             | **Description**                                                                                          | **Schema**   |\n| -------- |----------------------| -------------------------------------------------------------------------------------------------------- | ------- |\n| **Body** | title   *required*   | Task title                                                                                               | string  |\n| **Body** | projectId *required* | Project id                                                                                               | string  |\n| **Body** | content              | Task content                                                                                             | string  |\n| **Body** | desc                 | Description of checklist                                                                                 | string  |\n| **Body** | isAllDay             | All day                                                                                                  | boolean |\n| **Body** | startDate            | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"` | date    |\n| **Body** | dueDate              | Due date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`   | date    |\n| **Body** | timeZone             | The time zone in which the time is specified                                                             | String  |\n| **Body** | reminders            | Lists of reminders specific to the task                                                                  | list    |\n| **Body** | tags                 | Tags of the task                                                                                         | list    |\n| **Body** | repeatFlag           | Recurring rules of task                                                                                  | string  |\n| **Body** | priority             | The priority of task, default is \"0\"                                                                     | integer |\n| **Body** | sortOrder            | The order of task                                                                                        | integer |\n| **Body** | items                | The list of subtasks                                                                                     | list    |\n| **Body** | items.title          | Subtask title                                                                                            | string  |\n| **Body** | items.startDate      | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format                                                 | date    |\n| **Body** | items.isAllDay       | All day                                                                                                  | boolean |\n| **Body** | items.sortOrder      | The order of subtask                                                                                     | integer |\n| **Body** | items.timeZone       | The time zone in which the Start time is specified                                                       | string  |\n| **Body** | items.status         | The completion status of subtask                                                                         | integer |\n| **Body** | items.completedTime  | Completed time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`      | date    |"
+  },
+  {
+    "tool": "ticktick.assign_task",
+    "method": "POST",
+    "path": "/open/v1/task/assign",
+    "path_arguments": [],
+    "request_contract": "Assigns a task to a member of its project.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | **projectId** *required* | Project containing the task | string |\n| **Body** | **taskId** *required* | Task identifier | string |\n| **Body** | **assigneeUsername** *required* | Username of a project member | string |"
+  },
+  {
+    "tool": "ticktick.batch_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/batch",
+    "path_arguments": [],
+    "request_contract": "Creates and updates tasks in a single request. Each `add` and `update` array supports up to 50 tasks.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | add | Tasks to create, up to 50 tasks | [Task](openapi.md#task) array |\n| **Body** | update | Tasks to update, up to 50 tasks | [Task](openapi.md#task) array |"
+  },
+  {
+    "tool": "ticktick.complete_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/completeTasks",
+    "path_arguments": [],
+    "request_contract": "Completes up to 50 tasks in one project. If `projectId` is omitted or empty, the current user's inbox is used.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | projectId | Project identifier. Defaults to the current user's inbox when omitted or empty. | string |\n| **Body** | **taskIds** *required* | Task IDs to complete. Only the first 50 IDs are processed. | string array |"
+  },
+  {
+    "tool": "ticktick.list_completed_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/completed",
+    "path_arguments": [],
+    "request_contract": "Retrieves at most 200 tasks marked as completed within specific projects and a given time range.\n\n##### Request Body\nA JSON object containing filter criteria. All fields are optional, but at least one filter is recommended to narrow down results.\n\n| Type     | Name        | Description | Schema |\n|----------|-------------|--|--------|\n| **Body** | **projectIds** | List of project identifier | list   |\n| **Body** | **startDate** | The start of the time range (inclusive). Filters tasks where completedTime \u2265 startDate | date   |\n| **Body** | **endDate** | The end of the time range (inclusive). Filters tasks where completedTime \u2264 endDate | date   |"
+  },
+  {
+    "tool": "ticktick.filter_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/filter",
+    "path_arguments": [],
+    "request_contract": "Retrieves at most 200 tasks based on advanced filtering criteria, including project scope, date ranges, priority levels, tags, task kinds, and status.\n\n##### Parameters\n| Type     | Name           | Description                                           | Schema |\n|----------|----------------|-------------------------------------------------------|--------|\n| **Body** | **projectIds** | Filters tasks belonging to the specified project ID   | list   |\n| **Body** | **startDate**  | Filters tasks where the task's startDate \u2265 startDate  | date   |\n| **Body** | **endDate**    | Filters tasks where the task's startDate \u2264 endDate    | date   |\n| **Body** | **priority**   | Filters tasks by specific priority levels, Valid Values: None(0), Low(1), Medium(3), High(5) | list   |\n| **Body** | **tag**        | Filters tasks that contain all of the specified tags | list   |\n| **Body** | **kind**       | Filters tasks by task kind | list   |\n| **Body** | **status**     | Filters tasks by their current status codes (e.g., [0] for Open, [2] for Completed) | list   |"
+  },
+  {
+    "tool": "ticktick.move_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/move",
+    "path_arguments": [],
+    "request_contract": "Moves one or more tasks between projects.\n\n##### Request Body\nA JSON array containing task move operations.\n\n| Type     | Name                         | Description                       | Schema |\n|----------|------------------------------|-----------------------------------|--------|\n| **Body** | **fromProjectId** *required* | The ID of the source project      | string |\n| **Body** | **toProjectId** *required*   | The ID of the destination project | string |\n| **Body** | **taskId** *required*        | The ID of the task to move        | string |"
+  },
+  {
+    "tool": "ticktick.search_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/search",
+    "path_arguments": [],
+    "request_contract": "Searches tasks by keywords and optional project, tag, status, and due-date filters. A supplied `keywords` value must not be blank; a blank value returns an empty array.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | keywords | Text to search for. | string |\n| **Body** | projectIds | Project IDs to search. | string array |\n| **Body** | tags | Tags to filter by. | string array |\n| **Body** | status | Task statuses to filter by. | integer array |\n| **Body** | dueFrom | Include tasks due on or after this time. | string (date-time) |\n| **Body** | dueTo | Include tasks due on or before this time. | string (date-time) |"
+  },
+  {
+    "tool": "ticktick.unassign_task",
+    "method": "POST",
+    "path": "/open/v1/task/unassign",
+    "path_arguments": [],
+    "request_contract": "Removes the assignee from a task.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | **projectId** *required* | Project containing the task | string |\n| **Body** | **taskId** *required* | Task identifier | string |"
+  },
+  {
+    "tool": "ticktick.list_undone_tasks",
+    "method": "POST",
+    "path": "/open/v1/task/undone",
+    "path_arguments": [],
+    "request_contract": "Retrieves undone tasks within a date range of up to 14 days. `startDate` and `endDate` are required; an invalid range returns an empty array.\n\n##### Request Body\n| Type | Name | Description | Schema |\n|---|---|---|---|\n| **Body** | projectIds | Project IDs to search. Omit to search all accessible projects; use `inbox` for the inbox project. | string array |\n| **Body** | taskIds | Restrict results to task IDs. | string array |\n| **Body** | **startDate** *required* | Start of the date range. | string (date-time) |\n| **Body** | **endDate** *required* | End of the date range; must not precede `startDate`. | string (date-time) |"
+  },
+  {
+    "tool": "ticktick.update_task",
+    "method": "POST",
+    "path": "/open/v1/task/{taskId}",
+    "path_arguments": [
+      "task_id"
+    ],
+    "request_contract": "##### Parameters\n| **Type** | **Name**            | **Description**                                                                                          | **Schema**   |\n| -------- | ------------------------ | -------------------------------------------------------------------------------------------------------- | ------- |\n| **Path** | **taskId** *required*    | Task identifier                                                                                          | string  |\n| **Body** | id     *required*        | Task id.                                                                                                 | string  |\n| **Body** | projectId     *required* | Project id.                                                                                              | string  |\n| **Body** | title                    | Task title                                                                                               | string  |\n| **Body** | content                  | Task content                                                                                             | string  |\n| **Body** | desc                     | Description of checklist                                                                                 | string  |\n| **Body** | isAllDay                 | All day                                                                                                  | boolean |\n| **Body** | startDate                | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"` | date    |\n| **Body** | dueDate                  | Due date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`   | date    |\n| **Body** | timeZone                 | The time zone in which the time is specified                                                             | String  |\n| **Body** | reminders                | Lists of reminders specific to the task                                                                  | list    |\n| **Body** | tags                     | Tags of the task                                                                                         | list    |\n| **Body** | repeatFlag               | Recurring rules of task                                                                                  | string  |\n| **Body** | priority                 | The priority of task, default is \"normal\"                                                                | integer |\n| **Body** | sortOrder                | The order of task                                                                                        | integer |\n| **Body** | items                    | The list of subtasks                                                                                     | list    |\n| **Body** | items.title              | Subtask title                                                                                            | string  |\n| **Body** | items.startDate          | Start date and time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format                                                 | date    |\n| **Body** | items.isAllDay           | All day                                                                                                  | boolean |\n| **Body** | items.sortOrder          | The order of subtask                                                                                     | integer |\n| **Body** | items.timeZone           | The time zone in which the Start time is specified                                                       | string  |\n| **Body** | items.status             | The completion status of subtask                                                                         | integer |\n| **Body** | items.completedTime      | Completed time in `\"yyyy-MM-dd'T'HH:mm:ssZ\"` format <br> **Example** : `\"2019-11-13T03:00:00+0000\"`      | date    |"
+  }
+]

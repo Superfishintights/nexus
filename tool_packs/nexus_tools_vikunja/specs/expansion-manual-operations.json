@@ -1,0 +1,22 @@
+[
+  {
+    "method": "PATCH",
+    "path": "/api/v2/filters/{filter}",
+    "operation_id": "patch-filters-read"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v2/tasks/{task}/attachments",
+    "operation_id": "task-attachments-upload"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v2/tasks/{task}/attachments/{attachment}",
+    "operation_id": "task-attachments-download"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v2/teams/{id}",
+    "operation_id": "patch-teams-read"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "alias_count": 0,
+  "canonical_count": 141,
+  "decorated_function_count": 141,
+  "duplicate_count": 0,
+  "duplicates": [],
+  "hard_failure": false,
+  "issue_count": 0,
+  "issues": [],
+  "namespace": "vikunja",
+  "service_dir": "tool_packs/nexus_tools_vikunja/nexus_tools_vikunja"
+}

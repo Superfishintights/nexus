@@ -1,0 +1,1 @@
+NEXUS_NAMESPACES = [{"name": "prowlarr", "display_name": "Prowlarr", "description": "Manage Prowlarr, an indexer manager, including searches, indexers, applications, download clients, tags, and configuration."}]
